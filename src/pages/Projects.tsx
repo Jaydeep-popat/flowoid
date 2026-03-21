@@ -173,29 +173,32 @@ export default function Projects() {
                 From solar energy providers to interior design studios and trading companies — we've helped businesses across industries establish a powerful online presence that converts visitors into customers.
               </p>
               {/* Mini stat pills */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-4">
                 {[
                   { n: '3+', l: 'Live Projects' },
                   { n: '100%', l: 'Client Satisfaction' },
                   { n: '24/7', l: 'Support' },
                 ].map(({ n, l }, i) => (
-                  <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-border shadow-sm">
-                    <span className="font-heading text-[1rem] font-black text-dark">{n}</span>
-                    <span className="text-[.75rem] text-muted font-medium">{l}</span>
+                  <div key={i} className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border shadow-sm
+                                         transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-b4 hover:bg-blue-50 cursor-pointer">
+                    <span className="font-heading text-[1.15rem] font-black text-dark">{n}</span>
+                    <span className="text-[.8rem] text-muted font-semibold">{l}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Right — highlights */}
-            <div className="hidden lg:flex flex-col gap-4 min-w-[240px]">
+            <div className="flex flex-col gap-4 min-w-[240px]">
               {[
                 { icon: Zap,        title: 'Fast Delivery',   sub: 'Shipped on time, every time' },
                 { icon: Smartphone, title: 'Mobile-First',    sub: 'Looks great on any device'   },
                 { icon: Target,     title: 'Result-Focused',  sub: 'Built to convert and grow'   },
               ].map(({ icon: Icon, title, sub }, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm">
-                  <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4">
+                <div key={i} className="flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm
+                                       transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:bg-white hover:border-b4">
+                  <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4
+                                  transition-all duration-300 group-hover:bg-gm group-hover:border-transparent group-hover:text-white">
                     <Icon size={18} strokeWidth={1.8} />
                   </div>
                   <div>

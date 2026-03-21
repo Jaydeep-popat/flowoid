@@ -6,10 +6,6 @@ interface FooterProps {
   variant?: 'home' | 'inner';
 }
 
-const Logo = () => (
-  <img src="/Final Logo.png" alt="TechSphere" className="h-12 w-auto object-contain" />
-);
-
 const socialLinks = [
   { icon: Linkedin, href: '#', label: 'LinkedIn' },
   { icon: Twitter,  href: '#', label: 'Twitter'  },
@@ -108,7 +104,10 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
             {/* Brand column */}
             <div>
               <div className="mb-5">
-                <Logo />
+                <div className="font-heading text-[1.6rem] font-black text-white mb-1">
+                  TechSphere
+                </div>
+                <p className="text-[.85rem] text-white/60 font-medium tracking-wide">IT Solutions & Digital Transformation</p>
               </div>
 
               {/* Quote */}
@@ -200,7 +199,10 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
           {/* Brand */}
           <div>
             <div className="mb-5">
-              <Logo />
+              <div className="font-heading text-[1.6rem] font-black text-white mb-1">
+                Flowoid
+              </div>
+              <p className="text-[.85rem] text-white/60 font-medium tracking-wide">IT Solutions & Digital Transformation</p>
             </div>
 
             {/* Quote */}

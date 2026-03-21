@@ -43,7 +43,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
 
   /* ── Shared nav link class builder ─────────────────── */
   const linkCls = (to: string) =>
-    `relative text-[.9rem] font-medium px-3.5 py-2 rounded-xl whitespace-nowrap transition-all duration-200
+    `relative text-[1rem] font-medium px-3.5 py-2 rounded-xl whitespace-nowrap transition-all duration-200
      after:content-[''] after:absolute after:bottom-[4px] after:left-1/2 after:-translate-x-1/2
      after:w-4 after:h-[2px] after:rounded-full after:bg-gg
      after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100
@@ -156,7 +156,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
                     to={to}
                     onClick={() => setDrawerOpen(false)}
                     className={`flex items-center justify-between px-4 py-3.5 rounded-xl
-                                font-heading text-[1rem] font-semibold border border-transparent
+                                font-heading text-[1.1rem] font-semibold border border-transparent
                                 transition-all duration-[220ms]
                                 ${location.pathname === to
                                   ? 'text-white bg-white/10 border-white/10'
