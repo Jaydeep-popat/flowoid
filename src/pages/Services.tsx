@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useInView } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BackToTop from '../components/BackToTop';
@@ -10,6 +11,13 @@ import {
   CloudCog, Monitor, Server, Database, GitBranch, Cpu,
   type LucideIcon,
 } from 'lucide-react';
+
+const ease = [0.16, 1, 0.3, 1] as const;
+const fadeUp = { hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } };
+const fadeLeft = { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } } };
+const fadeRight = { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } } };
+const scaleIn = { hidden: { opacity: 0, scale: 0.88 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.75, ease } } };
+const container = { hidden: {}, visible: { transition: { staggerChildren: 0.09, delayChildren: 0.08 } } };
 
 /* ─────────────────── DATA ─────────────────── */
 
@@ -189,68 +197,74 @@ function PageHero() {
 
   return (
     <div
-      className="relative min-h-[52vh] flex items-center px-[6%] pt-6 md:pt-20 pb-16 mt-[90px] md:mt-[106px] overflow-hidden"
+      className="relative min-h-[52vh] flex items-center px-[5%] pt-3 md:pt-12 pb-16 mt-[80px] md:mt-[86px] overflow-hidden"
       style={{ background: 'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(201,168,76,.04),transparent 60%)' }}
     >
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize: '36px 36px', maskImage: 'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
-      <div className="absolute right-[-100px] top-[-120px] w-[560px] h-[560px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.09),transparent 70%)', filter: 'blur(55px)' }} />
+      <div className="absolute right-[-100px] top-[-120px] w-[560px] h-[560px] rounded-full pointer-events-none animate-pulse3" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.09),transparent 70%)', filter: 'blur(55px)' }} />
       <div className="absolute left-[-60px] bottom-[-60px] w-[320px] h-[320px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(201,168,76,.06),transparent 70%)', filter: 'blur(45px)' }} />
-      <div className="absolute rounded-full border border-[rgba(45,43,107,.05)] pointer-events-none" style={{ width: 700, height: 700, right: -220, top: -220 }} />
+      <div className="absolute rounded-full border border-[rgba(45,43,107,.05)] pointer-events-none animate-spinSlow" style={{ width: 700, height: 700, right: -220, top: -220 }} />
       <div className="absolute rounded-full border border-[rgba(201,168,76,.04)] pointer-events-none" style={{ width: 480, height: 480, right: -120, top: -120 }} />
 
       <div className="relative z-[2] max-w-[1240px] w-full mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-center">
-          {/* Left — headline + copy */}
-          <div className="animate-hup">
-            <div className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
+          {/* Left */}
+          <motion.div initial="hidden" animate="visible" variants={container}>
+            <motion.div variants={fadeUp} className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
               Home <span className="opacity-40">/</span> <span className="text-gold">Services</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-b3 tracking-[.1em] uppercase mb-5">
+            </motion.div>
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-b3 tracking-[.1em] uppercase mb-5">
               <span className="w-[7px] h-[7px] rounded-full bg-b4 shadow-[0_0_8px_rgba(72,69,168,.5)]" />
               What We Offer
-            </div>
+            </motion.div>
             <h1 className="font-heading font-black text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.07] tracking-[-0.032em] text-dark mb-5">
-              End-to-End IT Solutions<br />Built for <span className="grad-text">Scale &amp; Speed</span>
+              <span className="block overflow-hidden">
+                <motion.span className="block" variants={{ hidden:{ y:'110%',opacity:0 }, visible:{ y:'0%',opacity:1,transition:{ duration:.85,ease } } }}>End-to-End IT Solutions</motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span className="block" variants={{ hidden:{ y:'110%',opacity:0 }, visible:{ y:'0%',opacity:1,transition:{ duration:.85,ease,delay:.08 } } }}>Built for <span className="grad-text">Scale &amp; Speed</span></motion.span>
+              </span>
             </h1>
-            <p className="text-[1rem] leading-[1.82] text-body max-w-[520px] mb-4">
-              From custom software and AI chatbots to cloud solutions and mobile apps — every service is crafted to solve your real business problems, not just check a box.
-            </p>
-            <p className="text-[.9rem] leading-[1.75] text-muted max-w-[500px] mb-8">
+            <motion.p variants={fadeUp} className="text-[1rem] leading-[1.82] text-body max-w-[520px] mb-4">
+              From custom software and AI chatbots to cloud solutions and mobile apps — every service is crafted to solve your real business problems.
+            </motion.p>
+            <motion.p variants={fadeUp} className="text-[.9rem] leading-[1.75] text-muted max-w-[500px] mb-8">
               We combine deep technical expertise with thoughtful design to deliver scalable, production-ready solutions that drive measurable business outcomes.
-            </p>
-            {/* Mini stat pills */}
-            <div className="flex flex-wrap gap-4">
+            </motion.p>
+            <motion.div variants={container} className="flex flex-wrap gap-4">
               {[
                 { Icon: Layers, n: '5+', l: 'Projects Delivered' },
                 { Icon: Sparkles, n: '100%', l: 'Client Satisfaction' },
                 { Icon: Lightbulb, n: '24/7', l: 'Support' },
               ].map(({ Icon, n, l }, i) => (
-                <div key={i} className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border shadow-sm
-                                         transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-b4 cursor-pointer">
+                <motion.div key={i} variants={scaleIn} whileHover={{ y: -4, scale: 1.03, transition:{ duration:0.2 } }} className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border shadow-sm hover:shadow-lg hover:border-b4 cursor-pointer transition-[border,box-shadow] duration-200">
                   <Icon size={16} className="text-b4" />
                   <span className="font-heading text-[1.15rem] font-black text-dark">{n}</span>
                   <span className="text-[.8rem] text-muted font-semibold">{l}</span>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right — service highlight boxes */}
-          <div className="flex flex-col gap-4 min-w-[260px] animate-hup" style={{ animationDelay: '.15s' }}>
+          <motion.div className="flex flex-col gap-4 min-w-[260px]" initial="hidden" animate="visible" variants={container} style={{ transition: 'none' }}>
             {heroHighlights.map(({ Icon, title, sub }, i) => (
-              <div key={i} className="group flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm
-                                     transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:bg-white hover:border-b4">
-                <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4
-                                transition-all duration-300 group-hover:bg-gm group-hover:border-transparent group-hover:text-white">
+              <motion.div
+                key={i}
+                variants={{ hidden:{ opacity:0, x:40 }, visible:{ opacity:1, x:0, transition:{ duration:0.65,ease,delay: 0.2 + i*0.08 } } }}
+                whileHover={{ x: -4, transition:{ duration:0.2 } }}
+                className="group flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm hover:shadow-lg hover:bg-white hover:border-b4 transition-[border,box-shadow,background] duration-200"
+              >
+                <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4 transition-all duration-300 group-hover:bg-gm group-hover:border-transparent group-hover:text-white group-hover:scale-110">
                   <Icon size={18} strokeWidth={1.8} />
                 </div>
                 <div>
                   <div className="text-[.82rem] font-bold text-dark">{title}</div>
                   <div className="text-[.73rem] text-muted">{sub}</div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
@@ -260,27 +274,28 @@ function PageHero() {
 /* ────────── INDIVIDUAL SERVICE SECTION ────────── */
 
 function ServiceSection({ service, index, isReversed }: { service: Service; index: number; isReversed: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.1 });
+
   return (
-    // scroll-mt accounts for Navbar (106px) + ServiceNav (~53px)
-    <section id={service.id} className={`py-24 px-[6%] scroll-mt-[160px] ${index % 2 === 0 ? 'bg-white' : 'bg-page'}`}>
-      <div className="max-w-[1240px] mx-auto">
-        {/* Header */}
-        <div className="sr text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-[5px] rounded-full bg-pale border-[1.5px] border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-gold tracking-[.1em] uppercase mb-5">
+    <section id={service.id} className={`py-24 px-[5%] scroll-mt-[160px] ${index % 2 === 0 ? 'bg-white' : 'bg-page'}`}>
+      <div ref={ref} className="max-w-[1240px] mx-auto">
+        <motion.div className="sr text-center mb-16" initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={container}>
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-[5px] rounded-full bg-pale border-[1.5px] border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-gold tracking-[.1em] uppercase mb-5">
             <span className="w-[7px] h-[7px] rounded-full bg-b4 shadow-[0_0_8px_rgba(72,69,168,.5)]" />{service.badge}
-          </div>
-          <h2 className="font-heading font-extrabold text-[clamp(1.8rem,3.5vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark mb-5">
+          </motion.div>
+          <motion.h2 variants={fadeUp} className="font-heading font-extrabold text-[clamp(1.8rem,3.5vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark mb-5">
             {service.title.split(' ').slice(0, -1).join(' ')}{' '}
             <em className="not-italic grad-text">{service.title.split(' ').slice(-1)}</em>
-          </h2>
-          <p className="text-[1.02rem] leading-[1.82] text-body max-w-[720px] mx-auto">{service.description}</p>
-        </div>
+          </motion.h2>
+          <motion.p variants={fadeUp} className="text-[1.02rem] leading-[1.82] text-body max-w-[720px] mx-auto">{service.description}</motion.p>
+        </motion.div>
 
-        {/* What We Offer + Key Benefits side by side */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* What We Offer */}
-          <div className={`sr d1 group relative overflow-hidden rounded-[22px] border-[1.5px] border-border bg-white p-[34px] transition-all duration-300 hover:shadow-lg hover:border-[rgba(45,43,107,.12)] hover:-translate-y-1 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
-            {/* Top accent bar */}
+          <motion.div
+            className={`group relative overflow-hidden rounded-[22px] border-[1.5px] border-border bg-white p-[34px] transition-all duration-300 hover:shadow-lg hover:border-[rgba(45,43,107,.12)] hover:-translate-y-1 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}
+            initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={fadeLeft}
+          >
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gm rounded-t-[22px]" />
             <div className="flex items-center gap-3 mb-6">
               <div className="w-[48px] h-[48px] rounded-[13px] bg-pale border-[1.5px] border-border flex items-center justify-center transition-all duration-300 group-hover:bg-gm group-hover:border-transparent group-hover:scale-110 group-hover:-rotate-[5deg]">
@@ -290,17 +305,24 @@ function ServiceSection({ service, index, isReversed }: { service: Service; inde
             </div>
             <ul className="list-none flex flex-col gap-[12px]">
               {service.offers.map((item, j) => (
-                <li key={j} className="flex items-start gap-3 text-[.88rem] text-body leading-[1.65]">
-                  <span className="w-[22px] h-[22px] min-w-[22px] rounded-full bg-pale text-b4 flex items-center justify-center text-[.65rem] font-black mt-[2px] transition-all duration-200">✓</span>
+                <motion.li
+                  key={j}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, ease, delay: 0.3 + j * 0.07 }}
+                  className="flex items-start gap-3 text-[.88rem] text-body leading-[1.65]"
+                >
+                  <span className="w-[22px] h-[22px] min-w-[22px] rounded-full bg-pale text-b4 flex items-center justify-center text-[.65rem] font-black mt-[2px]">✓</span>
                   {item}
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Key Benefits */}
-          <div className={`sr d2 group relative overflow-hidden rounded-[22px] bg-gm p-[34px] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
-            {/* Top accent bar */}
+          <motion.div
+            className={`group relative overflow-hidden rounded-[22px] bg-gm p-[34px] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}
+            initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={fadeRight}
+          >
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gg rounded-t-[22px]" />
             <div className="flex items-center gap-3 mb-6">
               <div className="w-[48px] h-[48px] rounded-[13px] bg-white/15 border-[1.5px] border-white/20 flex items-center justify-center">
@@ -310,16 +332,22 @@ function ServiceSection({ service, index, isReversed }: { service: Service; inde
             </div>
             <ul className="list-none flex flex-col gap-[12px]">
               {service.benefits.map((item, j) => (
-                <li key={j} className="flex items-start gap-3 text-[.88rem] text-white/85 leading-[1.65]">
+                <motion.li
+                  key={j}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, ease, delay: 0.3 + j * 0.07 }}
+                  className="flex items-start gap-3 text-[.88rem] text-white/85 leading-[1.65]"
+                >
                   <span className="w-[22px] h-[22px] min-w-[22px] rounded-full bg-white/15 text-gold2 flex items-center justify-center text-[.65rem] font-black mt-[2px]">✓</span>
                   {item}
-                </li>
+                </motion.li>
               ))}
             </ul>
             <Link to="/contact" className="inline-flex items-center gap-[6px] mt-7 text-[.84rem] font-bold text-white/90 transition-[gap] duration-200 hover:gap-3">
               Get Started →
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -334,7 +362,7 @@ function ServiceNav({ activeId, isVisible }: { activeId: string | null; isVisibl
       className={`bg-white border-b border-border sticky top-[106px] z-[40] transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
         }`}
     >
-      <div className="max-w-[1240px] mx-auto px-[6%] py-0">
+      <div className="max-w-[1240px] mx-auto px-[5%] py-0">
         <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
           {services.map((s) => {
             const NavIcon = s.Icon;
@@ -425,39 +453,56 @@ export default function Services() {
       </div>
 
       {/* PROCESS */}
-      <section className="bg-page py-24 px-[6%]">
+      <section className="bg-page py-24 px-[5%]">
         <div className="max-w-[1240px] mx-auto">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center gap-2 text-[.7rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">How We Work</div>
-            <h2 className="font-heading font-extrabold text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark mb-4">Our <em className="not-italic grad-text">Proven</em> 4-Step Delivery Process</h2>
-            <p className="text-[.97rem] leading-[1.8] text-muted max-w-[560px] mx-auto">Transparent, structured, and designed to keep you informed at every stage — zero surprises at launch.</p>
-          </div>
-          <div className="mt-[52px] relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-8 lg:gap-0">
-            {/* Connecting line (desktop only) */}
+          <motion.div className="text-center" initial="hidden" whileInView="visible" viewport={{ once:true, amount:0.2 }} variants={container}>
+            <motion.div variants={fadeUp} className="inline-flex items-center justify-center gap-2 text-[.7rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">How We Work</motion.div>
+            <motion.h2 variants={fadeUp} className="font-heading font-extrabold text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark mb-4">Our <em className="not-italic grad-text">Proven</em> 4-Step Delivery Process</motion.h2>
+            <motion.p variants={fadeUp} className="text-[.97rem] leading-[1.8] text-muted max-w-[560px] mx-auto">Transparent, structured, and designed to keep you informed at every stage — zero surprises at launch.</motion.p>
+          </motion.div>
+          <motion.div
+            className="mt-[52px] relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-8 lg:gap-0"
+            initial="hidden" whileInView="visible" viewport={{ once:true, amount:0.15 }} variants={container}
+          >
             <div className="hidden lg:block absolute top-[30px] left-[12.5%] right-[12.5%] h-[2px] bg-[linear-gradient(90deg,#C9A84C,#4845A8)] z-0" />
             {process.map((p, i) => (
-              <div key={i} className={`sr d${i + 1} text-center px-[14px] relative z-[1] group`}>
-                <div className="w-[60px] h-[60px] rounded-full bg-white border-2 border-[rgba(45,43,107,.12)] flex items-center justify-center font-heading text-[1.1rem] font-black text-b4 mx-auto mb-5 shadow-sm transition-all duration-300 group-hover:bg-gm group-hover:text-white group-hover:border-transparent group-hover:shadow-brand">{p.n}</div>
+              <motion.div
+                key={i}
+                variants={{ hidden:{ opacity:0, y:40, scale:0.92 }, visible:{ opacity:1, y:0, scale:1, transition:{ duration:0.7, ease } } }}
+                className="text-center px-[14px] relative z-[1] group"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.12, transition:{ duration:0.25, ease:[0.34,1.56,0.64,1] } }}
+                  className="w-[60px] h-[60px] rounded-full bg-white border-2 border-[rgba(45,43,107,.12)] flex items-center justify-center font-heading text-[1.1rem] font-black text-b4 mx-auto mb-5 shadow-sm transition-all duration-300 group-hover:bg-gm group-hover:text-white group-hover:border-transparent group-hover:shadow-brand"
+                >{p.n}</motion.div>
                 <div className="font-heading text-[.94rem] font-bold text-dark mb-[7px]">{p.t}</div>
                 <div className="text-[.79rem] text-muted leading-[1.6]">{p.d}</div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* TECH STACK */}
-      <section className="bg-white py-24 px-[6%]">
+      <section className="bg-white py-24 px-[5%]">
         <div className="max-w-[1240px] mx-auto">
-          <div className="text-center mb-[50px]">
-            <div className="inline-flex items-center justify-center gap-2 text-[.7rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">Technology Stack</div>
-            <h2 className="font-heading font-extrabold text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark">The <em className="not-italic grad-text">Tools &amp; Technologies</em> We Master</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[22px]">
+          <motion.div className="text-center mb-[50px]" initial="hidden" whileInView="visible" viewport={{ once:true, amount:0.2 }} variants={container}>
+            <motion.div variants={fadeUp} className="inline-flex items-center justify-center gap-2 text-[.7rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">Technology Stack</motion.div>
+            <motion.h2 variants={fadeUp} className="font-heading font-extrabold text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark">The <em className="not-italic grad-text">Tools &amp; Technologies</em> We Master</motion.h2>
+          </motion.div>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[22px]"
+            initial="hidden" whileInView="visible" viewport={{ once:true, amount:0.1 }} variants={container}
+          >
             {techCats.map((t, i) => {
               const TechIcon = t.Icon;
               return (
-                <div key={i} className={`sr d${(i % 3) + 1} bg-page border-[1.5px] border-border rounded-[18px] p-[22px] transition-all duration-[280ms] hover:border-b4 hover:shadow-sm`}>
+                <motion.div
+                  key={i}
+                  variants={{ hidden:{ opacity:0, y:32, scale:0.95 }, visible:{ opacity:1, y:0, scale:1, transition:{ duration:0.7, ease } } }}
+                  whileHover={{ y:-6, transition:{ duration:0.25, ease } }}
+                  className="bg-page border-[1.5px] border-border rounded-[18px] p-[22px] transition-[border,box-shadow] duration-[280ms] hover:border-b4 hover:shadow-md"
+                >
                   <div className="flex items-center gap-[10px] font-heading text-[.88rem] font-bold text-dark mb-[14px] pb-3 border-b border-border">
                     <span className="w-[28px] h-[28px] rounded-[7px] bg-pale flex items-center justify-center">
                       <TechIcon size={16} className="text-b4" />
@@ -466,18 +511,26 @@ export default function Services() {
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {t.chips.map((c, j) => (
-                      <span key={j} className="px-[13px] py-[5px] rounded-full text-[.74rem] font-semibold text-body bg-white border-[1.5px] border-border cursor-default transition-all duration-200 hover:bg-pale hover:border-b4 hover:text-gold">{c}</span>
+                      <motion.span
+                        key={j}
+                        initial={{ opacity:0, scale:0.85 }}
+                        whileInView={{ opacity:1, scale:1 }}
+                        viewport={{ once:true }}
+                        transition={{ duration:0.4, ease, delay: 0.1 + j*0.05 }}
+                        whileHover={{ scale:1.06, transition:{ duration:0.2 } }}
+                        className="px-[13px] py-[5px] rounded-full text-[.74rem] font-semibold text-body bg-white border-[1.5px] border-border cursor-default transition-[border,color] duration-200 hover:bg-pale hover:border-b4 hover:text-gold"
+                      >{c}</motion.span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* PRICING */}
-      {/* <section className="bg-page py-24 px-[6%]">
+      {/* <section className="bg-page py-24 px-[5%]">
         <div className="max-w-[1240px] mx-auto">
           <div className="text-center mb-[50px]">
             <div className="inline-flex items-center justify-center gap-2 text-[.7rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">Transparent Pricing</div>
@@ -518,7 +571,7 @@ export default function Services() {
       </section> */}
 
       {/* FAQ */}
-      <section className="bg-white py-24 px-[6%]">
+      <section className="bg-white py-24 px-[5%]">
         <div className="max-w-[1240px] mx-auto">
           <div className="text-center mb-0">
             <div className="inline-flex items-center justify-center gap-2 text-[.7rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">FAQs</div>
@@ -544,14 +597,14 @@ export default function Services() {
       </section>
 
       {/* CTA */}
-      <div className="bg-page px-[6%] py-20">
+      <div className="bg-page px-[5%] py-20">
         <div className="sr max-w-[1240px] mx-auto bg-gm rounded-[28px] px-[60px] py-[72px] text-center relative overflow-hidden shadow-[0_28px_88px_rgba(15,14,42,.28)]">
           <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px)', backgroundSize: '28px 28px' }} />
           <div className="absolute pointer-events-none rounded-full" style={{ width: 640, height: 640, top: -220, right: -160, background: 'radial-gradient(circle,rgba(201,168,76,.22),transparent 70%)', filter: 'blur(24px)' }} />
           <h2 className="relative z-[2] font-heading text-[clamp(1.8rem,3vw,2.9rem)] font-black text-white tracking-[-0.025em] mb-[14px]">Let's Build Your Next Big Thing</h2>
           <p className="relative z-[2] text-white/65 text-[1rem] leading-[1.75] max-w-[500px] mx-auto mb-[38px]">Get a free consultation and project estimate. No commitment — just absolute clarity on what's possible.</p>
           <div className="relative z-[2] flex items-center justify-center gap-[14px] flex-wrap">
-            <Link to="/contact" className="inline-flex items-center gap-[9px] px-[34px] py-[14px] rounded-xl text-[.93rem] font-bold text-dark bg-gg shadow-[0_8px_28px_rgba(201,168,76,.4)] relative overflow-hidden transition-all duration-[280ms] hover:-translate-y-[3px] hover:shadow-[0_14px_38px_rgba(201,168,76,.55)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none">Book Free Consultation →</Link>
+            <Link to="/contact" className="inline-flex items-center gap-[9px] px-[34px] py-[14px] rounded-xl text-[.93rem] font-bold text-white bg-mg shadow-[0_10px_30px_rgba(20,16,58,.32)] relative overflow-hidden transition-all duration-[280ms] hover:-translate-y-[3px] hover:shadow-[0_16px_40px_rgba(20,16,58,.44)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none">Book Free Consultation →</Link>
             <Link to="/projects" className="inline-flex items-center gap-[9px] px-7 py-[13px] rounded-xl text-[.93rem] font-semibold text-white border-[1.5px] border-white/28 bg-white/8 backdrop-blur-[8px] transition-all duration-[280ms] hover:bg-white/18 hover:border-white/55">See Our Work</Link>
           </div>
         </div>

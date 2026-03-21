@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const navItems = [
   { label: 'Home',         to: '/' },
@@ -10,6 +11,8 @@ const navItems = [
   { label: 'Contact',      to: '/contact' },
 ];
 
+let isFirstLoad = true;
+
 interface NavbarProps {
   variant?: 'home' | 'inner';
 }
@@ -19,11 +22,33 @@ const Logo = () => (
   <img
     src="/Final Logo.png"
     alt="TechSphere"
-    className="h-12 md:h-16 w-auto object-contain flex-shrink-0"
+    className="h-12 md:h-16 w-auto object-contain flex-shrink-0 mix-blend-multiply"
   />
 );
 
 export default function Navbar({ variant = 'inner' }: NavbarProps) {
+  const [animateOnMount] = useState(isFirstLoad);
+  
+  useEffect(() => {
+    isFirstLoad = false;
+  }, []);
+
+  const parentVars = animateOnMount ? {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } }
+  } : {
+    hidden: {},
+    visible: {}
+  };
+
+  const itemVars = animateOnMount ? {
+    hidden: { opacity: 0, y: -15 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }
+  } : {
+    hidden: { opacity: 1, y: 0 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const location = useLocation();
@@ -43,23 +68,24 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
 
   /* ── Shared nav link class builder ─────────────────── */
   const linkCls = (to: string) =>
-    `relative text-[1rem] font-medium px-3.5 py-2 rounded-xl whitespace-nowrap transition-all duration-200
-     after:content-[''] after:absolute after:bottom-[4px] after:left-1/2 after:-translate-x-1/2
-     after:w-4 after:h-[2px] after:rounded-full after:bg-gg
-     after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100
+    `relative text-[1rem] font-medium px-3.5 py-2.5 rounded-xl whitespace-nowrap transition-all duration-200
+     after:content-[''] after:absolute after:bottom-[2px] after:left-1/2 after:-translate-x-1/2
+     after:w-[72%] after:h-[2px] after:rounded-full after:bg-[#C4952A]
+     after:transition-all after:duration-300 after:scale-x-0 after:opacity-0
+     hover:after:scale-x-100 hover:after:opacity-100
      ${location.pathname === to
-       ? 'text-dark font-semibold after:scale-x-100'
-       : 'text-muted hover:text-dark hover:bg-pale'
+       ? 'text-dark font-semibold after:scale-x-100 after:opacity-100'
+       : 'text-muted hover:text-b4 hover:bg-pale hover:-translate-y-px'
      }`;
 
   /* ── Shared CTA button ──────────────────────────────── */
   const ctaBtn = (
     <Link
       to="/contact"
-      className="hidden md:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[.85rem] font-bold
-                 text-dark bg-gg shadow-[0_4px_18px_rgba(201,168,76,.35)]
+      className="hidden md:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-[.85rem] font-bold
+                 text-white bg-mg shadow-[0_6px_20px_rgba(20,16,58,.28)]
                  relative overflow-hidden transition-all duration-[280ms]
-                 hover:-translate-y-[2px] hover:shadow-[0_10px_28px_rgba(201,168,76,.55)]
+                 hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(20,16,58,.42)]
                  before:content-[''] before:absolute before:inset-0
                  before:bg-[linear-gradient(135deg,rgba(255,255,255,.26)_0%,transparent_55%)]
                  before:pointer-events-none flex-shrink-0"
@@ -89,7 +115,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
   );
 
   /* ══════════════════════════════════════════════════════
-     HOME VARIANT  — transparent → floating pill on scroll
+     HOME VARIANT  — integrated to hero → floating pill on scroll
   ══════════════════════════════════════════════════════ */
   if (variant === 'home') {
     return (
@@ -97,46 +123,53 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
         {/* Overlay */}
         <div
           className={`fixed inset-0 z-[998] bg-[rgba(8,7,28,.5)] backdrop-blur-[6px]
-                      transition-opacity duration-[380ms]
+                      transition-opacity duration-[300ms]
                       ${drawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
           onClick={() => setDrawerOpen(false)}
         />
 
-        {/* Floating pill wrapper */}
-        <div className="fixed top-0 left-0 right-0 z-[1000] flex justify-center
-                        pt-4 px-4 transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]">
-          <nav className={`w-full max-w-[1380px] flex items-center justify-between px-8 transition-all
-                           duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
+        {/* Navbar wrapper */}
+        <div 
+          className={`fixed top-0 left-0 right-0 z-[1000] flex justify-center transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
+                         ${(scrolled && !drawerOpen) ? 'md:pt-4 md:px-4 pt-0 px-0' : 'pt-0 px-0'}`}
+        >
+          <motion.nav 
+            initial={animateOnMount ? "hidden" : "visible"}
+            animate="visible"
+            variants={parentVars}
+            className={`w-full flex items-center justify-between transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
                            ${scrolled
-                             ? 'h-[70px] bg-white/90 backdrop-blur-2xl saturate-180 rounded-full border border-[rgba(45,43,107,.10)] shadow-[0_8px_32px_rgba(15,14,42,.12),0_1px_0_rgba(255,255,255,.8)_inset]'
-                             : 'h-[76px] bg-transparent border border-transparent rounded-full'
+                             ? `md:max-w-[1380px] max-w-full md:h-[70px] h-[64px] px-5 md:px-8 ${drawerOpen ? 'bg-white' : 'bg-white/85 md:bg-white/75 backdrop-blur-3xl saturate-[200%]'} md:rounded-full rounded-none md:border border-[rgba(255,255,255,0.3)] border-b shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
+                             : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 ${drawerOpen ? 'bg-white shadow-[0_16px_48px_rgba(15,14,42,.06)]' : 'bg-transparent'} border-transparent rounded-none`
                            }`}>
             {/* Logo */}
-            <Link to="/" className="flex-shrink-0 flex items-center">
-              <Logo />
-            </Link>
+            <motion.div variants={itemVars} className="flex-shrink-0 flex items-center">
+              <Link to="/">
+                <Logo />
+              </Link>
+            </motion.div>
 
             {/* Center nav links */}
             <ul className="hidden md:flex items-center gap-1 list-none">
               {navItems.map(({ label, to }) => (
-                <li key={to}>
+                <motion.li key={to} variants={itemVars}>
                   <Link to={to} className={linkCls(to)}>{label}</Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
 
             {/* Right CTA + hamburger */}
-            <div className="flex items-center gap-2 flex-shrink-0">
+            <motion.div variants={itemVars} className="flex items-center gap-2 flex-shrink-0">
               {ctaBtn}
               {hamburger}
-            </div>
-          </nav>
+            </motion.div>
+          </motion.nav>
         </div>
 
         {/* Mobile Drawer — slides down from top */}
         <div className={`fixed top-0 left-0 right-0 z-[999] bg-dark rounded-b-3xl
                          shadow-[0_24px_60px_rgba(0,0,0,.45)] overflow-hidden
-                         transition-[transform,opacity] duration-[480ms] ease-[cubic-bezier(.4,0,.2,1)]
+                         transition-[transform,opacity] duration-[380ms] ease-[cubic-bezier(.4,0,.2,1)]
                          ${drawerOpen ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-[108%] opacity-0 pointer-events-none'}`}>
           {/* Gold shimmer bottom border */}
           <div className="absolute bottom-0 left-0 right-0 h-[2px]
@@ -148,15 +181,15 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
               {navItems.map(({ label, to }, idx) => (
                 <li
                   key={to}
-                  className={`transition-[opacity,transform] duration-300
-                               ${drawerOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}
-                  style={{ transitionDelay: drawerOpen ? `${0.07 + idx * 0.05}s` : '0s' }}
+                  className={`transition-[opacity,transform] duration-[400ms] ease-out
+                               ${drawerOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                  style={{ transitionDelay: drawerOpen ? `${0.1 + idx * 0.08}s` : '0s' }}
                 >
                   <Link
                     to={to}
                     onClick={() => setDrawerOpen(false)}
-                    className={`flex items-center justify-between px-4 py-3.5 rounded-xl
-                                font-heading text-[1.1rem] font-semibold border border-transparent
+                    className={`flex items-center justify-between px-4 py-2.5 rounded-xl
+                                font-heading text-[0.98rem] font-semibold border border-transparent
                                 transition-all duration-[220ms]
                                 ${location.pathname === to
                                   ? 'text-white bg-white/10 border-white/10'
@@ -205,49 +238,58 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
   }
 
   /* ══════════════════════════════════════════════════════
-     INNER VARIANT  — always floating pill, slightly below top
+     INNER VARIANT  — integrated to dashboard top → floating pill on scroll
   ══════════════════════════════════════════════════════ */
   return (
     <>
       {/* Floating pill wrapper */}
-      <div className="fixed top-0 left-0 right-0 z-[1000] flex justify-center pt-4 px-4">
-        <nav className={`w-full max-w-[1380px] h-[70px] flex items-center justify-between px-8
-                         rounded-full border bg-white transition-all duration-[350ms]
+      {/* Floating pill wrapper */}
+      <div 
+        className={`fixed top-0 left-0 right-0 z-[1000] flex justify-center transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
+                       ${(scrolled && !drawerOpen) ? 'md:pt-4 md:px-4 pt-0 px-0' : 'pt-0 px-0'}`}
+      >
+        <motion.nav 
+          initial={animateOnMount ? "hidden" : "visible"}
+          animate="visible"
+          variants={parentVars}
+          className={`w-full flex items-center justify-between transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
                          ${scrolled
-                           ? 'border-[rgba(45,43,107,.14)] shadow-[0_8px_32px_rgba(15,14,42,.14)]'
-                           : 'border-[rgba(45,43,107,.10)] shadow-[0_4px_20px_rgba(15,14,42,.08)]'
+                           ? `md:max-w-[1380px] max-w-full md:h-[70px] h-[64px] px-5 md:px-8 md:rounded-full rounded-none md:border border-[rgba(255,255,255,0.3)] border-b ${drawerOpen ? 'bg-white' : 'bg-white/85 md:bg-white/75 backdrop-blur-3xl saturate-[200%]'} shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
+                           : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 ${drawerOpen ? 'bg-white shadow-[0_16px_48px_rgba(15,14,42,.06)]' : 'bg-transparent'} border-transparent rounded-none shadow-none`
                          }`}>
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0 flex items-center">
-            <Logo />
-          </Link>
+          <motion.div variants={itemVars} className="flex-shrink-0 flex items-center">
+            <Link to="/">
+              <Logo />
+            </Link>
+          </motion.div>
 
           {/* Center nav links */}
           <ul className="hidden md:flex items-center gap-1 list-none">
             {navItems.map(({ label, to }) => (
-              <li key={to}>
+              <motion.li key={to} variants={itemVars}>
                 <Link to={to} className={linkCls(to)}>{label}</Link>
-              </li>
+              </motion.li>
             ))}
           </ul>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <motion.div variants={itemVars} className="flex items-center gap-2 flex-shrink-0">
             <Link
               to="/contact"
-              className="hidden md:inline-block px-4 py-2 rounded-full text-[.84rem] font-semibold
-                         text-b4 border-[1.5px] border-[rgba(45,43,107,.14)] bg-transparent
-                         transition-all duration-[250ms] hover:bg-pale hover:border-b4"
+              className="hidden md:inline-block px-4 py-2 rounded-xl text-[.84rem] font-semibold
+                         text-b4 border-[1.5px] border-[rgba(196,149,42,.55)] bg-transparent
+                         transition-all duration-[250ms] hover:bg-[rgba(196,149,42,.08)] hover:border-[#C4952A]"
             >
               Get a Quote
             </Link>
             <Link
               to="/contact"
-              className="hidden md:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full
-                         text-[.84rem] font-bold text-dark bg-gg
-                         shadow-[0_4px_18px_rgba(201,168,76,.35)]
+              className="hidden md:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl
+                         text-[.84rem] font-bold text-white bg-mg
+                         shadow-[0_6px_20px_rgba(20,16,58,.28)]
                          relative overflow-hidden transition-all duration-[280ms]
-                         hover:-translate-y-[2px] hover:shadow-[0_10px_28px_rgba(201,168,76,.55)]
+                         hover:-translate-y-[2px] hover:shadow-[0_12px_30px_rgba(20,16,58,.42)]
                          before:content-[''] before:absolute before:inset-0
                          before:bg-[linear-gradient(135deg,rgba(255,255,255,.26)_0%,transparent_55%)]
                          before:pointer-events-none"
@@ -271,25 +313,28 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
               <span className={`block h-[2px] rounded-sm transition-all duration-300 origin-center
                                 ${drawerOpen ? 'w-[17px] -translate-y-[7px] -rotate-45 bg-white' : 'w-[17px] bg-dark'}`} />
             </button>
-          </div>
-        </nav>
+          </motion.div>
+        </motion.nav>
       </div>
 
-      {/* Inner page mobile drawer — drops below the pill */}
-      <div className={`md:hidden fixed top-[94px] left-4 right-4 z-[999] bg-white rounded-2xl
+      {/* Inner page mobile drawer — drops below the integrated nav */}
+      <div className={`md:hidden fixed top-0 left-0 right-0 z-[999] bg-white rounded-b-3xl
                        border border-border shadow-[0_16px_48px_rgba(15,14,42,.13)]
-                       overflow-y-auto max-h-[calc(100vh-90px)]
-                       transition-[opacity,transform] duration-[300ms] ease-[cubic-bezier(.4,0,.2,1)]
+                       overflow-y-auto max-h-[calc(100vh)] pt-20
+                       transition-[opacity,transform] duration-[380ms] ease-[cubic-bezier(.4,0,.2,1)]
                        ${drawerOpen
                          ? 'opacity-100 translate-y-0 pointer-events-auto'
-                         : 'opacity-0 -translate-y-3 pointer-events-none'}`}>
-        <div className="px-4 pt-4 pb-5">
-          <ul className="list-none flex flex-col">
-            {navItems.map(({ label, to }) => (
-              <li key={to}>
+                         : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
+        <div className="px-5 pb-6">
+          <ul className="list-none flex flex-col mt-2">
+            {navItems.map(({ label, to }, idx) => (
+              <li key={to}
+                  className={`transition-[opacity,transform] duration-[400ms] ease-out
+                              ${drawerOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
+                  style={{ transitionDelay: drawerOpen ? `${0.1 + idx * 0.08}s` : '0s' }}>
                 <Link
                   to={to}
-                  className={`flex items-center py-3.5 border-b border-border text-[.95rem]
+                  className={`flex items-center py-2.5 border-b border-border text-[0.95rem]
                                font-medium transition-all duration-200 last:border-b-0
                                ${location.pathname === to ? 'text-b4 font-semibold' : 'text-body hover:text-b4'}`}
                   onClick={() => setDrawerOpen(false)}
@@ -299,7 +344,8 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
               </li>
             ))}
           </ul>
-          <div className="flex flex-col gap-2.5 mt-4">
+          <div className={`flex flex-col gap-3 mt-6 transition-[opacity,transform] duration-[400ms] delay-[350ms] ease-out
+                           ${drawerOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <Link
               to="/contact"
               onClick={() => setDrawerOpen(false)}
@@ -313,7 +359,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
               to="/contact"
               onClick={() => setDrawerOpen(false)}
               className="block text-center py-3 px-5 text-[.9rem] rounded-xl font-bold
-                         text-dark bg-gg shadow-gold hover:shadow-[0_10px_28px_rgba(201,168,76,.5)]
+                         text-white bg-mg shadow-brand hover:shadow-[0_12px_30px_rgba(20,16,58,.42)]
                          transition-all duration-200"
             >
               Free Consultation →

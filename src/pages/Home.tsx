@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BackToTop from '../components/BackToTop';
@@ -85,81 +86,270 @@ function TCard({ tf, title, q, init, name, role }: typeof testimonials1[0]) {
   );
 }
 
-/* ─── THREE.JS GLOBE ─────────────────────────────────── */
-function ThreeGlobe() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+/* ─── HERO SLIDER ─────────────────────────────────────── */
+const heroSlides = [
+  {
+    src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=900&h=680&fit=crop',
+    peek: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=500&fit=crop',
+    tag: 'Dev Teams',
+    label: 'Collaborative Engineering',
+    stat: { v: '1,200+', l: 'Projects Shipped' },
+    // Squircle / rounded rectangle with one diagonal cut corner
+    shape: 'polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px))',
+    peekShape: 'polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%)',
+    accent: '#4845A8',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=900&h=680&fit=crop',
+    peek: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=500&fit=crop',
+    tag: 'Enterprise',
+    label: 'Enterprise-Grade Solutions',
+    stat: { v: '300+', l: 'Enterprise Clients' },
+    // Wide parallelogram-like cut on top-left and bottom-right
+    shape: 'polygon(48px 0%, 100% 0%, calc(100% - 48px) 100%, 0% 100%)',
+    peekShape: 'polygon(30px 0%, 100% 0%, calc(100% - 30px) 100%, 0% 100%)',
+    accent: '#C9A84C',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=900&h=680&fit=crop',
+    peek: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=500&fit=crop',
+    tag: 'Strategy',
+    label: 'Strategic IT Consulting',
+    stat: { v: '99%', l: 'On-Time Delivery' },
+    // Organic blob-like pill
+    shape: 'ellipse(50% 48% at 50% 50%)',
+    peekShape: 'ellipse(48% 46% at 50% 50%)',
+    accent: '#10B981',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=900&h=680&fit=crop',
+    peek: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400&h=500&fit=crop',
+    tag: 'Cybersecurity',
+    label: 'Zero-Trust Security',
+    stat: { v: '24/7', l: 'Active Monitoring' },
+    // Pentagon / shield-ish
+    shape: 'polygon(50% 0%, 100% 25%, 100% 100%, 0% 100%, 0% 25%)',
+    peekShape: 'polygon(50% 0%, 100% 28%, 100% 100%, 0% 100%, 0% 28%)',
+    accent: '#6B67D4',
+  },
+];
+
+const SLIDE_DURATION = 5000;
+
+function HeroSlider() {
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
+  const [progress, setProgress] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const goTo = useCallback((idx: number, dir: 'next' | 'prev' = 'next') => {
+    setDirection(dir);
+    setCurrent(idx);
+    setProgress(0);
+  }, [current]);
 
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-    script.onload = () => initGlobe();
-    document.head.appendChild(script);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (progressRef.current) clearInterval(progressRef.current);
 
-    function initGlobe() {
-      const canvas = canvasRef.current;
-      if (!canvas || !(window as any).THREE) return;
-      const THREE = (window as any).THREE;
+    const totalSteps = SLIDE_DURATION / 50;
+    let step = 0;
+    progressRef.current = setInterval(() => {
+      step++;
+      setProgress(Math.min((step / totalSteps) * 100, 100));
+    }, 50);
 
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-      renderer.setClearColor(0, 0);
-      const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100);
-      camera.position.set(0, 0, 6);
+    timerRef.current = setTimeout(() => {
+      const next = (current + 1) % heroSlides.length;
+      goTo(next, 'next');
+    }, SLIDE_DURATION);
 
-      function resize() {
-        const w = canvas!.clientWidth, h = canvas!.clientHeight;
-        renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
-      }
-      resize(); window.addEventListener('resize', resize);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
+    };
+  }, [current, goTo]);
 
-      scene.add(new THREE.AmbientLight(0x8888cc, .7));
-      const dl = new THREE.DirectionalLight(0xffffff, 2.2); dl.position.set(5, 6, 6); scene.add(dl);
-      const pl1 = new THREE.PointLight(0xc9a84c, 5, 18); pl1.position.set(-4, 3, 4); scene.add(pl1);
-      const pl2 = new THREE.PointLight(0x4845a8, 3, 14); pl2.position.set(4, -3, -3); scene.add(pl2);
-      const pl3 = new THREE.PointLight(0xe8c96a, 2, 10); pl3.position.set(0, 4, 2); scene.add(pl3);
+  const slide = heroSlides[current];
 
-      const cMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1.25, 2), new THREE.MeshPhongMaterial({ color: 0x1a1845, emissive: 0x08071c, specular: 0xc9a84c, shininess: 220, transparent: true, opacity: .92 })); scene.add(cMesh);
-      const wMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1.28, 2), new THREE.MeshBasicMaterial({ color: 0xc9a84c, wireframe: true, transparent: true, opacity: .16 })); scene.add(wMesh);
-      scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.82, 32, 32), new THREE.MeshBasicMaterial({ color: 0x2d2b6b, transparent: true, opacity: .06, side: THREE.BackSide })));
+  /* clip-path per direction */
+  const enterVariants = {
+    next:  { clipPath: 'inset(0 100% 0 0)', opacity: 0, scale: 1.06 },
+    prev:  { clipPath: 'inset(0 0 0 100%)', opacity: 0, scale: 1.06 },
+  };
+  const exitVariants = {
+    next:  { clipPath: 'inset(0 0 0 100%)', opacity: 0, scale: 0.97 },
+    prev:  { clipPath: 'inset(0 100% 0 0)', opacity: 0, scale: 0.97 },
+  };
 
-      const mkR = (r: number, t: number, c: number, rx: number, ry: number) => { const m = new THREE.Mesh(new THREE.TorusGeometry(r, t, 6, 90), new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: .55 })); m.rotation.x = rx; m.rotation.y = ry; return m; };
-      const r1 = mkR(2.1, .016, 0x4845a8, Math.PI / 4, 0);
-      const r2 = mkR(2.6, .011, 0xc9a84c, -Math.PI / 5, .5);
-      const r3 = mkR(1.8, .009, 0xe8c96a, Math.PI / 2, 0);
-      scene.add(r1, r2, r3);
+  return (
+    <div className="relative w-full select-none" aria-label="Hero image slideshow" style={{ height: 520 }}>
+      {/* ── Ambient glow orb behind ── */}
+      <div
+        className="absolute pointer-events-none transition-colors duration-[1200ms]"
+        style={{
+          width: 340, height: 340,
+          top: '50%', left: '50%',
+          transform: 'translate(-42%,-48%)',
+          borderRadius: '50%',
+          background: `radial-gradient(circle, ${slide.accent}28 0%, transparent 70%)`,
+          filter: 'blur(40px)',
+          zIndex: 0,
+        }}
+      />
 
-      const mkO = (c: number, s: number) => new THREE.Mesh(new THREE.SphereGeometry(s, 16, 16), new THREE.MeshPhongMaterial({ color: c, emissive: c, emissiveIntensity: .55 }));
-      const o1 = mkO(0xc9a84c, .14), o2 = mkO(0x4845a8, .10), o3 = mkO(0xe8c96a, .12);
-      scene.add(o1, o2, o3);
+      {/* ── Peek card (background secondary image) ── */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`peek-${current}`}
+          initial={{ opacity: 0, rotate: 9, scale: 0.88, x: 30, y: -30 }}
+          animate={{ opacity: 1, rotate: 8, scale: 0.92, x: 24, y: -22 }}
+          exit={{ opacity: 0, rotate: 12, scale: 0.84 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute overflow-hidden border-[3px] border-white shadow-[0_16px_48px_rgba(15,14,42,.22)] animate-heroPeek"
+          style={{
+            width: 210, height: 162,
+            top: '12%', right: '-8px',
+            clipPath: slide.peekShape,
+            transformOrigin: 'center center',
+            zIndex: 1,
+          }}
+        >
+          <img
+            src={slide.peek}
+            alt=""
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+          {/* Tinted overlay */}
+          <div className="absolute inset-0" style={{ background: `${slide.accent}1A` }} />
+        </motion.div>
+      </AnimatePresence>
 
-      const sg = new THREE.BufferGeometry(), sp = new Float32Array(280 * 3);
-      for (let i = 0; i < 280; i++) { const th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1), r = 2.8 + Math.random() * 2; sp[i*3]=r*Math.sin(ph)*Math.cos(th); sp[i*3+1]=r*Math.sin(ph)*Math.sin(th); sp[i*3+2]=r*Math.cos(ph); }
-      sg.setAttribute('position', new THREE.BufferAttribute(sp, 3));
-      scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ color: 0xd4b866, size: .04, transparent: true, opacity: .7 })));
+      {/* ── Main slide ── */}
+      <AnimatePresence mode="wait" custom={direction}>
+        <motion.div
+          key={`slide-${current}`}
+          custom={direction}
+          variants={{
+            enter: (d: 'next' | 'prev') => ({ ...enterVariants[d] }),
+            center: { clipPath: 'inset(0 0% 0 0)', opacity: 1, scale: 1 },
+            exit:  (d: 'next' | 'prev') => ({ ...exitVariants[d] }),
+          }}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.78, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute overflow-hidden border-[3.5px] border-white shadow-[0_28px_72px_rgba(15,14,42,.24)]"
+          style={{
+            width: '82%',
+            height: 400,
+            top: '8%',
+            left: '2%',
+            clipPath: slide.shape,
+            transformOrigin: 'center center',
+            zIndex: 2,
+          }}
+        >
+          {/* Ken-Burns image */}
+          <img
+            src={slide.src}
+            alt={slide.label}
+            loading="lazy"
+            className="w-full h-full object-cover animate-heroKenBurns"
+          />
+          {/* Bottom gradient overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(8,7,28,.85)_0%,rgba(8,7,28,.25)_50%,transparent_100%)]" />
+          {/* Slide tag + title */}
+          <div className="absolute bottom-0 left-0 right-0 p-[22px_24px]">
+            <div
+              className="inline-block px-[10px] py-[3px] rounded-full text-[.6rem] font-bold uppercase tracking-[.1em] mb-[8px]"
+              style={{ background: `${slide.accent}3A`, border: `1px solid ${slide.accent}70`, color: slide.accent === '#C9A84C' ? '#F5DFA0' : slide.accent === '#10B981' ? '#10B981' : '#a5a3f8' }}
+            >
+              {slide.tag}
+            </div>
+            <div className="font-heading text-[1.05rem] font-bold text-white leading-[1.3]">{slide.label}</div>
+          </div>
+          {/* Progress bar at top of image */}
+          <div className="absolute top-0 left-0 right-0 h-[3px] bg-white/10">
+            <div
+              className="h-full transition-none"
+              style={{
+                width: `${progress}%`,
+                background: `linear-gradient(90deg, ${slide.accent}, ${slide.accent}CC)`,
+                transition: progress === 0 ? 'none' : 'width 50ms linear',
+              }}
+            />
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
-      let mx = 0, my = 0;
-      document.addEventListener('mousemove', (e) => { mx = (e.clientX / innerWidth - .5) * 2; my = (e.clientY / innerHeight - .5) * 2; });
+      {/* ── Stat badge (bottom-right corner) ── */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`stat-${current}`}
+          initial={{ opacity: 0, y: 18, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -10, scale: 0.92 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          className="absolute z-[4] bg-white/96 backdrop-blur-[18px] border border-[rgba(45,43,107,.1)] rounded-2xl px-4 py-3 shadow-[0_10px_36px_rgba(15,14,42,.14)]"
+          style={{ bottom: '9%', right: '4%' }}
+        >
+          <div className="text-[.6rem] text-muted font-medium mb-[2px]">👁 {slide.stat.l}</div>
+          <div className="font-heading text-[1.15rem] font-extrabold text-dark leading-none">{slide.stat.v}</div>
+        </motion.div>
+      </AnimatePresence>
 
-      let t = 0; let animId: number;
-      function animate() {
-        animId = requestAnimationFrame(animate); t += .01;
-        cMesh.rotation.x = t*.28+my*.25; cMesh.rotation.y = t*.45+mx*.25; wMesh.rotation.copy(cMesh.rotation);
-        r1.rotation.z=t*.35; r2.rotation.z=-t*.28; r3.rotation.y=t*.55;
-        o1.position.set(Math.cos(t*.7)*2.1, Math.sin(t*.7)*2.1*.28, Math.sin(t*.7)*.6);
-        o2.position.set(Math.cos(t*.5+2)*2.6, Math.sin(t*.9)*.5, Math.sin(t*.5+2)*2.6);
-        o3.position.set(Math.sin(t*.6+1)*1.8, Math.cos(t*.6+1)*1.8, Math.sin(t*.4)*.5);
-        camera.position.x += (mx*.45-camera.position.x)*.05;
-        camera.position.y += (-my*.45-camera.position.y)*.05;
-        camera.lookAt(scene.position);
-        renderer.render(scene, camera);
-      }
-      animate();
-      return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); renderer.dispose(); };
-    }
-    return () => { document.head.removeChild(script); };
-  }, []);
+      {/* ── Dot + number controls ── */}
+      <div className="absolute z-[5] flex flex-col items-center gap-[7px]" style={{ right: '-6px', top: '50%', transform: 'translateY(-50%)' }}>
+        {heroSlides.map((s, i) => (
+          <button
+            key={i}
+            aria-label={`Go to slide ${i + 1}`}
+            onClick={() => goTo(i, i > current ? 'next' : 'prev')}
+            title={s.label}
+            className="group flex items-center justify-center transition-all duration-300"
+            style={{ width: 26, height: 26 }}
+          >
+            <div
+              className="rounded-full transition-all duration-300 border-[2px]"
+              style={{
+                width: i === current ? 12 : 7,
+                height: i === current ? 12 : 7,
+                background: i === current ? slide.accent : 'transparent',
+                borderColor: i === current ? slide.accent : 'rgba(45,43,107,.22)',
+                boxShadow: i === current ? `0 0 10px ${slide.accent}80` : 'none',
+              }}
+            />
+          </button>
+        ))}
+      </div>
 
-  return <canvas ref={canvasRef} id="threeCanvas" className="w-full max-w-[500px] h-[500px] rounded-[22px] block" />;
+      {/* ── Decorative dashed ring ── */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: 260, height: 260,
+          bottom: '-10%', left: '-6%',
+          borderRadius: '50%',
+          border: '1.5px dashed rgba(72,69,168,.1)',
+          zIndex: 0,
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: 80, height: 80,
+          bottom: '18%', left: '0%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(201,168,76,.14), transparent 70%)',
+          filter: 'blur(12px)',
+          zIndex: 0,
+        }}
+      />
+    </div>
+  );
 }
 
 /* ─── BG CANVAS ──────────────────────────────────────── */
@@ -217,52 +407,100 @@ export default function Home() {
       {/* HERO */}
       <section
         id="hero"
-        className="relative min-h-screen bg-white overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center px-[5%] gap-0 mt-[90px] md:mt-[106px]"
-        style={{ backgroundImage: 'radial-gradient(ellipse 70% 60% at 100% 0%,rgba(72,69,168,.06),transparent 60%),radial-gradient(ellipse 55% 50% at 0% 100%,rgba(45,43,107,.05),transparent 55%),radial-gradient(ellipse 50% 40% at 50% 50%,rgba(201,168,76,.04),transparent 55%)' }}
+        className="relative min-h-screen bg-page-dots grid grid-cols-1 lg:grid-cols-2 items-center px-[5%] gap-0 pt-[100px] md:pt-[130px]"
       >
-        {/* Dot grid */}
-        <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage:'radial-gradient(rgba(45,43,107,.06) 1px,transparent 1px)', backgroundSize:'36px 36px', maskImage:'radial-gradient(ellipse 70% 70% at 65% 45%,black 10%,transparent 80%)' }} />
         {/* Rings */}
         <div className="absolute rounded-full pointer-events-none border border-solid z-[1]" style={{ width:700,height:700,top:-200,right:-180,borderColor:'rgba(45,43,107,.05)' }} />
         <div className="absolute rounded-full pointer-events-none border border-solid z-[1]" style={{ width:480,height:480,top:-60,right:-40,borderColor:'rgba(201,168,76,.06)' }} />
         <div className="absolute rounded-full pointer-events-none border border-solid z-[1]" style={{ width:920,height:920,bottom:-420,left:-200,borderColor:'rgba(45,43,107,.04)' }} />
         {/* Glows */}
-        <div className="absolute rounded-full pointer-events-none z-0" style={{ width:560,height:560,right:-60,top:-80,background:'radial-gradient(circle,rgba(45,43,107,.06),transparent 70%)',filter:'blur(50px)' }} />
-        <div className="absolute rounded-full pointer-events-none z-0" style={{ width:420,height:420,left:-80,bottom:-80,background:'radial-gradient(circle,rgba(201,168,76,.05),transparent 70%)',filter:'blur(44px)' }} />
+        <div className="absolute rounded-full pointer-events-none z-0 animate-fadeScale [animation-duration:3s] [animation-delay:100ms]" style={{ width:560,height:560,right:-60,top:-80,background:'radial-gradient(circle,rgba(45,43,107,.06),transparent 70%)',filter:'blur(50px)' }} />
+        <div className="absolute rounded-full pointer-events-none z-0 animate-fadeScale [animation-duration:3.5s] [animation-delay:250ms]" style={{ width:420,height:420,left:-80,bottom:-80,background:'radial-gradient(circle,rgba(201,168,76,.05),transparent 70%)',filter:'blur(44px)' }} />
         <BgCanvas />
 
         {/* Left */}
-        <div className="relative z-[2] pt-6 md:pt-24 pb-[72px] animate-hup">
-          <div className="inline-flex items-center gap-2 px-[14px] py-[5px] pl-2 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.71rem] font-bold text-b3 tracking-[.1em] uppercase mb-[22px]">
+        <motion.div 
+          className="relative z-[2] pt-2 md:pt-10 pb-[72px]"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } }
+          }}
+        >
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 15, scale: 0.95 },
+              visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+            }}
+            className="inline-flex items-center gap-2 px-[14px] py-[5px] pl-2 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.71rem] font-bold text-b3 tracking-[.1em] uppercase mb-[22px]"
+          >
             <span className="w-[6px] h-[6px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-blink" />
             IT Startup · Est. 2020 · India
-          </div>
+          </motion.div>
 
-          <h1 className="font-heading font-black text-[clamp(2.8rem,5vw,4.4rem)] leading-[1.03] tracking-[-0.04em] text-dark mb-5">
-            We Build the Tech<br />That Powers<br /><span className="grad-text">Your Business.</span>
+          <h1 className="font-heading font-black text-[clamp(2.8rem,5vw,4.4rem)] leading-[1.03] tracking-[-0.04em] text-dark mb-5 flex flex-col gap-1">
+            <span className="block overflow-hidden"><motion.span className="block origin-left" variants={{ hidden: { y: '110%', rotateZ: 3, opacity: 0 }, visible: { y: '0%', rotateZ: 0, opacity: 1, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } } }}>We Build the Tech</motion.span></span>
+            <span className="block overflow-hidden"><motion.span className="block origin-left" variants={{ hidden: { y: '110%', rotateZ: 3, opacity: 0 }, visible: { y: '0%', rotateZ: 0, opacity: 1, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } } }}>That Powers</motion.span></span>
+            <span className="block overflow-hidden"><motion.span className="block origin-left grad-text pb-2" variants={{ hidden: { y: '110%', rotateZ: 3, opacity: 0 }, visible: { y: '0%', rotateZ: 0, opacity: 1, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } } }}>Your Business.</motion.span></span>
           </h1>
-          <p className="text-[1.04rem] leading-[1.8] text-muted max-w-[455px] mb-[34px]">
+          
+          <motion.p 
+            variants={{
+              hidden: { opacity: 0, filter: 'blur(8px)', y: 20 },
+              visible: { opacity: 1, filter: 'blur(0px)', y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }
+            }}
+            className="text-[1.04rem] leading-[1.8] text-muted max-w-[455px] mb-[34px]"
+          >
             TechSphere delivers custom software, cloud infrastructure, and digital products — built to your exact requirements, shipped faster than any enterprise vendor.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-wrap gap-2 mb-9">
-            {['☁️ Cloud Migration','🔐 Cybersecurity','⚡ 3× Faster Delivery','🌍 28 Countries'].map(c => (
-              <div key={c} className="inline-flex items-center gap-[5px] px-3 py-[5px] rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.72rem] font-semibold text-b3">{c}</div>
+          <motion.div 
+            variants={{ visible: { transition: { staggerChildren: 0.04 } } }}
+            className="flex flex-wrap gap-2 mb-9"
+          >
+            {['☁️ Cloud Migration','🔐 Cybersecurity','⚡ 3× Faster Delivery','🌍 28 Countries'].map((c) => (
+              <motion.div 
+                key={c} 
+                variants={{
+                  hidden: { opacity: 0, scale: 0.8 },
+                  visible: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-[5px] px-3 py-[5px] rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.72rem] font-semibold text-b3"
+              >
+                {c}
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="flex items-center gap-3 flex-wrap mb-0">
-            <Link to="/contact" className="relative overflow-hidden inline-flex items-center gap-2 px-[26px] py-[13px] rounded-xl text-[.93rem] font-bold text-dark bg-gg shadow-[0_6px_24px_rgba(201,168,76,.4)] transition-all duration-[280ms] hover:-translate-y-[3px] hover:shadow-[0_14px_40px_rgba(201,168,76,.55)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.24),transparent_55%)] before:pointer-events-none">
-              <span className="relative z-[1]">Start Your Project</span>
-              <svg className="relative z-[1] w-4 h-4 transition-transform duration-[250ms] group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </Link>
-            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[.93rem] font-semibold text-b3 border-[1.5px] border-[rgba(45,43,107,.12)] bg-pale transition-all duration-[280ms] hover:bg-pale2 hover:border-b4 hover:text-dark">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } }
+            }}
+            className="flex items-center gap-3 flex-wrap mb-0"
+          >
+            <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}>
+              <Link to="/contact" className="relative overflow-hidden inline-flex items-center gap-2 px-[26px] py-[13px] rounded-xl text-[.93rem] font-bold text-white bg-mg shadow-[0_8px_24px_rgba(20,16,58,.3)] transition-colors duration-[280ms] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.24),transparent_55%)] before:pointer-events-none hover:shadow-[0_16px_42px_rgba(20,16,58,.44)]">
+                <span className="relative z-[1]">Start Your Project</span>
+                <svg className="relative z-[1] w-4 h-4 transition-transform duration-[250ms] group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
+            </motion.div>
+            <motion.button whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[.93rem] font-semibold text-b3 border-[1.5px] border-[rgba(45,43,107,.12)] bg-pale transition-colors duration-[280ms] hover:bg-pale2 hover:border-b4 hover:text-dark">
               <span className="w-[30px] h-[30px] rounded-full bg-gm flex items-center justify-center text-[.58rem] text-white flex-shrink-0">▶</span>
               See How It Works
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
 
-          <div className="flex items-center gap-[14px] mt-10">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { duration: 1 } }
+            }}
+            className="flex items-center gap-[14px] mt-10"
+          >
             <div className="flex">
               {[
                 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
@@ -270,42 +508,93 @@ export default function Home() {
                 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face',
                 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face',
               ].map((src, i) => (
-                <div key={i} className={`w-[33px] h-[33px] rounded-full border-[2.5px] border-white overflow-hidden shadow-[0_2px_8px_rgba(15,14,42,.1)] ${i > 0 ? '-ml-[9px]' : ''}`}>
+                <motion.div 
+                  key={i} 
+                  variants={{
+                    hidden: { opacity: 0, x: -10 },
+                    visible: { opacity: 1, x: 0, transition: { delay: i * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] } }
+                  }}
+                  className={`w-[33px] h-[33px] rounded-full border-[2.5px] border-white overflow-hidden shadow-[0_2px_8px_rgba(15,14,42,.1)] ${i > 0 ? '-ml-[9px]' : ''}`}
+                >
                   <img src={src} alt="client" className="w-full h-full object-cover" />
-                </div>
+                </motion.div>
               ))}
             </div>
-            <div className="text-[.79rem] text-muted leading-[1.55]"><strong className="text-dark">300+ happy clients</strong><br />across 28 countries worldwide</div>
-          </div>
-        </div>
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0, x: -10 },
+                visible: { opacity: 1, x: 0, transition: { delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+              }}
+              className="text-[.79rem] text-muted leading-[1.55]"
+            >
+              <strong className="text-dark">300+ happy clients</strong><br />across 28 countries worldwide
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
-        {/* Right */}
-        <div className="relative z-[2] hidden lg:flex items-center justify-center py-[90px] animate-hup">
-          <ThreeGlobe />
-          {/* Float cards */}
-          {[
-            { cls: 'animate-ffa', pos: 'top-[18%] -left-4', ico: '🚀', lbl: 'Projects Delivered', val: '1,200+', hi: '↑ this year' },
-            { cls: 'animate-ffb', pos: 'bottom-[22%] -right-4', ico: '⚡', lbl: 'Avg. Delivery', val: '3× Faster', hi: 'vs industry' },
-            { cls: 'animate-ffc', pos: 'top-[52%] -left-5', ico: '✅', lbl: 'Client Retention', val: '96%', hi: 'satisfaction' },
-          ].map(({ cls, pos, ico, lbl, val, hi }) => (
-            <div key={lbl} className={`absolute z-[3] ${pos} ${cls} bg-white/96 backdrop-blur-[18px] border border-[rgba(45,43,107,.1)] rounded-2xl px-4 py-3 flex items-center gap-[11px] shadow-[0_10px_36px_rgba(15,14,42,.1)] text-dark`}>
-              <div className="w-[38px] h-[38px] rounded-[10px] flex-shrink-0 flex items-center justify-center text-[1.05rem] bg-pale border border-border">{ico}</div>
+        {/* Right — Hero Slider */}
+        <motion.div 
+          className="relative z-[2] hidden lg:flex items-center justify-center py-[60px]"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, x: 40, filter: 'blur(12px)' },
+              visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.3 } }
+            }}
+            className="w-full max-w-[520px]"
+          >
+            <HeroSlider />
+          </motion.div>
+
+          {/* Floating delivery card (left side) */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, x: -20, y: 10 },
+              visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.7 } }
+            }}
+            className="absolute z-[6] top-[22%] -left-6 animate-ffa"
+          >
+            <div className="bg-white/96 backdrop-blur-[18px] border border-[rgba(45,43,107,.1)] rounded-2xl px-4 py-3 flex items-center gap-[11px] shadow-[0_10px_36px_rgba(15,14,42,.12)] text-dark">
+              <div className="w-[36px] h-[36px] rounded-[10px] flex-shrink-0 flex items-center justify-center text-[1rem] bg-pale border border-border">🚀</div>
               <div>
-                <div className="text-[.67rem] text-muted mb-[2px] font-medium">{lbl}</div>
-                <div className="font-heading text-[.94rem] font-extrabold leading-[1.2]">{val} <span className="text-[.63rem] text-[#10B981] font-bold">{hi}</span></div>
+                <div className="text-[.65rem] text-muted mb-[2px] font-medium">Delivery Speed</div>
+                <div className="font-heading text-[.92rem] font-extrabold leading-[1.2]">3× Faster <span className="text-[.62rem] text-[#10B981] font-bold">vs industry</span></div>
               </div>
             </div>
-          ))}
-        </div>
+          </motion.div>
+
+          {/* Floating retention card (left-lower) */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, x: -20, y: 10 },
+              visible: { opacity: 1, x: 0, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.85 } }
+            }}
+            className="absolute z-[6] bottom-[24%] -left-4 animate-ffb"
+          >
+            <div className="bg-white/96 backdrop-blur-[18px] border border-[rgba(45,43,107,.1)] rounded-2xl px-4 py-3 flex items-center gap-[11px] shadow-[0_10px_36px_rgba(15,14,42,.12)] text-dark">
+              <div className="w-[36px] h-[36px] rounded-[10px] flex-shrink-0 flex items-center justify-center text-[1rem] bg-pale border border-border">✅</div>
+              <div>
+                <div className="text-[.65rem] text-muted mb-[2px] font-medium">Client Retention</div>
+                <div className="font-heading text-[.92rem] font-extrabold leading-[1.2]">96% <span className="text-[.62rem] text-[#10B981] font-bold">satisfaction</span></div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
 
         {/* Scroll cue */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-[6px] z-[3] cursor-pointer"
           onClick={() => document.getElementById('logos')?.scrollIntoView({ behavior: 'smooth' })}
         >
           <span className="text-[.66rem] font-semibold text-light tracking-[.1em] uppercase">Scroll</span>
           <div className="w-[1.5px] h-9 bg-[linear-gradient(to_bottom,rgba(45,43,107,.3),transparent)] animate-scb" />
-        </div>
+        </motion.div>
       </section>
 
       {/* LOGOS */}
@@ -454,7 +743,8 @@ export default function Home() {
       </section>
 
       {/* TECH STACK */}
-      <section id="tech" className="bg-page py-24 px-[5%]">
+      <section id="tech" className="py-24 px-[5%] relative">
+        <div className="absolute inset-0 bg-page-dots pointer-events-none z-[-1]" />
         <div className="max-w-[1240px] mx-auto">
           <div className="text-center mb-[54px]">
             <div className="sr inline-flex items-center justify-center gap-[7px] text-[.7rem] font-extrabold tracking-[.14em] uppercase text-gold mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">Technology Stack</div>
@@ -481,7 +771,7 @@ export default function Home() {
           <h2 className="relative z-[1] font-heading text-[clamp(1.9rem,3.8vw,3.05rem)] font-black text-white mb-4 tracking-[-0.03em]">Have a Project in Mind?<br />Let's Build It Together.</h2>
           <p className="relative z-[1] text-[1rem] leading-[1.76] text-white/62 max-w-[520px] mx-auto mb-10">Share your requirements with us — big or small. We'll analyze your needs and come back with a detailed proposal, timeline, and transparent pricing. No strings attached.</p>
           <div className="relative z-[1] flex items-center justify-center gap-[14px] flex-wrap">
-            <Link to="/contact" className="px-[34px] py-[14px] rounded-xl text-[.92rem] font-bold text-dark bg-gg shadow-gold transition-all duration-[280ms] hover:-translate-y-[3px] hover:shadow-[0_16px_40px_rgba(201,168,76,.5)]">Start Your Project →</Link>
+            <Link to="/contact" className="px-[34px] py-[14px] rounded-xl text-[.92rem] font-bold text-white bg-mg shadow-brand transition-all duration-[280ms] hover:-translate-y-[3px] hover:shadow-[0_18px_42px_rgba(20,16,58,.42)]">Start Your Project →</Link>
             <Link to="/contact" className="px-8 py-[13px] rounded-xl text-[.92rem] font-semibold text-white border-[1.5px] border-white/28 bg-white/8 backdrop-blur-[8px] transition-all duration-[280ms] hover:bg-white/18 hover:border-white/55">Schedule a Call</Link>
           </div>
           <div className="relative z-[1] text-[.77rem] text-white/42 mt-[22px]">

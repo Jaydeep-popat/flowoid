@@ -17,7 +17,7 @@ export default function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
     els.forEach((el) => ro.observe(el));
     return () => ro.disconnect();

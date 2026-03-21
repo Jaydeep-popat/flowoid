@@ -85,9 +85,9 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
                            text-[.84rem] outline-none min-w-[240px] placeholder:text-white/30
                            transition-[border-color] duration-200 focus:border-[rgba(201,168,76,.4)]"
               />
-              <button className="relative overflow-hidden px-5 py-[10px] rounded-[10px] bg-gg text-dark
+              <button className="relative overflow-hidden px-5 py-[10px] rounded-[10px] bg-mg text-white
                                  text-[.84rem] font-bold transition-all duration-[250ms]
-                                 hover:-translate-y-[2px] hover:shadow-[0_8px_24px_rgba(201,168,76,.4)]
+                                 hover:-translate-y-[2px] hover:shadow-[0_10px_26px_rgba(20,16,58,.38)]
                                  before:content-[''] before:absolute before:inset-0
                                  before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)]
                                  before:pointer-events-none">
