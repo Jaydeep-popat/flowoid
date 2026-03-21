@@ -76,7 +76,7 @@ function TCard({ tf, title, q, init, name, role }: typeof testimonials1[0]) {
         <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center font-heading text-[.8rem] font-bold flex-shrink-0 ${tf ? 'bg-white/20 border-white/30 text-white' : 'bg-pale2 border-border text-b3'}`}>{init}</div>
         <div>
           <div className={`font-heading text-[.88rem] font-bold ${tf ? 'text-white/90' : 'text-dark'}`}>
-            {name}<span className="inline-block w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_6px_rgba(16,185,129,.5)] ml-[5px] align-middle animate-blink" />
+            {name}<span className="inline-block w-2 h-2 rounded-full bg-[#10B981] shad  ow-[0_0_6px_rgba(16,185,129,.5)] ml-[5px] align-middle animate-blink" />
           </div>
           <div className={`text-[.75rem] ${tf ? 'text-white/60' : 'text-muted'}`}>{role}</div>
         </div>
