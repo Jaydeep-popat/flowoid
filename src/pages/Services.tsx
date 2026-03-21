@@ -163,11 +163,11 @@ const techCats: TechCat[] = [
   { Icon: Cpu, label: 'AI / ML', chips: ['TensorFlow', 'PyTorch', 'OpenAI API', 'LangChain', 'Apache Spark'] },
 ];
 
-const pricing = [
-  { plan: 'Starter', price: '$4,999', sub: 'Best for MVPs & small business apps', feats: ['Up to 5 core features', 'Responsive web app', 'Basic cloud deployment', '30-day post-launch support'], noFeats: ['Custom integrations', 'Dedicated project manager'], btn: 'out', label: 'Get Started' },
-  { plan: 'Growth', price: '$14,999', sub: 'Best for scaling businesses', feats: ['Unlimited features & modules', 'Mobile app (iOS + Android)', 'Advanced cloud architecture', 'Custom API integrations', 'Dedicated project manager', '90-day post-launch support'], noFeats: [], btn: 'in', label: 'Get Started', pop: true },
-  { plan: 'Enterprise', price: 'Custom', sub: 'For large-scale enterprise projects', feats: ['Full digital transformation', 'Multi-platform delivery', 'Dedicated engineering team', 'Security & compliance', 'SLA-backed 24/7 support', 'Ongoing retainer available'], noFeats: [], btn: 'out', label: 'Talk to Sales' },
-];
+// const pricing = [
+//   { plan: 'Starter', price: '$4,999', sub: 'Best for MVPs & small business apps', feats: ['Up to 5 core features', 'Responsive web app', 'Basic cloud deployment', '30-day post-launch support'], noFeats: ['Custom integrations', 'Dedicated project manager'], btn: 'out', label: 'Get Started' },
+//   { plan: 'Growth', price: '$14,999', sub: 'Best for scaling businesses', feats: ['Unlimited features & modules', 'Mobile app (iOS + Android)', 'Advanced cloud architecture', 'Custom API integrations', 'Dedicated project manager', '90-day post-launch support'], noFeats: [], btn: 'in', label: 'Get Started', pop: true },
+//   { plan: 'Enterprise', price: 'Custom', sub: 'For large-scale enterprise projects', feats: ['Full digital transformation', 'Multi-platform delivery', 'Dedicated engineering team', 'Security & compliance', 'SLA-backed 24/7 support', 'Ongoing retainer available'], noFeats: [], btn: 'out', label: 'Talk to Sales' },
+// ];
 
 const faqs = [
   { q: 'How long does a typical project take?', a: 'Project timelines depend on complexity. An MVP typically takes 6–10 weeks. Mid-scale platforms take 3–5 months. Enterprise-grade systems can take 6–12 months. We provide a detailed timeline after the discovery phase.' },
