@@ -31,12 +31,12 @@ export default function Testimonials() {
       <Navbar />
 
       {/* PAGE HERO */}
-      <div className="relative min-h-[54vh] bg-white flex items-center px-[6%] pt-32 pb-20 mt-[106px] overflow-hidden"
+      <div className="relative min-h-[54vh] bg-white flex items-center px-[6%] pt-6 md:pt-20 pb-20 mt-[90px] md:mt-[106px] overflow-hidden"
         style={{ background:'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%)' }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage:'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)',backgroundSize:'36px 36px',maskImage:'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
         <div className="absolute right-[-100px] top-[-120px] w-[560px] h-[560px] rounded-full pointer-events-none" style={{ background:'radial-gradient(circle,rgba(45,43,107,.09),transparent 70%)',filter:'blur(55px)' }} />
         <div className="absolute rounded-full border border-[rgba(45,43,107,.05)] pointer-events-none" style={{ width:700,height:700,right:-220,top:-220 }} />
-        <div className="relative z-[2] max-w-[1240px] w-full">
+        <div className="relative z-[2] max-w-[1240px] w-full animate-hup">
           <div className="flex items-center gap-2 text-[.74rem] font-semibold text-muted tracking-[.08em] uppercase mb-[18px]">Home <span className="opacity-40">/</span> <span className="text-gold">Testimonials</span></div>
           <div className="inline-flex items-center gap-2 px-4 py-[5px] rounded-full bg-pale border-[1.5px] border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-gold tracking-[.1em] uppercase mb-[22px]">
             <span className="w-[7px] h-[7px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-pulse2" />

@@ -144,7 +144,7 @@ export default function Projects() {
 
       {/* ══ HERO ════════════════════════════════════════ */}
       <div
-        className="relative min-h-[52vh] flex items-center px-[6%] pt-20 pb-16 mt-[106px] overflow-hidden"
+        className="relative min-h-[52vh] flex items-center px-[6%] pt-6 md:pt-20 pb-16 mt-[90px] md:mt-[106px] overflow-hidden"
         style={{ background: 'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%)' }}
       >
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize: '36px 36px', maskImage: 'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
@@ -155,7 +155,7 @@ export default function Projects() {
           {/* 2-col layout */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-center">
             {/* Left — headline + copy */}
-            <div>
+            <div className="animate-hup">
               <div className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
                 Home <span className="opacity-40">/</span> <span className="text-gold">Projects</span>
               </div>
@@ -189,7 +189,7 @@ export default function Projects() {
             </div>
 
             {/* Right — highlights */}
-            <div className="flex flex-col gap-4 min-w-[240px]">
+            <div className="flex flex-col gap-4 min-w-[240px] animate-hup" style={{ animationDelay: '.15s' }}>
               {[
                 { icon: Zap,        title: 'Fast Delivery',   sub: 'Shipped on time, every time' },
                 { icon: Smartphone, title: 'Mobile-First',    sub: 'Looks great on any device'   },

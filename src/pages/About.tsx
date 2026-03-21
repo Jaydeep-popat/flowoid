@@ -15,7 +15,7 @@ interface PageHeroProps {
 }
 function PageHero({ crumb, badge, greenDot, h1, sub }: PageHeroProps) {
   return (
-    <div className="relative min-h-[54vh] bg-white flex items-center px-[6%] pt-32 pb-20 mt-[106px] overflow-hidden"
+    <div className="relative min-h-[54vh] bg-white flex items-center px-[6%] pt-6 md:pt-20 pb-20 mt-[90px] md:mt-[106px] overflow-hidden"
       style={{ background: 'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(201,168,76,.04),transparent 60%)' }}>
       {/* Dot grid */}
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize: '36px 36px', maskImage: 'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
@@ -26,7 +26,7 @@ function PageHero({ crumb, badge, greenDot, h1, sub }: PageHeroProps) {
       <div className="absolute rounded-full border border-[rgba(45,43,107,.05)] pointer-events-none" style={{ width: 700, height: 700, right: -220, top: -220 }} />
       <div className="absolute rounded-full border border-[rgba(201,168,76,.04)] pointer-events-none" style={{ width: 480, height: 480, right: -120, top: -120 }} />
 
-      <div className="relative z-[2] max-w-[1240px] w-full">
+      <div className="relative z-[2] max-w-[1240px] w-full animate-hup">
         <div className="flex items-center gap-2 text-[.74rem] font-semibold text-muted tracking-[.08em] uppercase mb-[18px]">
           Home <span className="opacity-40">/</span> <span className="text-gold">{crumb}</span>
         </div>

@@ -212,12 +212,12 @@ export default function Home() {
 
   return (
     <>
-      <Navbar variant="home" />
+      <Navbar />
 
       {/* HERO */}
       <section
         id="hero"
-        className="relative min-h-screen bg-white overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center px-[5%] gap-0"
+        className="relative min-h-screen bg-white overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center px-[5%] gap-0 mt-[90px] md:mt-[106px]"
         style={{ backgroundImage: 'radial-gradient(ellipse 70% 60% at 100% 0%,rgba(72,69,168,.06),transparent 60%),radial-gradient(ellipse 55% 50% at 0% 100%,rgba(45,43,107,.05),transparent 55%),radial-gradient(ellipse 50% 40% at 50% 50%,rgba(201,168,76,.04),transparent 55%)' }}
       >
         {/* Dot grid */}
@@ -232,7 +232,7 @@ export default function Home() {
         <BgCanvas />
 
         {/* Left */}
-        <div className="relative z-[2] pt-[126px] pb-[72px] animate-hup">
+        <div className="relative z-[2] pt-6 md:pt-24 pb-[72px] animate-hup">
           <div className="inline-flex items-center gap-2 px-[14px] py-[5px] pl-2 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.71rem] font-bold text-b3 tracking-[.1em] uppercase mb-[22px]">
             <span className="w-[6px] h-[6px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-blink" />
             IT Startup · Est. 2020 · India

@@ -61,7 +61,7 @@ export default function Contact() {
 
       {/* ══ HERO ════════════════════════════════════════ */}
       <div
-        className="relative min-h-[52vh] flex items-center px-[6%] pt-20 pb-16 mt-[106px] overflow-hidden bg-white"
+        className="relative min-h-[52vh] flex items-center px-[6%] pt-6 md:pt-20 pb-16 mt-[90px] md:mt-[106px] overflow-hidden bg-white"
         style={{ background: 'radial-gradient(ellipse 70% 60% at 90% 10%,rgba(45,43,107,.09),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 90%,rgba(15,14,42,.06),transparent 55%)' }}
       >
         {/* Dot grid */}
@@ -71,7 +71,7 @@ export default function Contact() {
 
         <div className="relative z-[2] max-w-[1240px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left — headline */}
-          <div className="sr-l">
+          <div className="animate-hup">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
               Home <span className="opacity-35">/</span> <span className="text-gold">Contact</span>
@@ -91,7 +91,7 @@ export default function Contact() {
           </div>
 
           {/* Right — contact highlights */}
-          <div className="sr-r grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="animate-hup grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ animationDelay: '.15s' }}>
             {[
               { icon: Mail, lbl: 'Email Us', val: 'contact@flowoid.tech' },
               { icon: Phone, lbl: 'Call Us', val: '+91 99248 55931' },

@@ -189,7 +189,7 @@ function PageHero() {
 
   return (
     <div
-      className="relative min-h-[52vh] flex items-center px-[6%] pt-20 pb-16 mt-[106px] overflow-hidden"
+      className="relative min-h-[52vh] flex items-center px-[6%] pt-6 md:pt-20 pb-16 mt-[90px] md:mt-[106px] overflow-hidden"
       style={{ background: 'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(201,168,76,.04),transparent 60%)' }}
     >
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize: '36px 36px', maskImage: 'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
@@ -201,7 +201,7 @@ function PageHero() {
       <div className="relative z-[2] max-w-[1240px] w-full mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-center">
           {/* Left — headline + copy */}
-          <div>
+          <div className="animate-hup">
             <div className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
               Home <span className="opacity-40">/</span> <span className="text-gold">Services</span>
             </div>
@@ -236,7 +236,7 @@ function PageHero() {
           </div>
 
           {/* Right — service highlight boxes */}
-          <div className="flex flex-col gap-4 min-w-[260px]">
+          <div className="flex flex-col gap-4 min-w-[260px] animate-hup" style={{ animationDelay: '.15s' }}>
             {heroHighlights.map(({ Icon, title, sub }, i) => (
               <div key={i} className="group flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm
                                      transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:bg-white hover:border-b4">
