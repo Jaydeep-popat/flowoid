@@ -232,7 +232,7 @@ export default function Home() {
         <BgCanvas />
 
         {/* Left */}
-        <div className="relative z-[2] pt-[110px] pb-[72px] animate-hup">
+        <div className="relative z-[2] pt-[126px] pb-[72px] animate-hup">
           <div className="inline-flex items-center gap-2 px-[14px] py-[5px] pl-2 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.71rem] font-bold text-b3 tracking-[.1em] uppercase mb-[22px]">
             <span className="w-[6px] h-[6px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-blink" />
             IT Startup · Est. 2020 · India

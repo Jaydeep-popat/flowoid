@@ -14,7 +14,7 @@ interface PageHeroProps {
 }
 function PageHero({ crumb, badge, greenDot, h1, sub }: PageHeroProps) {
   return (
-    <div className="relative min-h-[54vh] bg-white flex items-center px-[6%] pt-32 pb-20 mt-[68px] overflow-hidden"
+    <div className="relative min-h-[54vh] bg-white flex items-center px-[6%] pt-32 pb-20 mt-[106px] overflow-hidden"
       style={{ background: 'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(201,168,76,.04),transparent 60%)' }}>
       {/* Dot grid */}
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage:'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize:'36px 36px', maskImage:'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
