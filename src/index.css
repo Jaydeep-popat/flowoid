@@ -1,1 +1,51 @@
-/* Styles are now in src/styles/ — this file is intentionally empty */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #fff;
+    color: #2E2C5E;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+  button { cursor: pointer; border: none; outline: none; font-family: inherit; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #f0f0fa; }
+  ::-webkit-scrollbar-thumb { background: #4845A8; border-radius: 5px; }
+}
+
+@layer utilities {
+  /* Scroll reveal — toggled by the useScrollReveal hook via .vis class */
+  .sr   { opacity: 0; transform: translateY(30px);  transition: opacity .72s cubic-bezier(.4,0,.2,1), transform .72s cubic-bezier(.4,0,.2,1); }
+  .sr-l { opacity: 0; transform: translateX(-32px); transition: opacity .7s ease, transform .7s ease; }
+  .sr-r { opacity: 0; transform: translateX(32px);  transition: opacity .7s ease, transform .7s ease; }
+  .sr-s { opacity: 0; transform: scale(.92);        transition: opacity .65s ease, transform .65s cubic-bezier(.34,1.56,.64,1); }
+  .sr.vis, .sr-l.vis, .sr-r.vis, .sr-s.vis { opacity: 1; transform: none; }
+  .d1 { transition-delay: .08s; }
+  .d2 { transition-delay: .16s; }
+  .d3 { transition-delay: .24s; }
+  .d4 { transition-delay: .32s; }
+  .d5 { transition-delay: .40s; }
+  .d6 { transition-delay: .58s; }
+
+  /* Gradient text helper — used on heading spans */
+  .grad-text {
+    background: linear-gradient(135deg,#C9A84C 0%,#E8C96A 50%,#F5DFA0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gradient backgrounds used as inline-block shapes / pseudo-element replacements */
+  .bg-gm { background: linear-gradient(135deg,#0F0E2A 0%,#1A1845 40%,#2D2B6B 100%); }
+  .bg-gg { background: linear-gradient(135deg,#C9A84C 0%,#E8C96A 50%,#F5DFA0 100%); }
+}
+

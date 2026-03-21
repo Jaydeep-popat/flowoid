@@ -6,7 +6,6 @@ import Services from './pages/Services';
 import Projects from './pages/Projects';
 import Testimonials from './pages/Testimonials';
 import Contact from './pages/Contact';
-import './styles/global.css';
 
 // Scroll to top on every route change
 function ScrollToTop() {
