@@ -47,5 +47,9 @@
   /* Gradient backgrounds used as inline-block shapes / pseudo-element replacements */
   .bg-gm { background: linear-gradient(135deg,#0F0E2A 0%,#1A1845 40%,#2D2B6B 100%); }
   .bg-gg { background: linear-gradient(135deg,#C9A84C 0%,#E8C96A 50%,#F5DFA0 100%); }
+
+  /* Hide scrollbar but keep scrollable (service nav) */
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 

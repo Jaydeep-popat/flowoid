@@ -93,10 +93,10 @@ export default function Contact() {
           {/* Right — contact highlights */}
           <div className="sr-r grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              { icon: Mail,     lbl: 'Email Us',        val: 'popatjaydeep21@gmail.com' },
-              { icon: Phone,    lbl: 'Call Us',          val: '+91 99248 55931' },
-              { icon: MapPin,   lbl: 'Location',         val: 'Ahmedabad, Gujarat, India' },
-              { icon: Clock,    lbl: 'Working Hours',    val: '7 Days a Week, 9am – 9pm IST' },
+              { icon: Mail, lbl: 'Email Us', val: 'contact@flowoid.tech' },
+              { icon: Phone, lbl: 'Call Us', val: '+91 99248 55931' },
+              { icon: MapPin, lbl: 'Location', val: 'Ahmedabad, Gujarat, India' },
+              { icon: Clock, lbl: 'Working Hours', val: '7 Days a Week, 9am – 9pm IST' },
             ].map(({ icon: Icon, lbl, val }, i) => (
               <div key={i} className="flex items-start gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm hover:shadow-md hover:border-b4 transition-all duration-200">
                 <div className="w-9 h-9 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4">
@@ -130,13 +130,13 @@ export default function Contact() {
             {/* Contact cards */}
             <div className="flex flex-col gap-3">
               {[
-                { icon: Phone,  lbl: 'Call Us',         val: '+91 99248 55931',           href: 'tel:+919924855931' },
-                { icon: Mail,   lbl: 'Email Us',         val: 'popatjaydeep21@gmail.com',  href: 'mailto:popatjaydeep21@gmail.com' },
-                { icon: MapPin, lbl: 'Our Location',     val: 'Ahmedabad, Gujarat, India',  href: '#' },
-                { icon: Clock,  lbl: 'Working Hours',    val: '7 Days a Week, 9am–9pm IST', href: '#' },
+                { icon: Phone, lbl: 'Call Us', val: '+91 99248 55931', href: 'tel:+919924855931' },
+                { icon: Mail, lbl: 'Email Us', val: ' contact@flowoid.tech', href: 'mailto:contact@flowoid.tech' },
+                { icon: MapPin, lbl: 'Our Location', val: 'Ahmedabad, Gujarat, India', href: '#' },
+                { icon: Clock, lbl: 'Working Hours', val: '7 Days a Week, 9am–9pm IST', href: '#' },
               ].map(({ icon: Icon, lbl, val, href }, i) => (
                 <a key={i} href={href}
-                   className="group flex items-center gap-3 p-4 bg-white rounded-2xl border border-border
+                  className="group flex items-center gap-3 p-4 bg-white rounded-2xl border border-border
                               transition-all duration-200 hover:border-b4 hover:shadow-md">
                   <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0
                                   text-b4 group-hover:bg-gm group-hover:border-transparent group-hover:text-white transition-all duration-200">
@@ -275,7 +275,7 @@ export default function Contact() {
             {/* CTA */}
             <div className="flex-shrink-0">
               <a href="mailto:popatjaydeep21@gmail.com"
-                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[.88rem] font-bold text-dark bg-gg
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[.88rem] font-bold text-dark bg-gg
                             shadow-[0_6px_22px_rgba(201,168,76,.38)] relative overflow-hidden transition-all duration-[280ms]
                             hover:-translate-y-[2px] hover:shadow-[0_12px_32px_rgba(201,168,76,.52)]
                             before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none">
@@ -301,7 +301,7 @@ export default function Contact() {
             </p>
             <div className="flex items-center justify-center gap-3 flex-wrap">
               <a href="mailto:popatjaydeep21@gmail.com"
-                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-[.9rem] font-bold text-dark bg-gg
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-[.9rem] font-bold text-dark bg-gg
                             shadow-[0_8px_28px_rgba(201,168,76,.38)] relative overflow-hidden transition-all duration-[280ms]
                             hover:-translate-y-[3px] hover:shadow-[0_14px_38px_rgba(201,168,76,.55)]
                             before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none">
@@ -309,7 +309,7 @@ export default function Contact() {
                 <span className="relative z-[1]">Email Us Directly</span>
               </a>
               <Link to="/projects"
-                    className="inline-flex items-center gap-2 px-7 py-[13px] rounded-full text-[.9rem] font-semibold
+                className="inline-flex items-center gap-2 px-7 py-[13px] rounded-full text-[.9rem] font-semibold
                                text-white border border-white/25 bg-white/8 transition-all duration-[280ms]
                                hover:bg-white/18 hover:border-white/50">
                 See Our Work <ArrowRight size={15} />
