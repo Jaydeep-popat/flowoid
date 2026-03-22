@@ -206,7 +206,7 @@ export default function Contact() {
               {
                 icon: MapPin,
                 lbl: "Location",
-                val: "Ahmedabad, Gujarat , India",
+                val: "Rajkot, Gujarat , India",
               },
               {
                 icon: Clock,
@@ -279,7 +279,7 @@ export default function Contact() {
                 {
                   icon: MapPin,
                   lbl: "Our Location",
-                  val: "Ahmedabad, Gujarat, India",
+                  val: "Rajkot, Gujarat, India",
                   href: "#",
                 },
                 {

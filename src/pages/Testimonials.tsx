@@ -116,7 +116,7 @@ export default function Testimonials() {
           </motion.div>
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-[5px] rounded-full bg-pale border-[1.5px] border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-gold tracking-[.1em] uppercase mb-[22px]">
             <span className="w-[7px] h-[7px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-pulse2" />
-            5+ Happy Clients
+            10+ Happy Clients
           </motion.div>
           <h1 className="font-heading font-black text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.07] tracking-[-0.032em] text-dark mb-[18px]">
             <span className="block overflow-hidden">
@@ -139,7 +139,7 @@ export default function Testimonials() {
       {/* STATS BAND */}
       <div className="bg-gm px-[5%] py-14 relative overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(201,168,76,.12),transparent_50%)] before:pointer-events-none">
         <div className="max-w-[1240px] mx-auto grid grid-cols-2 lg:grid-cols-4 relative z-[1]">
-          <StatCounter end={5} suffix="+" label="Happy Clients" delay={0} />
+          <StatCounter end={10} suffix="+" label="Happy Clients" delay={0} />
           <StatCounter end={100} suffix="%" label="Satisfaction Rate" delay={0.1} />
           <StatCounter end={5} suffix="/5" label="Average Rating" delay={0.2} />
           <StatCounter end={100} suffix="%" label="Client Retention" delay={0.3} />

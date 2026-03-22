@@ -7,7 +7,7 @@ const heroSlides = [
   {
     src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=900&h=680&fit=crop',
     peek: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=500&fit=crop',
-    tag: 'Dev Teams', label: 'Collaborative Engineering', stat: { v: '50+', l: 'Projects Shipped' },
+    tag: 'Dev Teams', label: 'Collaborative Engineering', stat: { v: '10+', l: 'Projects Shipped' },
     shape: 'polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px))',
     peekShape: 'polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%)',
     accent: '#4845A8',
@@ -224,7 +224,7 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1 } } }} className="flex items-center gap-[14px] mt-10">
+        {/* <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1 } } }} className="flex items-center gap-[14px] mt-10">
           <div className="flex">
             {clientAvatars.map((src, i) => (
               <motion.div key={i} variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0, transition: { delay: i * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] } } }}
@@ -236,7 +236,7 @@ export default function HeroSection() {
           <motion.div variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0, transition: { delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }} className="text-[.79rem] text-muted leading-[1.55]">
             <strong className="text-dark">Trusted by startups & businesses</strong><br />across India and beyond
           </motion.div>
-        </motion.div>
+        </motion.div> */}
       </motion.div>
 
       {/* Right — slider */}
@@ -265,12 +265,12 @@ export default function HeroSection() {
       </motion.div>
 
       {/* Scroll cue */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      {/* <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-[6px] z-[3] cursor-pointer"
         onClick={() => document.getElementById('logos')?.scrollIntoView({ behavior: 'smooth' })}>
         <span className="text-[.66rem] font-semibold text-light tracking-[.1em] uppercase">Scroll</span>
         <div className="w-[1.5px] h-9 bg-[linear-gradient(to_bottom,rgba(45,43,107,.3),transparent)] animate-scb" />
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 }

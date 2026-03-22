@@ -275,14 +275,14 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
 
           {/* Right actions */}
           <motion.div variants={itemVars} className="flex items-center gap-2 flex-shrink-0">
-            <Link
+            {/* <Link
               to="/contact"
               className="hidden md:inline-block px-4 py-2 rounded-xl text-[.84rem] font-semibold
                          text-b4 border-[1.5px] border-[rgba(196,149,42,.55)] bg-transparent
                          transition-all duration-[250ms] hover:bg-[rgba(196,149,42,.08)] hover:border-[#C4952A]"
             >
               Get a Quote
-            </Link>
+            </Link> */}
             <Link
               to="/contact"
               className="hidden md:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl

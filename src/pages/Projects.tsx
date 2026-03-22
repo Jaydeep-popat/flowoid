@@ -177,7 +177,7 @@ export default function Projects() {
                 From solar energy providers to interior design studios and trading companies — we've helped businesses across industries establish a powerful online presence.
               </p>
               <motion.div variants={container} className="flex flex-wrap gap-4">
-                {[{ n: '3+', l: 'Live Projects' }, { n: '100%', l: 'Client Satisfaction' }, { n: '24/7', l: 'Support' }].map(({ n, l }, i) => (
+                {[{ n: '10+', l: 'Live Projects' }, { n: '100%', l: 'Client Satisfaction' }, { n: '24/7', l: 'Support' }].map(({ n, l }, i) => (
                   <motion.div
                     key={i}
                     variants={scaleIn}

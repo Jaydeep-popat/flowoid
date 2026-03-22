@@ -5,22 +5,22 @@ interface FooterProps {
   variant?: 'home' | 'inner';
 }
 
-const socialLinks = [
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Youtube, href: '#', label: 'YouTube' },
-];
+// const socialLinks = [
+//   { icon: Linkedin, href: '#', label: 'LinkedIn' },
+//   { icon: Twitter, href: '#', label: 'Twitter' },
+//   { icon: Facebook, href: '#', label: 'Facebook' },
+//   { icon: Youtube, href: '#', label: 'YouTube' },
+// ];
 
 const navCols = [
   {
     h: 'Services',
     links: [
-      { label: 'Custom Software', to: '/services' },
-      { label: 'Cloud & Infrastructure', to: '/services' },
-      { label: 'Cybersecurity', to: '/services' },
-      { label: 'Data & Analytics', to: '/services' },
-      { label: 'IT Consulting', to: '/services' },
+      { label: 'Custom Software Development', to: '/services' },
+      { label: 'Custom AI Chatbot Development', to: '/services' },
+      { label: 'Web Applications', to: '/services' },
+      { label: 'Mobile Applications', to: '/services' },
+      { label: 'Cloud Solutions', to: '/services' },
     ],
   },
   {
@@ -41,7 +41,8 @@ function BottomBar() {
   return (
     <div className="border-t border-white/8 py-5 flex items-center justify-between flex-wrap gap-3">
       <span className="text-[.76rem] text-white/35">
-        © {new Date().getFullYear()} Flowoid IT Solutions Pvt. Ltd. All rights reserved.
+        {/* © {new Date().getFullYear()} Flowoid IT Solutions Pvt. Ltd. All rights reserved. */}
+        © Flowoid Technologies. All rights reserved.
       </span>
       <div className="flex gap-5">
         {['Privacy Policy', 'Terms of Service', 'Cookies'].map(l => (
@@ -107,12 +108,12 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
                   <span className="w-8 h-8 rounded-[8px] bg-white/6 border border-white/10 flex items-center justify-center flex-shrink-0 text-white/40">
                     <MapPin size={15} strokeWidth={1.8} />
                   </span>
-                  <span>Ahmedabad, Gujarat, India</span>
+                  <span>Rajkot, Gujarat, India</span>
                 </div>
               </div>
 
               {/* Social */}
-              <div className="flex gap-2">
+              {/* <div className="flex gap-2">
                 {socialLinks.map(s => (
                   <a key={s.label} href={s.href} aria-label={s.label}
                     className="w-9 h-9 rounded-[9px] border border-white/10 bg-white/5 flex items-center justify-center
@@ -121,7 +122,7 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
                     <s.icon size={16} strokeWidth={1.8} />
                   </a>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* Nav columns */}
@@ -205,7 +206,7 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
             </div>
 
             {/* Social */}
-            <div className="flex gap-2">
+            {/* <div className="flex gap-2">
               {socialLinks.map(s => (
                 <a key={s.label} href={s.href} aria-label={s.label}
                   className="w-9 h-9 rounded-[9px] border border-white/10 bg-white/5 flex items-center justify-center
@@ -214,7 +215,7 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
                   <s.icon size={16} strokeWidth={1.8} />
                 </a>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Nav columns */}

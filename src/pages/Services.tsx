@@ -233,7 +233,7 @@ function PageHero() {
             </motion.p>
             <motion.div variants={container} className="flex flex-wrap gap-4">
               {[
-                { Icon: Layers, n: '5+', l: 'Projects Delivered' },
+                { Icon: Layers, n: '10+', l: 'Projects Delivered' },
                 { Icon: Sparkles, n: '100%', l: 'Client Satisfaction' },
                 { Icon: Lightbulb, n: '24/7', l: 'Support' },
               ].map(({ Icon, n, l }, i) => (
