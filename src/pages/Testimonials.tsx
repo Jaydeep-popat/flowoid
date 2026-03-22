@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { Star, CheckCircle, Users, Heart } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BackToTop from '../components/BackToTop';
@@ -15,6 +16,10 @@ const fadeUp = {
 const container = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+};
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.88 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.75, ease } },
 };
 
 const allTestimonials = [
@@ -98,42 +103,86 @@ export default function Testimonials() {
 
       {/* PAGE HERO */}
       <div
-        className="relative min-h-[54vh] bg-white flex items-center px-[5%] pt-3 md:pt-12 pb-20 mt-[80px] md:mt-[86px] overflow-hidden"
-        style={{ background: 'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%)' }}
+        className="relative min-h-[52vh] bg-page-dots flex items-center px-[5%] pt-3 md:pt-12 pb-16 mt-[80px] md:mt-[86px] overflow-hidden"
       >
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize: '36px 36px', maskImage: 'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
         <div className="absolute right-[-100px] top-[-120px] w-[560px] h-[560px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.09),transparent 70%)', filter: 'blur(55px)' }} />
         <div className="absolute rounded-full border border-[rgba(45,43,107,.05)] pointer-events-none animate-spinSlow" style={{ width: 700, height: 700, right: -220, top: -220 }} />
 
-        <motion.div
-          className="relative z-[2] max-w-[1240px] w-full"
-          initial="hidden"
-          animate="visible"
-          variants={container}
-        >
-          <motion.div variants={fadeUp} className="flex items-center gap-2 text-[.74rem] font-semibold text-muted tracking-[.08em] uppercase mb-[18px]">
-            Home <span className="opacity-40">/</span> <span className="text-gold">Testimonials</span>
-          </motion.div>
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-[5px] rounded-full bg-pale border-[1.5px] border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-gold tracking-[.1em] uppercase mb-[22px]">
-            <span className="w-[7px] h-[7px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-pulse2" />
-            10+ Happy Clients
-          </motion.div>
-          <h1 className="font-heading font-black text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.07] tracking-[-0.032em] text-dark mb-[18px]">
-            <span className="block overflow-hidden">
-              <motion.span className="block" variants={{ hidden: { y: '110%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.85, ease } } }}>
-                What Our Clients
-              </motion.span>
-            </span>
-            <span className="block overflow-hidden">
-              <motion.span className="block grad-text" variants={{ hidden: { y: '110%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.85, ease, delay: 0.08 } } }}>
-                Actually Say
-              </motion.span>
-            </span>
-          </h1>
-          <motion.p variants={fadeUp} className="text-[1.05rem] leading-[1.82] text-body max-w-[580px]">
-            Don't take our word for it — hear from the companies and leaders who've trusted Flowoid to power their digital transformation.
-          </motion.p>
-        </motion.div>
+        <div className="relative z-[2] max-w-[1240px] w-full mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 xl:gap-24 items-center">
+            {/* Left */}
+            <motion.div initial="hidden" animate="visible" variants={container}>
+              <motion.div variants={fadeUp} className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
+                Home <span className="opacity-40">/</span> <span className="text-gold">Testimonials</span>
+              </motion.div>
+              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-b3 tracking-[.1em] uppercase mb-5">
+                <span className="w-[7px] h-[7px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-pulse2" />
+                10+ Happy Clients
+              </motion.div>
+              <h1 className="font-heading font-black text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.07] tracking-[-0.032em] text-dark mb-5">
+                <span className="block overflow-hidden">
+                  <motion.span className="block" variants={{ hidden: { y: '110%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.85, ease } } }}>
+                    What Our Clients
+                  </motion.span>
+                </span>
+                <span className="block overflow-hidden">
+                  <motion.span className="block grad-text" variants={{ hidden: { y: '110%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.85, ease, delay: 0.08 } } }}>
+                    Actually Say
+                  </motion.span>
+                </span>
+              </h1>
+              <motion.p variants={fadeUp} className="text-[1rem] leading-[1.82] text-body max-w-[520px] mb-4">
+                Don't take our word for it — hear from the companies and leaders who've trusted Flowoid to power their digital transformation.
+              </motion.p>
+              <motion.p variants={fadeUp} className="text-[.9rem] leading-[1.75] text-muted max-w-[500px] mb-8">
+                Real clients, real outcomes, real feedback — unfiltered and honest.
+              </motion.p>
+              <motion.div variants={container} className="flex flex-wrap gap-4">
+                {[
+                  { n: '10+', l: 'Happy Clients' },
+                  { n: '5/5', l: 'Average Rating' },
+                  { n: '100%', l: 'Client Retention' },
+                ].map(({ n, l }, i) => (
+                  <motion.div
+                    key={i}
+                    variants={scaleIn}
+                    whileHover={{ y: -4, scale: 1.03, transition: { duration: 0.2 } }}
+                    className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border shadow-sm hover:shadow-lg hover:border-b4 cursor-pointer transition-[border,box-shadow] duration-200"
+                  >
+                    <span className="font-heading text-[1.15rem] font-black text-dark">{n}</span>
+                    <span className="text-[.8rem] text-muted font-semibold">{l}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* Right — highlight boxes */}
+            <motion.div className="flex flex-col gap-4 min-w-[260px]" initial="hidden" animate="visible" variants={container} style={{ transition: 'none' }}>
+              {[
+                { icon: Star, title: 'Verified Reviews', sub: 'All feedback is authentic' },
+                { icon: CheckCircle, title: '100% Satisfaction', sub: 'Every client, every time' },
+                { icon: Users, title: 'Real Clients', sub: 'Businesses across industries' },
+                { icon: Heart, title: 'Honest Feedback', sub: 'Unfiltered client stories' },
+              ].map(({ icon: Icon, title, sub }, i) => (
+                <motion.div
+                  key={i}
+                  variants={{ hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease, delay: 0.2 + i * 0.08 } } }}
+                  whileHover={{ x: -4, transition: { duration: 0.2 } }}
+                  className="group flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm hover:shadow-lg hover:bg-white hover:border-b4 transition-[border,box-shadow,background] duration-200"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4 transition-all duration-300 group-hover:bg-gm group-hover:border-transparent group-hover:text-white group-hover:scale-110">
+                    <Icon size={18} strokeWidth={1.8} />
+                  </div>
+                  <div>
+                    <div className="text-[.82rem] font-bold text-dark">{title}</div>
+                    <div className="text-[.73rem] text-muted">{sub}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
       </div>
 
       {/* STATS BAND */}

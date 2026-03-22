@@ -32,6 +32,7 @@ const fadeRight = {
   hidden: { opacity: 0, x: 40 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } },
 };
+
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.88 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.75, ease } },
@@ -115,11 +116,7 @@ export default function Contact() {
 
       {/* ══ HERO ══ */}
       <div
-        className="relative min-h-[52vh] flex items-center px-[5%] pt-3 md:pt-12 pb-16 mt-[80px] md:mt-[86px] overflow-hidden bg-white"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 60% at 90% 10%,rgba(45,43,107,.09),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 90%,rgba(15,14,42,.06),transparent 55%)",
-        }}
+        className="relative min-h-[52vh] bg-page-dots flex items-center px-[5%] pt-3 md:pt-12 pb-16 mt-[80px] md:mt-[86px] overflow-hidden"
       >
         <div
           className="absolute inset-0 pointer-events-none"
@@ -140,14 +137,10 @@ export default function Contact() {
           }}
         />
 
-        <motion.div
-          className="relative z-[2] max-w-[1240px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-          initial="hidden"
-          animate="visible"
-          variants={container}
-        >
-          {/* Left */}
-          <motion.div variants={fadeLeft}>
+        <div className="relative z-[2] max-w-[1240px] w-full mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 xl:gap-24 items-center">
+            {/* Left */}
+            <motion.div initial="hidden" animate="visible" variants={container}>
             <div className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
               Home <span className="opacity-35">/</span>{" "}
               <span className="text-gold">Contact</span>
@@ -196,48 +189,32 @@ export default function Contact() {
           </motion.div>
 
           {/* Right */}
-          <motion.div
-            variants={fadeRight}
-            className="grid grid-cols-2 gap-4 max-[640px]:grid-cols-1"
-          >
+          <motion.div className="flex flex-col gap-4 min-w-[260px]" initial="hidden" animate="visible" variants={container} style={{ transition: 'none' }}>
             {[
-              { icon: Mail, lbl: "Email Us", val: "contact@flowoid.tech" },
-              { icon: Phone, lbl: "Call Us", val: "+91 99248 55931" },
-              {
-                icon: MapPin,
-                lbl: "Location",
-                val: "Rajkot, Gujarat , India",
-              },
-              {
-                icon: Clock,
-                lbl: "Working Hours",
-                val: "7 Days a Week, 9am – 9pm IST",
-              },
-            ].map(({ icon: Icon, lbl, val }, i) => (
+              { icon: Mail, title: "Email Us", sub: "contact@flowoid.tech" },
+              { icon: Phone, title: "Call Us", sub: "+91 99248 55931" },
+              { icon: MapPin, title: "Location", sub: "Rajkot, Gujarat, India" },
+              { icon: Clock, title: "Working Hours", sub: "7 Days a Week, 9am - 9pm" },
+            ].map(({ icon: Icon, title, sub }, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.65, ease, delay: 0.3 + i * 0.08 }}
-                whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.25 } }}
-                className="group flex items-center gap-4 p-5 w-full bg-white/90 rounded-2xl border border-border shadow-sm hover:shadow-lg hover:border-b4 transition-[border,box-shadow] duration-200"
+                variants={{ hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease, delay: 0.2 + i * 0.08 } } }}
+                whileHover={{ x: -4, transition: { duration: 0.2 } }}
+                className="group flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm hover:shadow-lg hover:bg-white hover:border-b4 transition-[border,box-shadow,background] duration-200"
               >
-                <div className="w-12 h-12 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4 transition-all duration-200 group-hover:bg-gm group-hover:border-transparent group-hover:text-white group-hover:scale-110">
-                  <Icon size={20} strokeWidth={1.8} />
+                <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4 transition-all duration-300 group-hover:bg-gm group-hover:border-transparent group-hover:text-white group-hover:scale-110">
+                  <Icon size={18} strokeWidth={1.8} />
                 </div>
-                <div className="flex flex-col gap-1">
-                  <div className="text-[.75rem] font-bold text-muted tracking-[.05em] uppercase">
-                    {lbl}
-                  </div>
-                  <div className="text-[.88rem] font-medium text-dark leading-[1.45]">
-                    {val}
-                  </div>
+                <div>
+                  <div className="text-[.82rem] font-bold text-dark">{title}</div>
+                  <div className="text-[.73rem] text-muted">{sub}</div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
+    </div>
 
       {/* ══ CONTACT MAIN ══ */}
       <section className="bg-page py-20 px-[5%]">

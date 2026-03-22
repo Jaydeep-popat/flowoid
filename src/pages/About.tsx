@@ -32,10 +32,16 @@ function useSectionRef() {
 
 /* ─── HERO ─────────────────────────── */
 function PageHero() {
+  const heroHighlights = [
+    { icon: Shield, title: 'Security First', sub: 'Built-in from day one' },
+    { icon: Zap, title: 'Agile Delivery', sub: 'Fast sprints, no surprises' },
+    { icon: Users, title: 'Long-Term Partner', sub: 'We grow with you' },
+    { icon: Lightbulb, title: 'Modern Stack', sub: 'Cutting-edge tech always' },
+  ];
+
   return (
     <div
-      className="relative min-h-[54vh] bg-white flex items-center px-[5%] pt-3 md:pt-12 pb-20 mt-[80px] md:mt-[86px] overflow-hidden"
-      style={{ background: 'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(201,168,76,.04),transparent 60%)' }}
+      className="relative min-h-[52vh] bg-page-dots flex items-center px-[5%] pt-3 md:pt-12 pb-16 mt-[80px] md:mt-[86px] overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize: '36px 36px', maskImage: 'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
       <div className="absolute right-[-100px] top-[-120px] w-[560px] h-[560px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.09),transparent 70%)', filter: 'blur(55px)' }} />
@@ -43,55 +49,81 @@ function PageHero() {
       <div className="absolute rounded-full border border-[rgba(45,43,107,.05)] pointer-events-none animate-spinSlow" style={{ width: 700, height: 700, right: -220, top: -220 }} />
       <div className="absolute rounded-full border border-[rgba(201,168,76,.04)] pointer-events-none" style={{ width: 480, height: 480, right: -120, top: -120 }} />
 
-      <motion.div
-        className="relative z-[2] max-w-[1240px] w-full"
-        initial="hidden"
-        animate="visible"
-        variants={container}
-      >
-        <motion.div variants={fadeUp} className="flex items-center gap-2 text-[.74rem] font-semibold text-muted tracking-[.08em] uppercase mb-[18px]">
-          Home <span className="opacity-40">/</span> <span className="text-gold">About Us</span>
-        </motion.div>
-        <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-[5px] rounded-full bg-pale border-[1.5px] border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-gold tracking-[.1em] uppercase mb-[22px]">
-          <span className="w-[7px] h-[7px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-pulse2" />
-          Our Story
-        </motion.div>
-        <h1 className="font-heading font-black text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.07] tracking-[-0.032em] text-dark mb-[18px]">
-          <span className="block overflow-hidden">
-            <motion.span
-              className="block"
-              variants={{ hidden: { y: '110%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.85, ease } } }}
-            >
-              Built on <span className="grad-text">Trust,</span>
-            </motion.span>
-          </span>
-          <span className="block overflow-hidden">
-            <motion.span
-              className="block"
-              variants={{ hidden: { y: '110%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.85, ease, delay: 0.08 } } }}
-            >
-              Driven by Innovation
-            </motion.span>
-          </span>
-        </h1>
-        <motion.p variants={fadeUp} className="text-[1.05rem] leading-[1.82] text-body max-w-[580px] mb-8">We're a young, sharp team of developers and designers passionate about building real software that solves real problems — with clean code, modern tools, and honest craftsmanship.</motion.p>
-        <motion.div variants={container} className="flex flex-wrap gap-4 mb-10">
-          {['⚡ Modern Tech Stack', '🛡️ Secure & Reliable', '✓ Client-First Approach'].map((item, i) => (
-            <motion.div key={i} variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/60 border border-[rgba(45,43,107,.15)] shadow-sm hover:shadow-md hover:bg-white transition-all duration-200">
-              <span className="text-[.82rem] font-medium text-dark">{item}</span>
+      <div className="relative z-[2] max-w-[1240px] w-full mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 xl:gap-24 items-center">
+          {/* Left */}
+          <motion.div initial="hidden" animate="visible" variants={container}>
+            <motion.div variants={fadeUp} className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
+              Home <span className="opacity-40">/</span> <span className="text-gold">About Us</span>
             </motion.div>
-          ))}
-        </motion.div>
-        <motion.div variants={fadeUp} className="flex items-center gap-3 flex-wrap">
-          <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[.9rem] font-bold text-white bg-mg shadow-[0_6px_18px_rgba(20,16,58,.26)] relative overflow-hidden transition-all duration-[260ms] hover:-translate-y-[2px] hover:shadow-[0_10px_26px_rgba(20,16,58,.38)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.2),transparent_55%)] before:pointer-events-none">
-            <span className="relative z-[1]">Get Started</span>
-            <ArrowRight size={15} className="relative z-[1]" strokeWidth={2.2} />
-          </Link>
-          <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[.9rem] font-semibold text-b4 border-[1.5px] border-[rgba(45,43,107,.2)] bg-white/40 hover:bg-white transition-all duration-200">
-            Learn More
-          </button>
-        </motion.div>
-      </motion.div>
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-b3 tracking-[.1em] uppercase mb-5">
+              <span className="w-[7px] h-[7px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-pulse2" />
+              Our Story
+            </motion.div>
+            <h1 className="font-heading font-black text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.07] tracking-[-0.032em] text-dark mb-5">
+              <span className="block overflow-hidden">
+                <motion.span
+                  className="block"
+                  variants={{ hidden: { y: '110%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.85, ease } } }}
+                >
+                  Built on <span className="grad-text">Trust,</span>
+                </motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span
+                  className="block"
+                  variants={{ hidden: { y: '110%', opacity: 0 }, visible: { y: '0%', opacity: 1, transition: { duration: 0.85, ease, delay: 0.08 } } }}
+                >
+                  Driven by Innovation
+                </motion.span>
+              </span>
+            </h1>
+            <motion.p variants={fadeUp} className="text-[1rem] leading-[1.82] text-body max-w-[520px] mb-4">
+              We're a young, sharp team of developers and designers passionate about building real software that solves real problems — with clean code, modern tools, and honest craftsmanship.
+            </motion.p>
+            <motion.p variants={fadeUp} className="text-[.9rem] leading-[1.75] text-muted max-w-[500px] mb-8">
+              Every project gets our full attention and best engineering — because we believe great software starts with people who care.
+            </motion.p>
+            <motion.div variants={container} className="flex flex-wrap gap-4">
+              {[
+                { n: '10+', l: 'Happy Clients' },
+                { n: '100%', l: 'Satisfaction Rate' },
+                { n: '24/7', l: 'Support' },
+              ].map(({ n, l }, i) => (
+                <motion.div
+                  key={i}
+                  variants={scaleIn}
+                  whileHover={{ y: -4, scale: 1.03, transition: { duration: 0.2 } }}
+                  className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border shadow-sm hover:shadow-lg hover:border-b4 cursor-pointer transition-[border,box-shadow] duration-200"
+                >
+                  <span className="font-heading text-[1.15rem] font-black text-dark">{n}</span>
+                  <span className="text-[.8rem] text-muted font-semibold">{l}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Right — highlight boxes */}
+          <motion.div className="flex flex-col gap-4 min-w-[260px]" initial="hidden" animate="visible" variants={container} style={{ transition: 'none' }}>
+            {heroHighlights.map(({ icon: Icon, title, sub }, i) => (
+              <motion.div
+                key={i}
+                variants={{ hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease, delay: 0.2 + i * 0.08 } } }}
+                whileHover={{ x: -4, transition: { duration: 0.2 } }}
+                className="group flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm hover:shadow-lg hover:bg-white hover:border-b4 transition-[border,box-shadow,background] duration-200"
+              >
+                <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4 transition-all duration-300 group-hover:bg-gm group-hover:border-transparent group-hover:text-white group-hover:scale-110">
+                  <Icon size={18} strokeWidth={1.8} />
+                </div>
+                <div>
+                  <div className="text-[.82rem] font-bold text-dark">{title}</div>
+                  <div className="text-[.73rem] text-muted">{sub}</div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }

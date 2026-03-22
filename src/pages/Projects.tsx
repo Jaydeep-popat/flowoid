@@ -10,7 +10,6 @@ import useScrollReveal from '../hooks/useScrollReveal';
 const ease = [0.16, 1, 0.3, 1] as const;
 const fadeUp = { hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } };
 const fadeLeft = { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } } };
-const fadeRight = { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } } };
 const scaleIn = { hidden: { opacity: 0, scale: 0.88 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.75, ease } } };
 const container = { hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } } };
 
@@ -136,8 +135,7 @@ export default function Projects() {
       {/* ══ HERO ══ */}
       <div
         ref={heroRef}
-        className="relative min-h-[52vh] flex items-center px-[5%] pt-3 md:pt-12 pb-16 mt-[80px] md:mt-[86px] overflow-hidden"
-        style={{ background: 'radial-gradient(ellipse 70% 60% at 85% 10%,rgba(45,43,107,.10),transparent 60%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(15,14,42,.07),transparent 55%)' }}
+        className="relative min-h-[52vh] bg-page-dots flex items-center px-[5%] pt-3 md:pt-12 pb-16 mt-[80px] md:mt-[86px] overflow-hidden"
       >
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize: '36px 36px', maskImage: 'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
         <div className="absolute right-[-100px] top-[-120px] w-[520px] h-[520px] rounded-full pointer-events-none animate-pulse3" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.09),transparent 70%)', filter: 'blur(55px)' }} />
@@ -148,7 +146,7 @@ export default function Projects() {
           animate="visible"
           variants={container}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 xl:gap-24 items-center">
             {/* Left */}
             <motion.div variants={fadeLeft}>
               <div className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
@@ -192,17 +190,16 @@ export default function Projects() {
             </motion.div>
 
             {/* Right highlight cards */}
-            <motion.div variants={fadeRight} className="flex flex-col gap-4 min-w-[240px]">
+            <motion.div className="flex flex-col gap-4 min-w-[260px]" initial="hidden" animate="visible" variants={container} style={{ transition: 'none' }}>
               {[
                 { icon: Zap, title: 'Fast Delivery', sub: 'Shipped on time, every time' },
                 { icon: Smartphone, title: 'Mobile-First', sub: 'Looks great on any device' },
                 { icon: Target, title: 'Result-Focused', sub: 'Built to convert and grow' },
+                { icon: Layers, title: 'Scalable Craft', sub: 'Built for future growth' },
               ].map(({ icon: Icon, title, sub }, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: 30, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ duration: 0.65, ease, delay: 0.3 + i * 0.1 }}
+                  variants={{ hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease, delay: 0.2 + i * 0.08 } } }}
                   whileHover={{ x: -4, transition: { duration: 0.2 } }}
                   className="group flex items-center gap-3 p-4 bg-white/80 rounded-2xl border border-border shadow-sm hover:shadow-lg hover:bg-white hover:border-b4 transition-[border,box-shadow,background] duration-200"
                 >

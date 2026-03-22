@@ -306,7 +306,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                 letterSpacing: '.26em', textTransform: 'uppercase',
                 color: 'rgba(24,32,78,.42)',
               }}>
-                Est. 2020 · India · 28+ Countries
+                Est. 2026 · India
               </span>
               <div style={{
                 width: 28, height: 1,
