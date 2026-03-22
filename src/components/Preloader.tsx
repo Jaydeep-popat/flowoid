@@ -1,303 +1,443 @@
-import { motion } from 'framer-motion';
+'use client';
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-const CURTAIN_EASE = [0.76, 0, 0.24, 1] as const;
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 
-/* ── Flowoid F mark (SVG) ───────────────────────────────── */
-function FlowoidMark() {
-  return (
-    <svg viewBox="0 0 90 105" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style={{ width: 50, height: 58 }}>
-      <defs>
-        <linearGradient id="pm1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#60c8f5" />
-          <stop offset="100%" stopColor="#2e7fd8" />
-        </linearGradient>
-        <linearGradient id="pm2" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#93daf8" stopOpacity={0.85} />
-          <stop offset="100%" stopColor="#3a8ee0" />
-        </linearGradient>
-        <linearGradient id="pm3" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stopColor="#baeeff" stopOpacity={0.9} />
-          <stop offset="100%" stopColor="#4aa8e8" />
-        </linearGradient>
-        <linearGradient id="pm4" x1="1" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#a0d8f5" stopOpacity={0.65} />
-          <stop offset="100%" stopColor="#2563b8" stopOpacity={0.8} />
-        </linearGradient>
-      </defs>
-      <path d="M8 90 C8 90 10 70 18 62 C26 54 34 54 42 56 C34 64 30 72 30 82 C30 92 36 100 44 102 C38 104 30 104 22 100 C14 96 8 90 8 90Z" fill="url(#pm3)" opacity={0.8} />
-      <path d="M14 56 C14 56 20 40 32 34 C44 28 58 32 68 40 C56 38 44 40 36 48 C28 56 28 68 32 78 C26 74 20 68 18 62 C16 58 14 56 14 56Z" fill="url(#pm2)" opacity={0.88} />
-      <path d="M22 42 C22 42 28 34 40 32 C52 30 68 34 80 42 C68 40 54 38 44 42 C34 46 30 54 32 62 C28 56 24 50 22 44 C22 42 22 42 22 42Z" fill="url(#pm1)" opacity={0.95} />
-      <path d="M24 6 C24 6 38 2 54 6 C70 10 82 20 86 34 C78 26 64 20 50 20 C36 20 26 28 22 38 C20 32 20 22 24 14 C26 10 24 6 24 6Z" fill="url(#pm1)" />
-      <path d="M34 4 C34 4 52 0 68 8 C80 14 86 26 84 38 C76 28 62 22 48 24 C36 26 28 34 26 44 C24 36 26 24 32 16 C34 10 34 4 34 4Z" fill="url(#pm4)" opacity={0.6} />
-      <path d="M38 8 C46 4 60 6 70 14 C60 10 48 12 40 20 C42 16 40 10 38 8Z" fill="white" opacity={0.32} />
-    </svg>
-  );
+const SILK = [0.16, 1, 0.3, 1] as const;
+const SHARP = [0.76, 0, 0.24, 1] as const;
+
+const BRAND_PRIMARY = '#2f6bff';
+const BRAND_PURPLE  = '#9b4bff';
+const BRAND_ORANGE  = '#ff6b4a';
+const BRAND_GRADIENT = `linear-gradient(120deg, ${BRAND_PRIMARY} 0%, ${BRAND_PURPLE} 55%, ${BRAND_ORANGE} 100%)`;
+
+const STAGES = [
+  { pct: 18, label: 'Initialising',    chip: 'Starting up',  ms: 300 },
+  { pct: 45, label: 'Loading assets',  chip: 'Loading',      ms: 1000 },
+  { pct: 78, label: 'Preparing',       chip: 'Almost ready', ms: 1800 },
+  { pct: 100, label: 'Ready',          chip: 'Ready',        ms: 2600 },
+] as const;
+
+function useCounter(target: number, duration = 700) {
+  const [value, setValue] = useState(0);
+  const prev = useRef(0);
+
+  useEffect(() => {
+    const from = prev.current;
+    prev.current = target;
+    const start = performance.now();
+    let id = 0;
+
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      setValue(Math.round(from + (target - from) * ease));
+      if (p < 1) id = requestAnimationFrame(tick);
+      else setValue(target);
+    };
+
+    id = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(id);
+  }, [target, duration]);
+
+  return value;
 }
 
-/* ── Single orbital ring ─────────────────────────────────── */
-function Ring({
-  size, dir = 1, duration, color, dotColor,
-}: {
-  size: number; dir?: 1 | -1; duration: number; color: string; dotColor?: string;
-}) {
+function StageDots({ active }: { active: number }) {
   return (
-    <motion.div
-      style={{
-        position: 'absolute', width: size, height: size, borderRadius: '50%',
-        border: '1px solid transparent',
-        borderTopColor: color,
-        borderRightColor: `${color}44`,
-        borderBottomColor: 'transparent',
-        borderLeftColor: `${color}18`,
-      }}
-      animate={{ rotate: dir === 1 ? 360 : -360 }}
-      transition={{ duration, repeat: Infinity, ease: 'linear' }}
-    >
-      {dotColor && (
-        <div style={{
-          position: 'absolute', top: -1, left: '50%',
-          transform: 'translateX(-50%)',
-          width: 5, height: 5, borderRadius: '50%',
-          background: dotColor,
-          boxShadow: `0 0 6px ${dotColor}`,
-        }} />
-      )}
-    </motion.div>
-  );
-}
-
-export default function Preloader() {
-  const stagger = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.055, delayChildren: 0.5 } },
-  };
-
-  const charVariant = {
-    hidden: { y: '115%', rotateZ: 5, opacity: 0 },
-    visible: { y: '0%', rotateZ: 0, opacity: 1, transition: { duration: 0.85, ease: EASE } },
-  };
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 12 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
-  };
-
-  return (
-    <motion.div
-      style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        pointerEvents: 'none', overflow: 'hidden',
-        /* Clean light-blue-to-white background */
-        background:
-          'radial-gradient(ellipse 100% 80% at 50% 35%, #d6eefa 0%, #e8f5fd 38%, #f3faff 65%, #ffffff 100%)',
-      }}
-      initial={{ opacity: 1, scale: 1 }}
-      exit={{
-        opacity: 0,
-        scale: 1.06,
-        filter: 'blur(18px)',
-        transition: { duration: 0.75, ease: [0.4, 0, 0.2, 1], delay: 0.1 },
-      }}
-    >
-
-      {/* Fine dot grid */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(rgba(42,120,200,0.07) 1px, transparent 1px)',
-        backgroundSize: '28px 28px',
-      }} />
-
-      {/* Large soft background rings */}
-      {[360, 500, 640].map((s, i) => (
-        <motion.div key={s} style={{
-          position: 'absolute', width: s, height: s, borderRadius: '50%',
-          border: `1px solid rgba(80,160,230,${0.065 - i * 0.012})`,
-          top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
-        }}
-          initial={{ scale: 0.82, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.6, delay: 0.1 * i, ease: EASE }}
+    <div style={{ display: 'flex', gap: 5 }}>
+      {[0, 1, 2, 3].map(i => (
+        <motion.div
+          key={i}
+          animate={
+            i < active
+              ? { scale: 1, background: BRAND_PRIMARY, boxShadow: '0 0 6px rgba(47,107,255,.45)' }
+              : i === active
+              ? { scale: 1.35, background: BRAND_ORANGE, boxShadow: '0 0 0 4px rgba(255,107,74,.25)' }
+              : { scale: 1, background: 'rgba(47,107,255,.15)', boxShadow: 'none' }
+          }
+          transition={{ duration: 0.35, ease: SILK as any }}
+          style={{ width: 5, height: 5, borderRadius: '50%' }}
         />
       ))}
+    </div>
+  );
+}
 
-      {/* Ambient centre glow */}
-      <motion.div style={{
-        position: 'absolute', width: 500, height: 500, borderRadius: '50%',
-        background:
-          'radial-gradient(circle, rgba(100,190,255,0.14) 0%, rgba(60,140,220,0.06) 45%, transparent 70%)',
-        top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
-        pointerEvents: 'none',
-      }}
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1.08, opacity: 1 }}
-        transition={{ duration: 2.2, ease: EASE }}
-      />
+function Corner({ pos }: { pos: 'tl' | 'tr' | 'bl' | 'br' }) {
+  const base: CSSProperties = {
+    position: 'absolute', width: 16, height: 16,
+    borderColor: 'rgba(47,107,255,.22)',
+    borderStyle: 'solid', borderWidth: 0,
+  };
 
-      {/* ── Main content ───────────────────────────────────── */}
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+  const sides: Record<string, CSSProperties> = {
+    tl: { top: 22, left: 22, borderTopWidth: 1, borderLeftWidth: 1 },
+    tr: { top: 22, right: 22, borderTopWidth: 1, borderRightWidth: 1 },
+    bl: { bottom: 22, left: 22, borderBottomWidth: 1, borderLeftWidth: 1 },
+    br: { bottom: 22, right: 22, borderBottomWidth: 1, borderRightWidth: 1 },
+  };
 
-        {/* Logo + brand row */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 26 }}>
+  return (
+    <motion.div
+      style={{ ...base, ...sides[pos] }}
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.55, duration: 0.6, ease: SILK as any }}
+    />
+  );
+}
 
-          {/* Spinner + mark */}
-          <motion.div
-            style={{ position: 'relative', width: 96, height: 96, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
-            initial={{ opacity: 0, scale: 0.72 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.0, ease: EASE }}
-          >
-            <Ring size={94}  dir={1}  duration={3.0} color="rgba(50,140,225,0.55)"  dotColor="rgba(50,140,225,0.85)" />
-            <Ring size={76}  dir={-1} duration={2.1} color="rgba(30,110,200,0.38)"  dotColor="rgba(30,110,200,0.7)" />
-            <Ring size={60}  dir={1}  duration={4.5} color="rgba(100,185,250,0.25)" />
+export default function Preloader({ onComplete }: { onComplete?: () => void }) {
+  const [stageIdx, setStageIdx] = useState(-1);
+  const [exiting, setExiting] = useState(false);
 
-            {/* Centre glow pulse */}
-            <motion.div style={{
-              position: 'absolute', width: 48, height: 48, borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(100,190,255,0.22), transparent 70%)',
-            }}
-              animate={{ scale: [1, 1.25, 1], opacity: [0.65, 1, 0.65] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-            />
+  const stage = STAGES[stageIdx] ?? STAGES[0];
+  const counter = useCounter(stageIdx >= 0 ? stage.pct : 0);
 
-            {/* Logo mark */}
-            <motion.div
-              style={{ position: 'relative', zIndex: 2, filter: 'drop-shadow(0 2px 10px rgba(40,130,220,0.28))' }}
-              animate={{ rotate: [0, 3, 0, -3, 0], scale: [1, 1.03, 1.05, 1.03, 1] }}
-              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <FlowoidMark />
-            </motion.div>
-          </motion.div>
+  useEffect(() => {
+    const timers = STAGES.map((s, i) => setTimeout(() => setStageIdx(i), s.ms));
+    const exitTimeout = setTimeout(() => {
+      setExiting(true);
+      setTimeout(() => onComplete?.(), 900);
+    }, 3600);
 
-          {/* Text column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+    return () => {
+      timers.forEach(clearTimeout);
+      clearTimeout(exitTimeout);
+    };
+  }, [onComplete]);
 
-            {/* Flowoid – per-char */}
-            <motion.div style={{ display: 'flex', alignItems: 'baseline' }}
-              variants={stagger} initial="hidden" animate="visible"
-            >
-              {"Flowoid".split('').map((char, i) => (
-                <span key={i} style={{ overflow: 'hidden', display: 'inline-block', lineHeight: 1, paddingBottom: 2 }}>
-                  <motion.span
-                    variants={charVariant}
-                    style={{
-                      display: 'inline-block',
-                      fontFamily: '"DM Sans","Plus Jakarta Sans",system-ui,sans-serif',
-                      fontWeight: 800,
-                      letterSpacing: '-0.03em',
-                      fontSize: 'clamp(1.9rem,4.8vw,3rem)',
-                      lineHeight: 1,
-                      color: '#0f2d50',
-                    }}
-                  >
-                    {char}
-                  </motion.span>
-                </span>
-              ))}
-            </motion.div>
-
-            {/* Technology */}
-            <motion.span
-              variants={fadeUp} initial="hidden" animate="visible"
-              transition={{ delay: 1.1 }}
-              style={{
-                fontFamily: '"DM Sans",system-ui,sans-serif',
-                fontWeight: 500, fontSize: 11,
-                letterSpacing: '0.32em', textTransform: 'uppercase',
-                color: 'rgba(30,100,180,0.46)',
-              }}
-            >
-              Technology
-            </motion.span>
-          </div>
-        </div>
-
-        {/* Hairline separator */}
-        <motion.div style={{
-          width: 1, height: 26,
-          background: 'linear-gradient(180deg,transparent,rgba(60,140,220,0.18),transparent)',
-        }}
-          initial={{ scaleY: 0, opacity: 0 }} animate={{ scaleY: 1, opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.6, ease: EASE }}
-        />
-
-        {/* Tagline */}
-        <div style={{ overflow: 'hidden' }}>
-          <motion.p
-            variants={fadeUp} initial="hidden" animate="visible"
-            transition={{ delay: 1.1 }}
-            style={{
-              fontFamily: '"DM Sans",system-ui,sans-serif',
-              fontWeight: 500, fontSize: '0.7rem',
-              letterSpacing: '0.24em', textTransform: 'uppercase',
-              color: 'rgba(30,100,180,0.38)', textAlign: 'center',
-            }}
-          >
-            Build to Flow
-          </motion.p>
-        </div>
-
-        {/* Progress bar */}
-        <motion.div style={{
-          width: 240, height: 1.5, borderRadius: 8,
-          overflow: 'hidden', position: 'relative',
-          background: 'rgba(60,140,220,0.09)',
-        }}
-          initial={{ opacity: 0, scaleX: 0.4 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ delay: 0.8, duration: 0.7, ease: EASE }}
-        >
-          <motion.div style={{
-            position: 'absolute', inset: '0 auto 0 0', borderRadius: 8,
-            background: 'linear-gradient(90deg,#93c5fd 0%,#3b82f6 55%,#1d4ed8 100%)',
-            boxShadow: '0 0 6px rgba(59,130,246,0.35)',
+  return (
+    <AnimatePresence>
+      {!exiting && (
+        <motion.div
+          key="flowoid-preloader"
+          style={{
+            position: 'fixed', inset: 0, zIndex: 9999,
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            overflow: 'hidden', background: '#f6f7fb',
           }}
-            initial={{ width: '0%' }}
-            animate={{ width: '100%' }}
-            transition={{ delay: 1.0, duration: 1.4, ease: CURTAIN_EASE }}
-          />
-        </motion.div>
-
-        {/* Pulse dots */}
-        <motion.div style={{ display: 'flex', gap: 7 }}
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          transition={{ delay: 1.1, duration: 0.6 }}
+          initial={{ opacity: 1 }}
+          exit={{
+            opacity: 0, scale: 1.03, filter: 'blur(16px)',
+            transition: { duration: 0.85, ease: [0.4, 0, 0.2, 1] },
+          }}
         >
-          {[0, 0.2, 0.4].map((d, i) => (
-            <motion.div key={i}
-              style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(60,140,220,0.25)' }}
-              animate={{
-                scale: [1, 1.6, 1],
-                background: ['rgba(60,140,220,0.25)', 'rgba(59,130,246,0.85)', 'rgba(60,140,220,0.25)'],
-              }}
-              transition={{ duration: 1.2, repeat: Infinity, delay: d, ease: 'easeInOut' }}
+          <div style={{
+            position: 'absolute', inset: 0, pointerEvents: 'none',
+            backgroundImage:
+              'linear-gradient(rgba(47,107,255,.03) 1px,transparent 1px),' +
+              'linear-gradient(90deg,rgba(47,107,255,.03) 1px,transparent 1px)',
+            backgroundSize: '48px 48px',
+            maskImage:
+              'radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%)',
+            WebkitMaskImage:
+              'radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%)',
+          }} />
+
+          {[
+            { x: '18%', y: '25%', w: 500, c: 'rgba(47,107,255,.08)', blur: 95, delay: 0 },
+            { x: '78%', y: '65%', w: 420, c: 'rgba(155,75,255,.05)', blur: 80, delay: 0.12 },
+            { x: '48%', y: '8%',  w: 340, c: 'rgba(255,107,74,.04)', blur: 70, delay: 0.24 },
+          ].map((blob, i) => (
+            <motion.div key={i} style={{
+              position: 'absolute', left: blob.x, top: blob.y,
+              width: blob.w, height: blob.w, borderRadius: '50%',
+              background: blob.c, filter: `blur(${blob.blur}px)`,
+              transform: 'translate(-50%,-50%)', pointerEvents: 'none',
+            }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: blob.delay, duration: 2.2, ease: SILK as any }}
             />
           ))}
+
+          <motion.div style={{
+            position: 'absolute', left: 0, right: 0, height: 1, top: '50%',
+            background:
+              'linear-gradient(90deg,transparent 0%,rgba(47,107,255,.45) 20%,' +
+              'rgba(155,75,255,.75) 50%,rgba(255,107,74,.45) 80%,transparent 100%)',
+            transformOrigin: 'left',
+          }}
+            initial={{ scaleX: 0, opacity: 1 }}
+            animate={{ scaleX: 1, opacity: 0 }}
+            transition={{ duration: 0.9, delay: 0.1, ease: SHARP as any }}
+          />
+
+          {(['tl', 'tr', 'bl', 'br'] as const).map(position => (
+            <Corner key={position} pos={position} />
+          ))}
+
+          <motion.div style={{
+            position: 'absolute', top: 22,
+            display: 'flex', alignItems: 'center', gap: 7,
+            padding: '5px 14px', borderRadius: 99,
+            border: '1px solid rgba(47,107,255,.13)',
+            background: 'rgba(255,255,255,.8)',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
+          }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.6, ease: SILK as any }}
+          >
+            <motion.div
+              style={{ width: 6, height: 6, borderRadius: '50%', background: BRAND_PRIMARY }}
+              animate={{
+                boxShadow: [
+                  '0 0 0 0 rgba(47,107,255,.45)',
+                  '0 0 0 5px rgba(47,107,255,0)',
+                ],
+              }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+            <motion.span
+              key={stage.chip}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                fontFamily: '"Sora",system-ui,sans-serif',
+                fontSize: '.6rem', fontWeight: 600,
+                letterSpacing: '.15em', textTransform: 'uppercase',
+                color: 'rgba(24,32,78,.58)',
+              }}
+            >
+              {stage.chip}
+            </motion.span>
+          </motion.div>
+
+          <div style={{
+            position: 'relative', zIndex: 10,
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+
+            <motion.div style={{
+              position: 'absolute',
+              width: 280, height: 280, borderRadius: '50%',
+              background:
+                'radial-gradient(circle,rgba(47,107,255,.12) 0%,transparent 70%)',
+              filter: 'blur(36px)',
+              top: '50%', left: '50%',
+              transform: 'translate(-50%,-52%)',
+              pointerEvents: 'none',
+            }}
+              animate={{
+                scale: [0.85, 1.08, 0.85],
+                opacity: [0.45, 1, 0.45],
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            />
+
+            <motion.div style={{ position: 'relative' }}>
+              <motion.div
+                style={{ overflow: 'hidden' }}
+                initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                animate={{ clipPath: 'inset(0 0% 0 0)' }}
+                transition={{ delay: 0.55, duration: 0.85, ease: SHARP as any }}
+              >
+                <img
+                  src="/Flowoid_final.png"
+                  alt="Flowoid — Build to Flow"
+                  style={{
+                    width: 290,
+                    height: 'auto',
+                    objectFit: 'contain',
+                    display: 'block',
+                    filter:
+                      'drop-shadow(0 14px 40px rgba(47,107,255,.18))' +
+                      ' drop-shadow(0 4px 16px rgba(155,75,255,.12))',
+                  }}
+                  draggable={false}
+                />
+              </motion.div>
+
+              <motion.div style={{
+                position: 'absolute', inset: 0, borderRadius: 8,
+                background:
+                  'linear-gradient(105deg,transparent 25%,' +
+                  'rgba(255,255,255,.65) 50%,transparent 75%)',
+                pointerEvents: 'none',
+              }}
+                initial={{ x: '-130%' }}
+                animate={{ x: '230%' }}
+                transition={{ delay: 1.2, duration: 0.75, ease: 'easeOut' }}
+              />
+            </motion.div>
+
+            <motion.span style={{
+              marginTop: 18,
+              fontFamily: '"Sora",system-ui,sans-serif',
+              fontWeight: 700,
+              letterSpacing: '.32em',
+              textTransform: 'uppercase',
+              fontSize: '.85rem',
+              background: BRAND_GRADIENT,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              color: 'transparent',
+            }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.95, duration: 0.6, ease: SILK as any }}
+            >
+              Flowoid
+            </motion.span>
+
+            <motion.div style={{
+              marginTop: 14,
+              display: 'flex', alignItems: 'center', gap: 10,
+            }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.05, duration: 0.65, ease: SILK as any }}
+            >
+              <div style={{
+                width: 28, height: 1,
+                background:
+                  'linear-gradient(90deg,transparent,rgba(47,107,255,.28))',
+              }} />
+              <span style={{
+                fontFamily: '"Sora",system-ui,sans-serif',
+                fontSize: '.62rem', fontWeight: 500,
+                letterSpacing: '.26em', textTransform: 'uppercase',
+                color: 'rgba(24,32,78,.42)',
+              }}>
+                Est. 2020 · India · 28+ Countries
+              </span>
+              <div style={{
+                width: 28, height: 1,
+                background:
+                  'linear-gradient(90deg,rgba(255,107,74,.28),transparent)',
+              }} />
+            </motion.div>
+
+            <motion.div style={{
+              width: 1, height: 30, marginTop: 16,
+              background:
+                'linear-gradient(180deg,transparent,rgba(47,107,255,.22),transparent)',
+            }}
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 1 }}
+              transition={{ delay: 1.1, duration: 0.55, ease: SILK as any }}
+            />
+
+            <motion.div style={{
+              width: 280, marginTop: 0,
+              display: 'flex', flexDirection: 'column', gap: 11,
+            }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.15, duration: 0.65, ease: SILK as any }}
+            >
+              <div style={{
+                width: '100%', height: 1.4,
+                background: 'rgba(47,107,255,.13)',
+                borderRadius: 99, position: 'relative',
+              }}>
+                <motion.div style={{
+                  position: 'absolute', inset: '0 auto 0 0',
+                  borderRadius: 99,
+                  background: BRAND_GRADIENT,
+                  boxShadow: '0 0 10px rgba(155,75,255,.35)',
+                }}
+                  animate={{ width: `${stage.pct}%` }}
+                  transition={{ duration: 0.7, ease: SHARP as any }}
+                />
+                <motion.div style={{
+                  position: 'absolute', top: '50%',
+                  transform: 'translate(-50%,-50%)',
+                  width: 5, height: 5, borderRadius: '50%',
+                  background: BRAND_ORANGE,
+                  boxShadow:
+                    '0 0 0 3px rgba(255,107,74,.25),' +
+                    '0 0 8px rgba(255,107,74,.6)',
+                }}
+                  animate={{ left: `${stage.pct}%` }}
+                  transition={{ duration: 0.7, ease: SHARP as any }}
+                />
+              </div>
+
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
+                  <span style={{
+                    fontFamily: '"Sora",system-ui,sans-serif',
+                    fontSize: '1.1rem', fontWeight: 700,
+                    fontVariantNumeric: 'tabular-nums', minWidth: 36,
+                    background: BRAND_GRADIENT,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text', color: 'transparent',
+                  }}>
+                    {counter}
+                  </span>
+                  <span style={{
+                    fontFamily: '"Sora",system-ui,sans-serif',
+                    fontSize: '.62rem', fontWeight: 500,
+                    color: 'rgba(24,32,78,.4)',
+                  }}>
+                    %
+                  </span>
+                </div>
+
+                <StageDots active={stageIdx} />
+
+                <motion.span
+                  key={stage.label}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    fontFamily: '"Sora",system-ui,sans-serif',
+                    fontSize: '.58rem', fontWeight: 500,
+                    letterSpacing: '.2em', textTransform: 'uppercase',
+                    color: 'rgba(24,32,78,.35)',
+                  }}
+                >
+                  {stage.label}
+                </motion.span>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div style={{
+            position: 'absolute', bottom: 22,
+            display: 'flex', alignItems: 'center', gap: 10,
+          }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4, duration: 0.8 }}
+          >
+            {['Flowoid', '28+ Countries', 'Build to Flow'].map((text, index) => (
+              <span key={text} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{
+                  fontFamily: '"Sora",system-ui,sans-serif',
+                  fontSize: '.55rem', fontWeight: 500,
+                  letterSpacing: '.22em', textTransform: 'uppercase',
+                  color: 'rgba(24,32,78,.25)',
+                }}>
+                  {text}
+                </span>
+                {index < 2 && (
+                  <span style={{
+                    width: 2, height: 2, borderRadius: '50%',
+                    background: 'rgba(24,32,78,.18)',
+                    display: 'inline-block',
+                  }} />
+                )}
+              </span>
+            ))}
+          </motion.div>
+
         </motion.div>
-      </div>
-
-      {/* Bottom meta */}
-      <motion.div style={{
-        position: 'absolute', bottom: 28, left: 0, right: 0,
-        display: 'flex', justifyContent: 'center',
-      }}
-        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.3, duration: 0.8, ease: EASE }}
-      >
-        <span style={{
-          fontFamily: '"DM Sans",system-ui,sans-serif',
-          fontWeight: 500, fontSize: '0.6rem',
-          letterSpacing: '0.22em', textTransform: 'uppercase',
-          color: 'rgba(30,100,180,0.2)',
-        }}>
-          Est. 2020 · India · 28+ Countries
-        </span>
-      </motion.div>
-
-    </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

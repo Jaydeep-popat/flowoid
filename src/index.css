@@ -16,6 +16,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -24,6 +25,10 @@
     color: #2E2C5E;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    overflow-x: hidden;
   }
 
   a {
@@ -44,16 +49,17 @@
   }
 
   ::-webkit-scrollbar {
-    width: 5px;
+    display: none;
+    width: 0;
+    height: 0;
   }
 
-  ::-webkit-scrollbar-track {
-    background: #f0f0fa;
+  html {
+    scrollbar-width: none; /* Firefox */
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: #4845A8;
-    border-radius: 5px;
+  body {
+    -ms-overflow-style: none; /* IE and Edge */
   }
 }
 

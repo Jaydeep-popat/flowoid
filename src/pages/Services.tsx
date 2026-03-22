@@ -181,7 +181,7 @@ const faqs = [
   { q: 'How long does a typical project take?', a: 'Project timelines depend on complexity. An MVP typically takes 6–10 weeks. Mid-scale platforms take 3–5 months. Enterprise-grade systems can take 6–12 months. We provide a detailed timeline after the discovery phase.' },
   { q: 'Do you work with existing codebases?', a: 'Absolutely. We frequently inherit legacy projects for modernization, refactoring, or expansion. Our team conducts a thorough technical audit before beginning any work on an existing codebase.' },
   { q: 'What happens after launch?', a: 'Every project includes a post-launch support window. We offer ongoing retainer plans for maintenance, performance monitoring, feature development, and 24/7 emergency support.' },
-  { q: "Can you sign an NDA before we discuss our project?", a: "Yes, always. We sign NDAs before any project discussion begins. Confidentiality is standard practice at TechSphere and built into every client relationship from day one." },
+  { q: "Can you sign an NDA before we discuss our project?", a: "Yes, always. We sign NDAs before any project discussion begins. Confidentiality is standard practice at Flowoid and built into every client relationship from day one." },
 ];
 
 /* ─────────────── PAGE HERO ─────────────── */

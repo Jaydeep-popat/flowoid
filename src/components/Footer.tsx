@@ -42,7 +42,7 @@ function BottomBar() {
   return (
     <div className="border-t border-white/8 py-5 flex items-center justify-between flex-wrap gap-3">
       <span className="text-[.76rem] text-white/35">
-        © {new Date().getFullYear()} TechSphere IT Solutions Pvt. Ltd. All rights reserved.
+        © {new Date().getFullYear()} Flowoid IT Solutions Pvt. Ltd. All rights reserved.
       </span>
       <div className="flex gap-5">
         {['Privacy Policy', 'Terms of Service', 'Cookies'].map(l => (
@@ -101,11 +101,14 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
         <div className="px-[5%] py-14 border-b border-white/8 relative z-[1]">
           <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[2fr_1fr_1fr] gap-12">
 
-            {/* Brand column */}
             <div>
               <div className="mb-5">
-                <div className="font-heading text-[1.6rem] font-black text-white mb-1">
-                  TechSphere
+                <div className="mb-3">
+                  <img
+                    src="/Flowoid_logo_with_abstract_design-removebg-preview (1).png"
+                    alt="Flowoid"
+                    className="w-[135px] md:w-[170px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] origin-[left_center] scale-[1.42] md:scale-[1.55] ml-1 md:ml-2 mb-2 md:mb-5 mr-7 md:mr-12"
+                  />
                 </div>
                 <p className="text-[.85rem] text-white/60 font-medium tracking-wide">IT Solutions & Digital Transformation</p>
               </div>
@@ -199,8 +202,12 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
           {/* Brand */}
           <div>
             <div className="mb-5">
-              <div className="font-heading text-[1.6rem] font-black text-white mb-1">
-                Flowoid
+              <div className="mb-3">
+                <img
+                  src="/Flowoid_logo_with_abstract_design-removebg-preview (1).png"
+                  alt="Flowoid"
+                  className="w-[135px] md:w-[170px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] origin-[left_center] scale-[1.42] md:scale-[1.55] ml-1 md:ml-2 mb-2 md:mb-5 mr-7 md:mr-12"
+                />
               </div>
               <p className="text-[.85rem] text-white/60 font-medium tracking-wide">IT Solutions & Digital Transformation</p>
             </div>

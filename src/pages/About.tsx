@@ -154,12 +154,12 @@ const values = [
 ];
 
 const timeline = [
-  { year: '2010', t: 'Founded in Bangalore',         d: 'TechSphere was born with 5 engineers and a bold dream — to democratize enterprise technology for growing businesses.' },
+  { year: '2010', t: 'Founded in Bangalore',         d: 'Flowoid was born with 5 engineers and a bold dream — to democratize enterprise technology for growing businesses.' },
   { year: '2013', t: 'First 50 Clients & Series A',  d: 'Secured $4M Series A. Expanded into cloud solutions and grew to 40 team members across 2 offices.' },
   { year: '2016', t: 'Global Expansion — 10 Countries', d: 'Opened offices in London, Singapore, and Dubai. Launched our proprietary DevSecOps framework.' },
   { year: '2019', t: '200+ Clients & ISO 27001',      d: 'Achieved ISO 27001 security certification. Launched our AI-powered monitoring suite.' },
   { year: '2022', t: '1,000 Projects Milestone',      d: 'Delivered our 1,000th project. Expanded to 200 team members and 28 countries globally.' },
-  { year: '2024', t: 'TechSphere 3.0 — AI & Automation', d: 'Launched our next-gen platform integrating AI automation, predictive analytics, and real-time cloud orchestration.' },
+  { year: '2024', t: 'Flowoid 3.0 — AI & Automation', d: 'Launched our next-gen platform integrating AI automation, predictive analytics, and real-time cloud orchestration.' },
 ];
 
 export default function About() {
@@ -234,7 +234,7 @@ export default function About() {
             >
               <motion.div variants={fadeUp}><SLabel>Who We Are</SLabel></motion.div>
               <motion.div variants={fadeUp}><SH2>A Team of <em className="not-italic grad-text">Passionate</em> Problem Solvers</SH2></motion.div>
-              <motion.p variants={fadeUp} className="text-[.97rem] leading-[1.8] text-muted mb-[14px]">TechSphere was founded in 2010 with a single mission: to make enterprise-grade technology accessible to every business, regardless of size or industry. What started as a team of five developers has grown into a 200-person powerhouse serving clients across 28 countries.</motion.p>
+              <motion.p variants={fadeUp} className="text-[.97rem] leading-[1.8] text-muted mb-[14px]">Flowoid was founded in 2010 with a single mission: to make enterprise-grade technology accessible to every business, regardless of size or industry. What started as a team of five developers has grown into a 200-person powerhouse serving clients across 28 countries.</motion.p>
               <motion.p variants={fadeUp} className="text-[.97rem] leading-[1.8] text-muted mb-7">We don't just write code — we architect digital futures. Our multidisciplinary team of engineers, designers, strategists, and cybersecurity experts work in lockstep to deliver solutions that transform your business.</motion.p>
               <motion.div variants={container} className="grid grid-cols-2 gap-[13px]">
                 {[
@@ -417,7 +417,7 @@ export default function About() {
                 We treat every project with complete confidentiality and professionalism. Your intellectual property, business strategy, and sensitive data are protected with enterprise-grade security and our ironclad confidentiality agreements.
               </motion.p>
               <motion.p variants={fadeUp} className="text-[.95rem] leading-[1.75] text-muted mb-8">
-                Working with TechSphere means partnering with a team that respects your vision, safeguards your information, and delivers results with integrity.
+                Working with Flowoid means partnering with a team that respects your vision, safeguards your information, and delivers results with integrity.
               </motion.p>
               <motion.div variants={container} className="space-y-3">
                 {['ISO 27001 Security Certified', 'NDA & Confidentiality Agreements', 'Enterprise-Grade Data Protection', '24/7 Security Monitoring', 'GDPR & Privacy Compliant'].map((item, i) => (
@@ -467,7 +467,7 @@ export default function About() {
 
       <CtaBox
         h2="Ready to Build Something Great Together?"
-        p="Join 300+ companies that trust TechSphere to power their digital transformation. Let's talk about your vision."
+        p="Join 300+ companies that trust Flowoid to power their digital transformation. Let's talk about your vision."
         links={[{ label: 'Start Your Project →', to: '/contact', primary: true }, { label: 'Explore Our Services', to: '/services', primary: false }]}
       />
 

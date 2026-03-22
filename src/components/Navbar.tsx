@@ -20,9 +20,9 @@ interface NavbarProps {
 /* ── Logo image from public ──────────────────────────── */
 const Logo = () => (
   <img
-    src="/Final Logo.png"
-    alt="TechSphere"
-    className="h-12 md:h-16 w-auto object-contain flex-shrink-0 mix-blend-multiply"
+    src="/Flowoid_final.png"
+    alt="Flowoid"
+    className="w-[115px] sm:w-[135px] md:w-[155px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 drop-shadow-[0_2px_4px_rgba(0,0,0,0.1)] scale-[1.42] md:scale-[1.52] origin-[left_center] ml-1 md:ml-2 mr-6 md:mr-11"
   />
 );
 
@@ -139,7 +139,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
             variants={parentVars}
             className={`w-full flex items-center justify-between transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
                            ${scrolled
-                             ? `md:max-w-[1380px] max-w-full md:h-[70px] h-[64px] px-5 md:px-8 ${drawerOpen ? 'bg-white' : 'bg-white/85 md:bg-white/75 backdrop-blur-3xl saturate-[200%]'} md:rounded-full rounded-none md:border border-[rgba(255,255,255,0.3)] border-b shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
+                             ? `md:max-w-[1380px] max-w-full md:h-[70px] h-[64px] px-5 md:px-8 ${drawerOpen ? 'bg-white' : 'bg-white/95 md:bg-white/75 backdrop-blur-3xl saturate-[200%]'} md:rounded-full rounded-none md:border border-[rgba(255,255,255,0.3)] border-b shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
                              : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 ${drawerOpen ? 'bg-white shadow-[0_16px_48px_rgba(15,14,42,.06)]' : 'bg-transparent'} border-transparent rounded-none`
                            }`}>
             {/* Logo */}
@@ -254,8 +254,8 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
           variants={parentVars}
           className={`w-full flex items-center justify-between transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
                          ${scrolled
-                           ? `md:max-w-[1380px] max-w-full md:h-[70px] h-[64px] px-5 md:px-8 md:rounded-full rounded-none md:border border-[rgba(255,255,255,0.3)] border-b ${drawerOpen ? 'bg-white' : 'bg-white/85 md:bg-white/75 backdrop-blur-3xl saturate-[200%]'} shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
-                           : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 ${drawerOpen ? 'bg-white shadow-[0_16px_48px_rgba(15,14,42,.06)]' : 'bg-transparent'} border-transparent rounded-none shadow-none`
+                           ? `md:max-w-[1380px] max-w-full md:h-[70px] h-[64px] px-5 md:px-8 md:rounded-full rounded-none md:border border-[rgba(255,255,255,0.3)] border-b ${drawerOpen ? 'bg-white' : 'bg-white md:bg-white/95 backdrop-blur-3xl saturate-[200%]'} shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
+                           : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 bg-white border-transparent rounded-none shadow-[0_4px_20px_rgba(15,14,42,.03)]`
                          }`}>
           {/* Logo */}
           <motion.div variants={itemVars} className="flex-shrink-0 flex items-center">
