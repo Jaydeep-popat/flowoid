@@ -71,10 +71,10 @@ const services: Service[] = [
     ],
     benefits: [
       '24/7 instant customer support — zero wait times',
-      'Up to 70% reduction in support ticket volume',
+      'Significant reduction in support ticket volume',
       'Consistent, on-brand responses every time',
       'Actionable analytics on customer conversations',
-      'Scalable to millions of concurrent conversations',
+      'Scalable to handle growing user demand',
       'Continuous learning & accuracy improvement',
     ],
   },
@@ -127,7 +127,7 @@ const services: Service[] = [
   {
     id: 'cloud-solutions',
     Icon: Cloud,
-    badge: 'Enterprise Cloud',
+    badge: 'Cloud',
     title: 'Cloud Solutions',
     description: 'Unlock the full potential of the cloud with end-to-end solutions spanning architecture, migration, optimization, and managed services. We help you leverage AWS, Azure, and GCP to build resilient, cost-efficient infrastructure that powers your applications at any scale.',
     offers: [
@@ -139,7 +139,7 @@ const services: Service[] = [
       'Cloud cost optimization & FinOps advisory',
     ],
     benefits: [
-      '99.99% uptime with fault-tolerant architectures',
+      'High availability with fault-tolerant design',
       'Significant reduction in infrastructure costs',
       'Auto-scaling for unpredictable workloads',
       'Enhanced security with cloud-native tools',
@@ -294,7 +294,7 @@ function ServiceSection({ service, index, isReversed }: { service: Service; inde
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <motion.div
             className={`group relative overflow-hidden rounded-[22px] border-[1.5px] border-border bg-white p-[34px] transition-all duration-300 hover:shadow-lg hover:border-[rgba(45,43,107,.12)] hover:-translate-y-1 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}
-            initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={fadeLeft}
+            initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={isReversed ? fadeRight : fadeLeft}
           >
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gm rounded-t-[22px]" />
             <div className="flex items-center gap-3 mb-6">
@@ -321,7 +321,7 @@ function ServiceSection({ service, index, isReversed }: { service: Service; inde
 
           <motion.div
             className={`group relative overflow-hidden rounded-[22px] bg-gm p-[34px] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}
-            initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={fadeRight}
+            initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={isReversed ? fadeLeft : fadeRight}
           >
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gg rounded-t-[22px]" />
             <div className="flex items-center gap-3 mb-6">

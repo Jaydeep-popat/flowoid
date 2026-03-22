@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Linkedin, Twitter, Facebook, Youtube } from 'lucide-react';
 
@@ -56,8 +55,6 @@ function BottomBar() {
 }
 
 export default function Footer({ variant = 'inner' }: FooterProps) {
-  const [email, setEmail] = useState('');
-
   /* ══════════════════════════════════════════════════
      HOME VARIANT
   ══════════════════════════════════════════════════ */
@@ -68,34 +65,6 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
         <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(72,69,168,.35),transparent 65%)', filter: 'blur(60px)', transform: 'translate(30%,-30%)' }} />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.4),transparent 65%)', filter: 'blur(50px)', transform: 'translate(-30%,30%)' }} />
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'linear-gradient(135deg,rgba(255,255,255,.03) 0%,transparent 50%)', zIndex: 0 }} />
-        {/* Newsletter strip */}
-        <div className="px-[5%] py-8 border-b border-white/8 relative z-[1]">
-          <div className="max-w-[1240px] mx-auto flex items-center justify-between gap-6 flex-wrap">
-            <div>
-              <h4 className="font-heading text-[1rem] font-bold text-white mb-1">Stay ahead in tech</h4>
-              <p className="text-[.82rem] text-white/45">Insights, case studies & IT tips — no spam, ever.</p>
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              <input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                className="px-4 py-[10px] rounded-[10px] bg-white/7 border border-white/10 text-white
-                           text-[.84rem] outline-none min-w-[240px] placeholder:text-white/30
-                           transition-[border-color] duration-200 focus:border-[rgba(201,168,76,.4)]"
-              />
-              <button className="relative overflow-hidden px-5 py-[10px] rounded-[10px] bg-mg text-white
-                                 text-[.84rem] font-bold transition-all duration-[250ms]
-                                 hover:-translate-y-[2px] hover:shadow-[0_10px_26px_rgba(20,16,58,.38)]
-                                 before:content-[''] before:absolute before:inset-0
-                                 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)]
-                                 before:pointer-events-none">
-                Subscribe →
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* Main grid */}
         <div className="px-[5%] py-14 border-b border-white/8 relative z-[1]">
@@ -105,9 +74,9 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
               <div className="mb-5">
                 <div className="mb-3">
                   <img
-                    src="/Flowoid_logo_with_abstract_design-removebg-preview (1).png"
+                    src="/Flowoid_final.png"
                     alt="Flowoid"
-                    className="w-[135px] md:w-[170px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] origin-[left_center] scale-[1.42] md:scale-[1.55] ml-1 md:ml-2 mb-2 md:mb-5 mr-7 md:mr-12"
+                    className="w-[170px] md:w-[220px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] origin-[left_center] scale-[1.42] md:scale-[1.55] ml-1 md:ml-2 mb-2 md:mb-5 mr-7 md:mr-12"
                   />
                 </div>
                 <p className="text-[.85rem] text-white/60 font-medium tracking-wide">IT Solutions & Digital Transformation</p>
@@ -204,9 +173,9 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
             <div className="mb-5">
               <div className="mb-3">
                 <img
-                  src="/Flowoid_logo_with_abstract_design-removebg-preview (1).png"
+                  src="/Flowoid_final.png"
                   alt="Flowoid"
-                  className="w-[135px] md:w-[170px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] origin-[left_center] scale-[1.42] md:scale-[1.55] ml-1 md:ml-2 mb-2 md:mb-5 mr-7 md:mr-12"
+                  className="w-[170px] md:w-[220px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] origin-[left_center] scale-[1.42] md:scale-[1.55] ml-1 md:ml-2 mb-2 md:mb-5 mr-7 md:mr-12"
                 />
               </div>
               <p className="text-[.85rem] text-white/60 font-medium tracking-wide">IT Solutions & Digital Transformation</p>

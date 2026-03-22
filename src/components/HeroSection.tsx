@@ -7,7 +7,7 @@ const heroSlides = [
   {
     src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=900&h=680&fit=crop',
     peek: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=500&fit=crop',
-    tag: 'Dev Teams', label: 'Collaborative Engineering', stat: { v: '1,200+', l: 'Projects Shipped' },
+    tag: 'Dev Teams', label: 'Collaborative Engineering', stat: { v: '50+', l: 'Projects Shipped' },
     shape: 'polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px))',
     peekShape: 'polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%)',
     accent: '#4845A8',
@@ -15,7 +15,7 @@ const heroSlides = [
   {
     src: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=900&h=680&fit=crop',
     peek: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=500&fit=crop',
-    tag: 'Enterprise', label: 'Enterprise-Grade Solutions', stat: { v: '300+', l: 'Enterprise Clients' },
+    tag: 'Enterprise', label: 'Enterprise-Grade Solutions', stat: { v: '10+', l: 'Happy Clients' },
     shape: 'polygon(48px 0%, 100% 0%, calc(100% - 48px) 100%, 0% 100%)',
     peekShape: 'polygon(30px 0%, 100% 0%, calc(100% - 30px) 100%, 0% 100%)',
     accent: '#C9A84C',
@@ -23,7 +23,7 @@ const heroSlides = [
   {
     src: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=900&h=680&fit=crop',
     peek: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=500&fit=crop',
-    tag: 'Strategy', label: 'Strategic IT Consulting', stat: { v: '99%', l: 'On-Time Delivery' },
+    tag: 'Strategy', label: 'Strategic IT Consulting', stat: { v: '100%', l: 'Client Satisfaction' },
     shape: 'ellipse(50% 48% at 50% 50%)', peekShape: 'ellipse(48% 46% at 50% 50%)',
     accent: '#10B981',
   },
@@ -105,7 +105,7 @@ function HeroSlider() {
 
   const slide = heroSlides[current];
   const enterV = { next: { clipPath: 'inset(0 100% 0 0)', opacity: 0, scale: 1.06 }, prev: { clipPath: 'inset(0 0 0 100%)', opacity: 0, scale: 1.06 } };
-  const exitV  = { next: { clipPath: 'inset(0 0 0 100%)', opacity: 0, scale: 0.97 }, prev: { clipPath: 'inset(0 100% 0 0)', opacity: 0, scale: 0.97 } };
+  const exitV = { next: { clipPath: 'inset(0 0 0 100%)', opacity: 0, scale: 0.97 }, prev: { clipPath: 'inset(0 100% 0 0)', opacity: 0, scale: 0.97 } };
 
   return (
     <div className="relative w-full select-none" aria-label="Hero image slideshow" style={{ height: 520 }}>
@@ -201,11 +201,11 @@ export default function HeroSection() {
 
         <motion.p variants={{ hidden: { opacity: 0, filter: 'blur(8px)', y: 20 }, visible: { opacity: 1, filter: 'blur(0px)', y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } } }}
           className="text-[1.04rem] leading-[1.8] text-muted max-w-[455px] mb-[34px]">
-          Flowoid delivers custom software, cloud infrastructure, and digital products — built to your exact requirements, shipped faster than any enterprise vendor.
+          Flowoid delivers custom software, cloud solutions, and digital products — built to your exact requirements with clean code and modern architecture.
         </motion.p>
 
         <motion.div variants={{ visible: { transition: { staggerChildren: 0.04 } } }} className="flex flex-wrap gap-2 mb-9">
-          {['☁️ Cloud Migration', '🔐 Cybersecurity', '⚡ 3× Faster Delivery', '🌍 28 Countries'].map((c) => (
+          {['☁️ Cloud Solutions', '🔐 Secure by Default', '⚡ Agile Delivery', '🤖 AI-Powered Bots'].map((c) => (
             <motion.div key={c} variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } } }}
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-[5px] px-3 py-[5px] rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.72rem] font-semibold text-b3">
@@ -222,10 +222,6 @@ export default function HeroSection() {
               <svg className="relative z-[1] w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </Link>
           </motion.div>
-          <motion.button whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[.93rem] font-semibold text-b3 border-[1.5px] border-[rgba(45,43,107,.12)] bg-pale transition-colors duration-[280ms] hover:bg-pale2 hover:border-b4 hover:text-dark">
-            <span className="w-[30px] h-[30px] rounded-full bg-gm flex items-center justify-center text-[.58rem] text-white flex-shrink-0">▶</span>
-            See How It Works
-          </motion.button>
         </motion.div>
 
         <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 1 } } }} className="flex items-center gap-[14px] mt-10">
@@ -238,7 +234,7 @@ export default function HeroSection() {
             ))}
           </div>
           <motion.div variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0, transition: { delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }} className="text-[.79rem] text-muted leading-[1.55]">
-            <strong className="text-dark">300+ happy clients</strong><br />across 28 countries worldwide
+            <strong className="text-dark">Trusted by startups & businesses</strong><br />across India and beyond
           </motion.div>
         </motion.div>
       </motion.div>
@@ -253,7 +249,7 @@ export default function HeroSection() {
             <div className="w-[36px] h-[36px] rounded-[10px] flex-shrink-0 flex items-center justify-center text-[1rem] bg-pale border border-border">🚀</div>
             <div>
               <div className="text-[.65rem] text-muted mb-[2px] font-medium">Delivery Speed</div>
-              <div className="font-heading text-[.92rem] font-extrabold leading-[1.2]">3× Faster <span className="text-[.62rem] text-[#10B981] font-bold">vs industry</span></div>
+              <div className="font-heading text-[.92rem] font-extrabold leading-[1.2]">On-Time <span className="text-[.62rem] text-[#10B981] font-bold">every sprint</span></div>
             </div>
           </div>
         </motion.div>
@@ -262,7 +258,7 @@ export default function HeroSection() {
             <div className="w-[36px] h-[36px] rounded-[10px] flex-shrink-0 flex items-center justify-center text-[1rem] bg-pale border border-border">✅</div>
             <div>
               <div className="text-[.65rem] text-muted mb-[2px] font-medium">Client Retention</div>
-              <div className="font-heading text-[.92rem] font-extrabold leading-[1.2]">96% <span className="text-[.62rem] text-[#10B981] font-bold">satisfaction</span></div>
+              <div className="font-heading text-[.92rem] font-extrabold leading-[1.2]">100% <span className="text-[.62rem] text-[#10B981] font-bold">dedication</span></div>
             </div>
           </div>
         </motion.div>

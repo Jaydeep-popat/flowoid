@@ -22,7 +22,7 @@ const Logo = () => (
   <img
     src="/Flowoid_final.png"
     alt="Flowoid"
-    className="w-[115px] sm:w-[135px] md:w-[155px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 drop-shadow-[0_2px_4px_rgba(0,0,0,0.1)] scale-[1.42] md:scale-[1.52] origin-[left_center] ml-1 md:ml-2 mr-6 md:mr-11"
+    className="w-[115px] sm:w-[135px] md:w-[155px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 drop-shadow-[0_2px_4px_rgba(0,0,0,0.1)] scale-[1.42] md:scale-[1.52] origin-[left_center] ml-1 md:ml-2 mr-6 md:mr-11 translate-y-[3px] md:translate-y-[5px]"
   />
 );
 
@@ -144,7 +144,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
                            }`}>
             {/* Logo */}
             <motion.div variants={itemVars} className="flex-shrink-0 flex items-center">
-              <Link to="/">
+              <Link to="/" className="flex items-center h-full">
                 <Logo />
               </Link>
             </motion.div>
@@ -259,7 +259,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
                          }`}>
           {/* Logo */}
           <motion.div variants={itemVars} className="flex-shrink-0 flex items-center">
-            <Link to="/">
+            <Link to="/" className="flex items-center h-full">
               <Logo />
             </Link>
           </motion.div>

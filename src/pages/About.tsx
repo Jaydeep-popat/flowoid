@@ -13,10 +13,6 @@ const fadeUp = {
   hidden: { opacity: 0, y: 36 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
 };
-const fadeLeft = {
-  hidden: { opacity: 0, x: -44 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.9, ease } },
-};
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.88 },
@@ -78,11 +74,9 @@ function PageHero() {
             </motion.span>
           </span>
         </h1>
-        <motion.p variants={fadeUp} className="text-[1.05rem] leading-[1.82] text-body max-w-[580px] mb-8">
-          Since 2010, we've been the technology backbone for hundreds of enterprises — turning complex challenges into elegant, scalable digital solutions across 28 countries.
-        </motion.p>
+        <motion.p variants={fadeUp} className="text-[1.05rem] leading-[1.82] text-body max-w-[580px] mb-8">We're a young, sharp team of developers and designers passionate about building real software that solves real problems — with clean code, modern tools, and honest craftsmanship.</motion.p>
         <motion.div variants={container} className="flex flex-wrap gap-4 mb-10">
-          {['⚡ Enterprise Solutions', '🌍 Global Presence', '✓ 14+ Years Track Record'].map((item, i) => (
+          {['⚡ Modern Tech Stack', '🛡️ Secure & Reliable', '✓ Client-First Approach'].map((item, i) => (
             <motion.div key={i} variants={scaleIn} className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/60 border border-[rgba(45,43,107,.15)] shadow-sm hover:shadow-md hover:bg-white transition-all duration-200">
               <span className="text-[.82rem] font-medium text-dark">{item}</span>
             </motion.div>
@@ -145,22 +139,14 @@ function SH2({ children, center }: { children: React.ReactNode; center?: boolean
 }
 
 const values = [
-  { icon: Shield,    t: 'Security First',        d: 'Every solution is built with enterprise-grade security baked in from day one — not bolted on as an afterthought.' },
-  { icon: Lightbulb, t: 'Continuous Innovation', d: 'We invest 15% of revenue into R&D so clients always have access to cutting-edge technology.' },
-  { icon: TrendingUp,t: 'Sustainable Growth',    d: 'We build scalable architectures that grow with your business, preventing costly rebuilds down the road.' },
-  { icon: Handshake, t: 'True Partnership',       d: 'We embed ourselves in your team, understanding your culture to deliver solutions that truly fit.' },
-  { icon: Zap,       t: 'Speed & Quality',        d: 'Agile at our core — we deliver fast without sacrificing the quality that defines our reputation.' },
-  { icon: Globe,     t: 'Global Mindset',         d: 'Operating in 28 countries gives us unique insights to build products for global audiences.' },
+  { icon: Shield,    t: 'Security First',        d: 'Every solution is built with security best practices from day one — not bolted on as an afterthought.' },
+  { icon: Lightbulb, t: 'Continuous Learning', d: 'We stay current with the latest frameworks, tools, and patterns to deliver cutting-edge solutions.' },
+  { icon: TrendingUp,t: 'Scalable Architecture',    d: 'We build systems designed to scale with your business, so you never outgrow your software.' },
+  { icon: Handshake, t: 'True Partnership',       d: 'We embed ourselves in your vision, understanding your goals to deliver solutions that truly fit.' },
+  { icon: Zap,       t: 'Speed & Quality',        d: 'Agile at our core — we ship fast without cutting corners on the quality that defines our work.' },
+  { icon: Globe,     t: 'Remote-Ready',         d: 'We work seamlessly with clients anywhere — clear communication, async updates, and on-time delivery.' },
 ];
 
-const timeline = [
-  { year: '2010', t: 'Founded in Bangalore',         d: 'Flowoid was born with 5 engineers and a bold dream — to democratize enterprise technology for growing businesses.' },
-  { year: '2013', t: 'First 50 Clients & Series A',  d: 'Secured $4M Series A. Expanded into cloud solutions and grew to 40 team members across 2 offices.' },
-  { year: '2016', t: 'Global Expansion — 10 Countries', d: 'Opened offices in London, Singapore, and Dubai. Launched our proprietary DevSecOps framework.' },
-  { year: '2019', t: '200+ Clients & ISO 27001',      d: 'Achieved ISO 27001 security certification. Launched our AI-powered monitoring suite.' },
-  { year: '2022', t: '1,000 Projects Milestone',      d: 'Delivered our 1,000th project. Expanded to 200 team members and 28 countries globally.' },
-  { year: '2024', t: 'Flowoid 3.0 — AI & Automation', d: 'Launched our next-gen platform integrating AI automation, predictive analytics, and real-time cloud orchestration.' },
-];
 
 export default function About() {
   useScrollReveal();
@@ -175,8 +161,6 @@ export default function About() {
   const valuesRef = useRef<HTMLDivElement>(null);
   const valuesInView = useInView(valuesRef, { once: true, amount: 0.1 });
 
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const timelineInView = useInView(timelineRef, { once: true, amount: 0.08 });
 
   const trustRef = useRef<HTMLDivElement>(null);
   const trustInView = useInView(trustRef, { once: true, amount: 0.1 });
@@ -189,43 +173,7 @@ export default function About() {
       {/* ── STORY ── */}
       <section className="bg-white py-24 px-[5%]">
         <div className="max-w-[1240px] mx-auto">
-          <div ref={storyRef} className="grid grid-cols-1 lg:grid-cols-2 gap-[72px] items-center">
-            {/* Images */}
-            <motion.div
-              className="relative"
-              style={{ height: 500 }}
-              initial="hidden"
-              animate={storyInView ? 'visible' : 'hidden'}
-              variants={fadeLeft}
-            >
-              <motion.div
-                className="absolute top-0 left-0 w-[75%] rounded-[22px] overflow-hidden shadow-lg"
-                initial={{ opacity: 0, y: 30, scale: 0.96 }}
-                animate={storyInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                transition={{ duration: 0.9, ease, delay: 0.1 }}
-              >
-                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=420&fit=crop" alt="Team" className="w-full h-[340px] object-cover transition-transform duration-700 hover:scale-[1.04]" />
-              </motion.div>
-              <motion.div
-                className="absolute bottom-0 right-0 w-[55%] rounded-[18px] overflow-hidden border-4 border-white shadow-md"
-                initial={{ opacity: 0, y: 40, x: 20 }}
-                animate={storyInView ? { opacity: 1, y: 0, x: 0 } : {}}
-                transition={{ duration: 0.9, ease, delay: 0.25 }}
-              >
-                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&h=260&fit=crop" alt="Working" className="w-full h-[210px] object-cover transition-transform duration-700 hover:scale-[1.04]" />
-              </motion.div>
-              <motion.div
-                className="absolute left-[-18px] bg-gm text-white rounded-2xl px-5 py-[14px] shadow-brand z-[4]"
-                style={{ bottom: 120 }}
-                initial={{ opacity: 0, scale: 0.8, x: -20 }}
-                animate={storyInView ? { opacity: 1, scale: 1, x: 0 } : {}}
-                transition={{ duration: 0.75, ease: [0.34, 1.56, 0.64, 1], delay: 0.45 }}
-              >
-                <strong className="block font-heading text-[1.7rem] font-black leading-none">14+</strong>
-                <span className="text-[.68rem] font-semibold opacity-80 mt-[2px] block">Years of Excellence</span>
-              </motion.div>
-            </motion.div>
-
+          <div ref={storyRef} className="max-w-[900px] mx-auto">
             {/* Text */}
             <motion.div
               initial="hidden"
@@ -234,25 +182,28 @@ export default function About() {
             >
               <motion.div variants={fadeUp}><SLabel>Who We Are</SLabel></motion.div>
               <motion.div variants={fadeUp}><SH2>A Team of <em className="not-italic grad-text">Passionate</em> Problem Solvers</SH2></motion.div>
-              <motion.p variants={fadeUp} className="text-[.97rem] leading-[1.8] text-muted mb-[14px]">Flowoid was founded in 2010 with a single mission: to make enterprise-grade technology accessible to every business, regardless of size or industry. What started as a team of five developers has grown into a 200-person powerhouse serving clients across 28 countries.</motion.p>
-              <motion.p variants={fadeUp} className="text-[.97rem] leading-[1.8] text-muted mb-7">We don't just write code — we architect digital futures. Our multidisciplinary team of engineers, designers, strategists, and cybersecurity experts work in lockstep to deliver solutions that transform your business.</motion.p>
+              <motion.p variants={fadeUp} className="text-[.97rem] leading-[1.8] text-muted mb-[14px]">Flowoid was born out of a simple belief: great software doesn't need a massive corporation behind it — it needs passionate developers who care deeply about craft. We're a small, focused team that punches well above its weight.</motion.p>
+              <motion.p variants={fadeUp} className="text-[.97rem] leading-[1.8] text-muted mb-7">We don't just write code — we think through your problem, design the right architecture, and build solutions that actually work in the real world. Every project gets our full attention and best engineering.</motion.p>
               <motion.div variants={container} className="grid grid-cols-2 gap-[13px]">
                 {[
                   { icon: Code2, t: 'Mission-Focused', d: 'Every project aligns with your core business objectives' },
-                  { icon: Eye,   t: 'Research-Driven',  d: 'Data and insights guide every technical decision' },
-                  { icon: Users, t: 'Long-Term Partner', d: '96% of our clients return for their next project' },
-                  { icon: Rocket,t: 'Agile Delivery',   d: '3× faster delivery vs industry average, every sprint' },
+                  { icon: Eye,   t: 'Research-Driven',  d: 'We study the problem deeply before we start building' },
+                  { icon: Users, t: 'Long-Term Partner', d: 'Our clients come back because we deliver results' },
+                  { icon: Rocket,t: 'Agile Delivery',   d: 'Regular updates, fast iterations, no surprises' },
                 ].map((v, i) => {
                   const IconComponent = v.icon;
                   return (
                     <motion.div
                       key={i}
                       variants={{ hidden: { opacity: 0, y: 20, scale: 0.94 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65, ease: [0.34, 1.56, 0.64, 1] } } }}
-                      className="bg-pale border-[1.5px] border-border rounded-[13px] p-4 transition-all duration-[250ms] hover:border-b4 hover:bg-pale2 hover:-translate-y-[3px]"
+                      whileHover={{ y: -4, scale: 1.02, transition: { duration: 0.25 } }}
+                      className="group bg-white rounded-[16px] border border-border p-5 shadow-sm hover:shadow-lg hover:border-b4 transition-[border,box-shadow] duration-200"
                     >
-                      <div className="w-6 h-6 text-b4 mb-[7px]"><IconComponent size={20} strokeWidth={1.8} /></div>
-                      <div className="font-heading text-[.88rem] font-bold text-dark mb-[3px]">{v.t}</div>
-                      <div className="text-[.77rem] text-muted leading-[1.5]">{v.d}</div>
+                      <div className="w-10 h-10 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4 mb-[12px] transition-all duration-200 group-hover:bg-gm group-hover:border-transparent group-hover:text-white group-hover:scale-110">
+                        <IconComponent size={18} strokeWidth={1.8} />
+                      </div>
+                      <div className="font-heading text-[.9rem] font-bold text-dark mb-[3px]">{v.t}</div>
+                      <div className="text-[.78rem] text-muted leading-[1.55]">{v.d}</div>
                     </motion.div>
                   );
                 })}
@@ -359,43 +310,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── TIMELINE ── */}
-      <section className="bg-white py-24 px-[5%]">
-        <div ref={timelineRef} className="max-w-[1240px] mx-auto">
-          <motion.div
-            className="text-center mb-0"
-            initial="hidden"
-            animate={timelineInView ? 'visible' : 'hidden'}
-            variants={container}
-          >
-            <motion.div variants={fadeUp}><SLabel center>Our Journey</SLabel></motion.div>
-            <motion.div variants={fadeUp}><SH2 center>14 Years of <em className="not-italic grad-text">Growth</em> &amp; Milestones</SH2></motion.div>
-          </motion.div>
-
-          <div className="relative max-w-[820px] mx-auto mt-[50px] pl-11 before:content-[''] before:absolute before:left-0 before:top-[6px] before:bottom-[6px] before:w-[2px] before:rounded-sm before:bg-[linear-gradient(to_bottom,#C9A84C,#4845A8_80%,transparent)]">
-            {timeline.map((t, i) => (
-              <motion.div
-                key={i}
-                className="relative mb-11 last:mb-0"
-                initial={{ opacity: 0, x: -30 }}
-                animate={timelineInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.7, ease, delay: i * 0.12 }}
-              >
-                <motion.div
-                  className="absolute -left-[50px] top-1 w-[14px] h-[14px] rounded-full bg-gg shadow-[0_0_0_4px_#F0F0FA,0_0_0_7px_rgba(201,168,76,.2)]"
-                  initial={{ scale: 0 }}
-                  animate={timelineInView ? { scale: 1 } : {}}
-                  transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: i * 0.12 + 0.2 }}
-                />
-                <div className="font-heading text-[.76rem] font-extrabold text-gold tracking-[.1em] mb-[5px]">{t.year}</div>
-                <div className="font-heading text-[1.08rem] font-bold text-dark mb-[7px]">{t.t}</div>
-                <div className="text-[.89rem] text-body leading-[1.72]">{t.d}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── TRUST & PRIVACY ── */}
       <section className="bg-page py-24 px-[5%]">
         <div ref={trustRef} className="max-w-[1240px] mx-auto">
@@ -420,7 +334,7 @@ export default function About() {
                 Working with Flowoid means partnering with a team that respects your vision, safeguards your information, and delivers results with integrity.
               </motion.p>
               <motion.div variants={container} className="space-y-3">
-                {['ISO 27001 Security Certified', 'NDA & Confidentiality Agreements', 'Enterprise-Grade Data Protection', '24/7 Security Monitoring', 'GDPR & Privacy Compliant'].map((item, i) => (
+                {['NDA & Confidentiality Agreements', 'Secure Code & Data Handling', 'Transparent Communication', 'GDPR-Aware Practices'].map((item, i) => (
                   <motion.div key={i} variants={fadeUp} className="flex items-center gap-3">
                     <CheckCircle size={18} strokeWidth={2} className="text-gold flex-shrink-0" />
                     <span className="text-[.9rem] font-medium text-dark">{item}</span>
@@ -439,7 +353,7 @@ export default function About() {
                 { icon: Shield,       title: 'Complete Confidentiality', desc: 'Every project is under strict NDA. Your ideas, code, and strategy remain yours and yours alone.' },
                 { icon: Lock,        title: 'Data Security',            desc: 'Multi-layer encryption, secure servers, and compliance with GDPR, HIPAA, and industry standards.' },
                 { icon: Users,       title: 'Professional Integrity',   desc: 'Our team is vetted, trained, and committed to ethical practices. Your trust is everything to us.' },
-                { icon: CheckCircle, title: 'Proven Track Record',      desc: '14+ years of zero security breaches. 300+ enterprises trust us with their most sensitive projects.' },
+                { icon: CheckCircle, title: 'Honest Track Record',      desc: 'Every client we\'ve worked with trusts us with their most important projects. That says it all.' },
               ].map((item, i) => {
                 const IconComponent = item.icon;
                 return (
@@ -467,7 +381,7 @@ export default function About() {
 
       <CtaBox
         h2="Ready to Build Something Great Together?"
-        p="Join 300+ companies that trust Flowoid to power their digital transformation. Let's talk about your vision."
+        p="We'd love to hear about your project. Let's have an honest conversation about what you need and how we can help."
         links={[{ label: 'Start Your Project →', to: '/contact', primary: true }, { label: 'Explore Our Services', to: '/services', primary: false }]}
       />
 

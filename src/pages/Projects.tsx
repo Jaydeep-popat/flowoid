@@ -8,10 +8,10 @@ import BackToTop from '../components/BackToTop';
 import useScrollReveal from '../hooks/useScrollReveal';
 
 const ease = [0.16, 1, 0.3, 1] as const;
-const fadeUp    = { hidden: { opacity: 0, y: 32 },  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } };
-const fadeLeft  = { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } } };
-const fadeRight = { hidden: { opacity: 0, x: 40 },  visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } } };
-const scaleIn   = { hidden: { opacity: 0, scale: 0.88 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.75, ease } } };
+const fadeUp = { hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } };
+const fadeLeft = { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } } };
+const fadeRight = { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.85, ease } } };
+const scaleIn = { hidden: { opacity: 0, scale: 0.88 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.75, ease } } };
 const container = { hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.08 } } };
 
 /* ─── Project data ─── */
@@ -26,6 +26,7 @@ const projects = [
     tags: ['React', 'Tailwind CSS', 'SEO', 'Lead Generation'],
   },
   {
+
     title: 'Pithadiya Interior',
     tag: 'Interior Design',
     icon: Monitor,
@@ -47,8 +48,8 @@ const projects = [
 
 const valuePoints = [
   { icon: TrendingUp, title: 'A Website Is an Investment, Not an Expense', body: 'Every rupee you spend on a professional website works 24/7 — attracting customers, building trust, and converting traffic into revenue. Businesses with a strong online presence grow 2× faster than those without one.' },
-  { icon: Monitor,    title: 'We Digitise Manual Business Processes',       body: 'Quotation forms, product catalogues, appointment booking, customer enquiries — we convert repetitive manual workflows into smooth digital experiences, saving your team hours every single week.' },
-  { icon: Globe,      title: 'Visibility That Drives Real Growth',          body: 'A well-built website is your most powerful marketing asset. Combined with SEO and digital marketing, it puts your business in front of the right customers at the right moment — consistently and scalably.' },
+  { icon: Monitor, title: 'We Digitise Manual Business Processes', body: 'Quotation forms, product catalogues, appointment booking, customer enquiries — we convert repetitive manual workflows into smooth digital experiences, saving your team hours every single week.' },
+  { icon: Globe, title: 'Visibility That Drives Real Growth', body: 'A well-built website is your most powerful marketing asset. Combined with SEO and digital marketing, it puts your business in front of the right customers at the right moment — consistently and scalably.' },
 ];
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
@@ -193,9 +194,9 @@ export default function Projects() {
             {/* Right highlight cards */}
             <motion.div variants={fadeRight} className="flex flex-col gap-4 min-w-[240px]">
               {[
-                { icon: Zap,        title: 'Fast Delivery',  sub: 'Shipped on time, every time' },
-                { icon: Smartphone, title: 'Mobile-First',   sub: 'Looks great on any device' },
-                { icon: Target,     title: 'Result-Focused', sub: 'Built to convert and grow' },
+                { icon: Zap, title: 'Fast Delivery', sub: 'Shipped on time, every time' },
+                { icon: Smartphone, title: 'Mobile-First', sub: 'Looks great on any device' },
+                { icon: Target, title: 'Result-Focused', sub: 'Built to convert and grow' },
               ].map(({ icon: Icon, title, sub }, i) => (
                 <motion.div
                   key={i}
