@@ -69,14 +69,14 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
 
         {/* Main grid */}
         <div className="px-[5%] py-14 border-b border-white/8 relative z-[1]">
-          <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[2fr_1fr_1fr] gap-12">
+          <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[2.2fr_1fr_1fr] gap-12">
 
-            <div>
-              <div className="mb-5">
+            <div className="justify-self-start text-left w-full">
+              <div className="mb-5 flex flex-col items-start">
                 <img
                   src="/Flowoid_final.png"
                   alt="Flowoid"
-                  className="w-[170px] md:w-[220px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] mb-2 md:mb-3 ml-[-4px]"
+                  className="w-[240px] md:w-[320px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] mb-2 md:mb-3 -ml-6 md:-ml-8 mr-auto self-start"
                 />
                 <p className="text-[.85rem] text-white/60 font-medium tracking-wide">IT Solutions & Digital Transformation</p>
               </div>
@@ -165,15 +165,15 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
       <div className="max-w-[1240px] mx-auto relative z-[1]">
 
         {/* Main row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[2fr_1fr_1fr] gap-10 pb-10 border-b border-white/8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[2.2fr_1fr_1fr] gap-10 pb-10 border-b border-white/8">
 
           {/* Brand */}
-          <div>
-            <div className="mb-5">
+          <div className="justify-self-start text-left w-full">
+            <div className="mb-5 flex flex-col items-start">
               <img
                 src="/Flowoid_final.png"
                 alt="Flowoid"
-                className="w-[170px] md:w-[220px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] mb-2 md:mb-3 ml-[-4px]"
+                className="w-[240px] md:w-[320px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] mb-2 md:mb-3 -ml-6 md:-ml-8 mr-auto self-start"
               />
               <p className="text-[.85rem] text-white/60 font-medium tracking-wide">IT Solutions & Digital Transformation</p>
             </div>

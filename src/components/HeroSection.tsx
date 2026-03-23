@@ -190,7 +190,7 @@ export default function HeroSection() {
         <motion.div variants={{ hidden: { opacity: 0, y: 15, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
           className="inline-flex items-center gap-2 px-[14px] py-[5px] pl-2 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.71rem] font-bold text-b3 tracking-[.1em] uppercase mb-[22px]">
           <span className="w-[6px] h-[6px] rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,.6)] animate-blink" />
-          IT Startup · Est. 2020 · India
+          IT Startup · Est. 2026 · India
         </motion.div>
 
         <h1 className="font-heading font-black text-[clamp(2.8rem,5vw,4.4rem)] leading-[1.03] tracking-[-0.04em] text-dark mb-5 flex flex-col gap-1">

@@ -130,8 +130,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
 
         {/* Navbar wrapper */}
         <div 
-          className={`fixed top-0 left-0 right-0 z-[1000] flex justify-center transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
-                         ${(scrolled && !drawerOpen) ? 'md:pt-4 md:px-4 pt-0 px-0' : 'pt-0 px-0'}`}
+          className="fixed top-0 left-0 right-0 z-[1000] flex justify-center transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)] pt-0 px-0"
         >
           <motion.nav 
             initial={animateOnMount ? "hidden" : "visible"}
@@ -139,8 +138,8 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
             variants={parentVars}
             className={`w-full flex items-center justify-between transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
                            ${scrolled
-                             ? `md:max-w-[1380px] max-w-full md:h-[70px] h-[64px] px-5 md:px-8 ${drawerOpen ? 'bg-white' : 'bg-white/95 md:bg-white/75 backdrop-blur-3xl saturate-[200%]'} md:rounded-full rounded-none md:border border-[rgba(255,255,255,0.3)] border-b shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
-                             : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 ${drawerOpen ? 'bg-white shadow-[0_16px_48px_rgba(15,14,42,.06)]' : 'bg-[#fffdf4]'} border-transparent rounded-none`
+                             ? `max-w-full md:h-[70px] h-[64px] px-5 md:px-8 ${drawerOpen ? 'bg-white' : 'bg-white/95 md:bg-white/75 backdrop-blur-3xl saturate-[200%]'} border-[rgba(255,255,255,0.3)] border-b rounded-none shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
+                             : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 ${drawerOpen ? 'bg-white shadow-[0_16px_48px_rgba(15,14,42,.06)]' : 'bg-page-dots'} border-transparent rounded-none`
                            }`}>
             {/* Logo */}
             <motion.div variants={itemVars} className="flex-shrink-0 flex items-center">
@@ -245,8 +244,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
       {/* Floating pill wrapper */}
       {/* Floating pill wrapper */}
       <div 
-        className={`fixed top-0 left-0 right-0 z-[1000] flex justify-center transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
-                       ${(scrolled && !drawerOpen) ? 'md:pt-4 md:px-4 pt-0 px-0' : 'pt-0 px-0'}`}
+        className="fixed top-0 left-0 right-0 z-[1000] flex justify-center transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)] pt-0 px-0"
       >
         <motion.nav 
           initial={animateOnMount ? "hidden" : "visible"}
@@ -254,8 +252,8 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
           variants={parentVars}
           className={`w-full flex items-center justify-between transition-all duration-[420ms] ease-[cubic-bezier(.4,0,.2,1)]
                          ${scrolled
-                           ? `md:max-w-[1380px] max-w-full md:h-[70px] h-[64px] px-5 md:px-8 md:rounded-full rounded-none md:border border-[rgba(255,255,255,0.3)] border-b ${drawerOpen ? 'bg-white' : 'bg-white md:bg-white/95 backdrop-blur-3xl saturate-[200%]'} shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
-                           : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 bg-[#fffdf4] border-transparent rounded-none shadow-[0_4px_20px_rgba(15,14,42,.03)]`
+                           ? `max-w-full md:h-[70px] h-[64px] px-5 md:px-8 border-[rgba(255,255,255,0.3)] border-b rounded-none ${drawerOpen ? 'bg-white' : 'bg-white md:bg-white/95 backdrop-blur-3xl saturate-[200%]'} shadow-[0_4px_20px_rgba(15,14,42,.05)] md:shadow-[0_16px_40px_rgba(15,14,42,.12)]`
+                           : `max-w-full h-[76px] md:h-[90px] px-5 md:px-12 lg:px-16 bg-page-dots border-transparent rounded-none shadow-[0_4px_20px_rgba(15,14,42,.03)]`
                          }`}>
           {/* Logo */}
           <motion.div variants={itemVars} className="flex-shrink-0 flex items-center">
