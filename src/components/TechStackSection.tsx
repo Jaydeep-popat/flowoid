@@ -299,7 +299,7 @@ export default function TechStackSection() {
             animate={inView ? { opacity: 1 } : {}}
             transition={{ delay: 0.24, duration: 0.5 }}
           >
-            Every tool hand‑picked for performance, scale, and developer experience.
+            Every tool chosen for performance, security in production, and long-term maintainability — so your product stays fast and evolvable.
           </motion.p>
         </motion.div>
 

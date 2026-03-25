@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { Code2, Bot, Globe, Smartphone, Cloud } from 'lucide-react';
 
 const services = [
-  { n: '01', id: 'custom-software', Icon: Code2, name: 'Custom Software Development',     info: 'We design and develop tailor-made software solutions that fit your unique business requirements like a glove.' },
-  { n: '02', id: 'ai-chatbot',      Icon: Bot,   name: 'Custom AI Chatbot Development',   info: 'Supercharge customer engagement with intelligent, AI-powered chatbots that deliver human-like conversations 24/7.' },
-  { n: '03', id: 'web-apps',        Icon: Globe, name: 'Web Applications',                info: 'We craft high-performance, responsive web applications that deliver exceptional user experiences across every device.' },
-  { n: '04', id: 'mobile-apps',     Icon: Smartphone, name: 'Mobile Applications',        info: 'From concept to App Store launch, we build beautiful, high-performance mobile applications for iOS and Android that users love.' },
-  { n: '05', id: 'cloud-solutions', Icon: Cloud, name: 'Cloud Solutions',                 info: 'Unlock the full potential of the cloud with end-to-end solutions spanning architecture, migration, and cost optimization.' },
+  { n: '01', id: 'custom-software', Icon: Code2, name: 'Custom Software Development',     info: 'Purpose-built systems for internal teams and operations — ERP-style tools, workflows, and integrations that match how you actually work.' },
+  { n: '02', id: 'ai-chatbot',      Icon: Bot,   name: 'Custom AI Chatbot Development',   info: 'AI assistants that answer customers on your site, WhatsApp, or helpdesk — fewer repetitive tickets, consistent answers around the clock.' },
+  { n: '03', id: 'web-apps',        Icon: Globe, name: 'Web Applications',                info: 'Fast, responsive web application development for dashboards, storefronts, and customer-facing sites — including businesses across Gujarat.' },
+  { n: '04', id: 'mobile-apps',     Icon: Smartphone, name: 'Mobile Applications',        info: 'From concept to store listing, we ship iOS and Android apps focused on speed, reliability, and an experience people want to open again.' },
+  { n: '05', id: 'cloud-solutions', Icon: Cloud, name: 'Cloud Solutions',                 info: 'Architecture, migration, and tuning on AWS, Azure, or GCP — so your stack stays resilient, observable, and cost-aware as you grow.' },
 ];
 
 export default function ServicesSection() {

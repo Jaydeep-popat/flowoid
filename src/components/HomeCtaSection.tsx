@@ -15,7 +15,7 @@ export default function HomeCtaSection() {
           <Link to="/contact" className="px-8 py-[13px] rounded-xl text-[.92rem] font-semibold text-white border-[1.5px] border-white/28 bg-white/8 backdrop-blur-[8px] transition-all duration-[280ms] hover:bg-white/18 hover:border-white/55">Schedule a Call</Link>
         </div>
         <div className="relative z-[1] text-[.82rem] font-medium text-white/90 mt-[26px]">
-          <span className="text-gold2 mr-[6px]">✓</span>Free consultation &nbsp;·&nbsp; <span className="text-gold2 mr-[6px]">✓</span>No commitment &nbsp;·&nbsp; <span className="text-gold2 mr-[6px]">✓</span>Response within 24 hrs
+          <span className="text-gold2 mr-[6px]">✓</span>Free consultation &nbsp;·&nbsp; <span className="text-gold2 mr-[6px]">✓</span>No commitment &nbsp;·&nbsp; <span className="text-gold2 mr-[6px]">✓</span>Reply within 4 business hours
         </div>
       </div>
     </section>

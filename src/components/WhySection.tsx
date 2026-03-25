@@ -23,8 +23,8 @@ export default function WhySection() {
         {/* Text */}
         <div className="sr-r d1">
           <div className="inline-flex items-center gap-[7px] text-[.7rem] font-extrabold tracking-[.14em] uppercase text-gold mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">Why Flowoid</div>
-          <h2 className="font-heading font-extrabold text-[clamp(1.9rem,3.2vw,2.75rem)] leading-[1.12] tracking-[-0.03em] text-dark mb-[14px]">More Than Just Coders.<br />We Are <span className="grad-text">Your Tech Partners.</span></h2>
-          <p className="text-[1rem] leading-[1.8] text-muted max-w-[520px] mb-[38px]">Technology shouldn't be complicated or stressful. We take your raw ideas and turn them into simple, easy-to-use digital tools that actually help your business grow seamlessly.</p>
+          <h2 className="font-heading font-extrabold text-[clamp(1.9rem,3.2vw,2.75rem)] leading-[1.12] tracking-[-0.03em] text-dark mb-[14px]">More Than Just Coders.<br />We Are <span className="grad-text">Your Tech Partners</span> in Rajkot.</h2>
+          <p className="text-[1rem] leading-[1.8] text-muted max-w-[520px] mb-[38px]">Technology shouldn't be complicated. As a trusted software development company in Rajkot, we turn your raw ideas into simple, effective digital tools — for smoother day-to-day operations and a stronger customer-facing presence.</p>
           <div className="flex flex-col gap-[14px]">
             {whyFeats.map((w, i) => (
               <div key={i} className={`sr d${i + 2} group flex gap-[15px] items-start p-[18px_20px] rounded-card bg-white border border-border shadow-sm relative overflow-hidden transition-all duration-[350ms] ease-[cubic-bezier(.4,0,.2,1)] hover:border-[rgba(45,43,107,.15)] hover:shadow-md hover:translate-x-[6px] before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-gg before:scale-y-0 before:origin-bottom before:transition-transform before:duration-[350ms] hover:before:scale-y-100`}>

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BackToTop from '../components/BackToTop';
@@ -15,6 +16,10 @@ export default function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>Flowoid | Custom Software & Web Development in Rajkot</title>
+        <meta name="description" content="Custom software & web apps in Rajkot, Gujarat — Flowoid builds production-ready systems, mobile apps & AI chatbots. Clean code, modern stack. Get started today." />
+      </Helmet>
       <Navbar />
 
       <HeroSection />

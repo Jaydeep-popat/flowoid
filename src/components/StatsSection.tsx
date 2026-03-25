@@ -5,7 +5,7 @@ const statItems = [
   { end: 10, suf: '+', lbl: 'Happy Clients', ico: '🏢', desc: 'Startups & growing businesses', color: '#6B67D4', prog: 75 },
   { end: 10, suf: '+', lbl: 'Projects Delivered', ico: '🚀', desc: 'On time & within budget', color: '#C9A84C', prog: 90 },
   { end: 100, suf: '%', lbl: 'Client Satisfaction', ico: '⚡', desc: 'We don\'t stop until you\'re happy', color: '#10B981', prog: 99 },
-  { end: 24, suf: '/7', lbl: 'Support & Availability', ico: '🛡️', desc: 'Always reachable when you need us', color: '#4845A8', prog: 100 },
+  { end: 7, suf: '/7', lbl: 'Days Available', ico: '🛡️', desc: '9am–9pm IST — we reply within 4 business hours', color: '#4845A8', prog: 100 },
 ];
 
 function useCountUp(end: number, duration = 2200, delay = 0) {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import Navbar from '../components/Navbar';
@@ -144,7 +145,7 @@ const services: Service[] = [
       'Auto-scaling for unpredictable workloads',
       'Enhanced security with cloud-native tools',
       'Faster deployments with automated pipelines',
-      '24/7 monitoring & incident response',
+      'Proactive monitoring & incident response (scope per agreement)',
     ],
   },
 ];
@@ -153,7 +154,7 @@ const process = [
   { n: '01', t: 'Discovery & Strategy', d: 'Deep-dive into your goals, tech requirements, and market to build a bulletproof blueprint.' },
   { n: '02', t: 'Architecture & Design', d: 'Scalable system design and polished UI/UX prototypes reviewed and approved by you.' },
   { n: '03', t: 'Agile Development', d: '2-week sprints with live demos. See real progress every fortnight, course-correct early.' },
-  { n: '04', t: 'Launch & Support', d: 'Rigorous QA, seamless deployment, and 24/7 ongoing support to keep you running flawlessly.' },
+  { n: '04', t: 'Launch & Support', d: 'Rigorous QA, seamless deployment, and ongoing support on agreed terms — fast responses during business hours, retainers for deeper coverage.' },
 ];
 
 interface TechCat {
@@ -180,7 +181,7 @@ const techCats: TechCat[] = [
 const faqs = [
   { q: 'How long does a typical project take?', a: 'Project timelines depend on complexity. An MVP typically takes 6–10 weeks. Mid-scale platforms take 3–5 months. Enterprise-grade systems can take 6–12 months. We provide a detailed timeline after the discovery phase.' },
   { q: 'Do you work with existing codebases?', a: 'Absolutely. We frequently inherit legacy projects for modernization, refactoring, or expansion. Our team conducts a thorough technical audit before beginning any work on an existing codebase.' },
-  { q: 'What happens after launch?', a: 'Every project includes a post-launch support window. We offer ongoing retainer plans for maintenance, performance monitoring, feature development, and 24/7 emergency support.' },
+  { q: 'What happens after launch?', a: 'Every project includes a post-launch support window. We offer retainer plans for maintenance, monitoring, feature work, and urgent issues when you need priority coverage.' },
   { q: "Can you sign an NDA before we discuss our project?", a: "Yes, always. We sign NDAs before any project discussion begins. Confidentiality is standard practice at Flowoid and built into every client relationship from day one." },
 ];
 
@@ -218,23 +219,23 @@ function PageHero() {
             </motion.div>
             <h1 className="font-heading font-black text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.07] tracking-[-0.032em] text-dark mb-5">
               <span className="block overflow-hidden">
-                <motion.span className="block" variants={{ hidden:{ y:'110%',opacity:0 }, visible:{ y:'0%',opacity:1,transition:{ duration:.85,ease } } }}>End-to-End IT Solutions</motion.span>
+                <motion.span className="block" variants={{ hidden:{ y:'110%',opacity:0 }, visible:{ y:'0%',opacity:1,transition:{ duration:.85,ease } } }}>IT Services & Software</motion.span>
               </span>
               <span className="block overflow-hidden">
-                <motion.span className="block" variants={{ hidden:{ y:'110%',opacity:0 }, visible:{ y:'0%',opacity:1,transition:{ duration:.85,ease,delay:.08 } } }}>Built for <span className="grad-text">Scale &amp; Speed</span></motion.span>
+                <motion.span className="block" variants={{ hidden:{ y:'110%',opacity:0 }, visible:{ y:'0%',opacity:1,transition:{ duration:.85,ease,delay:.08 } } }}><span className="grad-text">Solutions</span> in Rajkot</motion.span>
               </span>
             </h1>
             <motion.p variants={fadeUp} className="text-[1rem] leading-[1.82] text-body max-w-[520px] mb-4">
-              From custom software and AI chatbots to cloud solutions and mobile apps — every service is crafted to solve your real business problems.
+              From custom software and AI chatbots to cloud solutions and mobile apps — Flowoid in Rajkot crafts every service to solve real business problems for companies across Gujarat and India.
             </motion.p>
             <motion.p variants={fadeUp} className="text-[.9rem] leading-[1.75] text-muted max-w-[500px] mb-8">
-              We combine deep technical expertise with thoughtful design to deliver scalable, production-ready solutions that drive measurable business outcomes.
+              We pair solid engineering with thoughtful UX so what you launch is maintainable, secure enough for production, and aligned with outcomes you can track.
             </motion.p>
             <motion.div variants={container} className="flex flex-wrap gap-4">
               {[
                 { Icon: Layers, n: '10+', l: 'Projects Delivered' },
                 { Icon: Sparkles, n: '100%', l: 'Client Satisfaction' },
-                { Icon: Lightbulb, n: '24/7', l: 'Support' },
+                { Icon: Lightbulb, n: '4h', l: 'Typical reply' },
               ].map(({ Icon, n, l }, i) => (
                 <motion.div key={i} variants={scaleIn} whileHover={{ y: -4, scale: 1.03, transition:{ duration:0.2 } }} className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border shadow-sm hover:shadow-lg hover:border-b4 cursor-pointer transition-[border,box-shadow] duration-200">
                   <Icon size={16} className="text-b4" />
@@ -440,6 +441,10 @@ export default function Services() {
 
   return (
     <>
+      <Helmet>
+        <title>IT Services | Software, Web Apps & AI Chatbots — Flowoid Rajkot</title>
+        <meta name="description" content="Explore Flowoid's IT services — custom software, AI chatbots, web & mobile apps, and cloud solutions for businesses in Rajkot, Gujarat. Built for scale." />
+      </Helmet>
       <Navbar />
       <PageHero />
       <ServiceNav activeId={activeServiceId} isVisible={navVisible} />
@@ -487,7 +492,7 @@ export default function Services() {
         <div className="max-w-[1240px] mx-auto">
           <motion.div className="text-center mb-[50px]" initial="hidden" whileInView="visible" viewport={{ once:true, amount:0.2 }} variants={container}>
             <motion.div variants={fadeUp} className="inline-flex items-center justify-center gap-2 text-[.7rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">Technology Stack</motion.div>
-            <motion.h2 variants={fadeUp} className="font-heading font-extrabold text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark">The <em className="not-italic grad-text">Tools &amp; Technologies</em> We Master</motion.h2>
+            <motion.h2 variants={fadeUp} className="font-heading font-extrabold text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark">Technologies & <em className="not-italic grad-text">Tools</em> We Use</motion.h2>
           </motion.div>
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[22px]"
@@ -574,7 +579,7 @@ export default function Services() {
         <div className="max-w-[1240px] mx-auto">
           <div className="text-center mb-0">
             <div className="inline-flex items-center justify-center gap-2 text-[.7rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">FAQs</div>
-            <h2 className="font-heading font-extrabold text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark">Questions We Get <em className="not-italic grad-text">All the Time</em></h2>
+            <h2 className="font-heading font-extrabold text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.1] tracking-[-0.025em] text-dark">Frequently Asked <em className="not-italic grad-text">Questions</em></h2>
           </div>
           <div className="max-w-[760px] mx-auto mt-[42px]">
             {faqs.map((f, i) => (

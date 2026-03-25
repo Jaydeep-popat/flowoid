@@ -12,7 +12,7 @@ export default function PortfolioSection() {
         </h2>
         
         <p className="sr d2 text-[1.1rem] leading-[1.8] text-muted mb-8 max-w-[640px] mx-auto">
-          Every project we take on is built with clean architecture, modern frameworks, and a relentless focus on quality. From cloud-powered web apps to intelligent chatbots — our work reflects who we are as engineers.
+          Every project we take on is built with clean architecture, modern frameworks, and a focus on outcomes — lead-generating sites, product catalogues, and operations systems that teams actually use. From cloud-powered web apps to intelligent chatbots, our work reflects how we engineer.
         </p>
         
         <Link 
