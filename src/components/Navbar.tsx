@@ -20,8 +20,10 @@ interface NavbarProps {
 /* ── Logo image from public ──────────────────────────── */
 const Logo = () => (
   <img
-    src="/Flowoid_final.png"
+    src="/Flowoid_final.webp"
     alt="Flowoid"
+    loading="lazy"
+    decoding="async"
     className="w-[115px] sm:w-[135px] md:w-[155px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 drop-shadow-[0_2px_4px_rgba(0,0,0,0.1)] scale-[1.42] md:scale-[1.52] origin-[left_center] ml-1 md:ml-2 mr-6 md:mr-11 translate-y-[3px] md:translate-y-[5px]"
   />
 );

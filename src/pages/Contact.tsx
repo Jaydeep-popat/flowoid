@@ -142,7 +142,7 @@ export default function Contact() {
             {/* Left */}
             <motion.div initial="hidden" animate="visible" variants={container}>
             <div className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
-              Home <span className="opacity-35">/</span>{" "}
+              <Link to="/" className="text-muted no-underline">Home</Link> <span className="opacity-35">/</span>{" "}
               <span className="text-gold">Contact</span>
             </div>
             <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-b3 tracking-[.1em] uppercase mb-5">

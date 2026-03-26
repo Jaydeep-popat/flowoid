@@ -75,8 +75,10 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
               <div className="mb-5">
                 <div className="mb-3">
                   <img
-                    src="/Flowoid_final.png"
+                    src="/Flowoid_final.webp"
                     alt="Flowoid"
+                    loading="lazy"
+                    decoding="async"
                     className="w-[170px] md:w-[220px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] origin-[left_center] scale-[1.42] md:scale-[1.55] ml-1 md:ml-2 mb-2 md:mb-5 mr-7 md:mr-12"
                   />
                 </div>
@@ -174,8 +176,10 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
             <div className="mb-5">
               <div className="mb-3">
                 <img
-                  src="/Flowoid_final.png"
+                  src="/Flowoid_final.webp"
                   alt="Flowoid"
+                  loading="lazy"
+                  decoding="async"
                   className="w-[170px] md:w-[220px] h-auto object-contain flex-shrink-0 saturate-200 contrast-125 brightness-110 drop-shadow-[0_2px_8px_rgba(255,255,255,0.15)] origin-[left_center] scale-[1.42] md:scale-[1.55] ml-1 md:ml-2 mb-2 md:mb-5 mr-7 md:mr-12"
                 />
               </div>

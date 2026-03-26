@@ -19,7 +19,7 @@ const projects = [
     title: 'Hiyasha Solar Systems',
     tag: 'Solar & Energy',
     icon: Globe,
-    img: '/solar.png',
+    img: '/solar.webp',
     desc: 'A clean, conversion-focused website built for a solar energy provider. Showcases products, services, and contact pathways — designed to generate leads and build trust with first-time visitors.',
     link: 'https://hiyashasolar.com/',
     tags: ['React', 'Tailwind CSS', 'SEO', 'Lead Generation'],
@@ -29,7 +29,7 @@ const projects = [
     title: 'Pithadiya Interior',
     tag: 'Interior Design',
     icon: Monitor,
-    img: '/interior.png',
+    img: '/interior.webp',
     desc: 'A visually rich portfolio website for an interior design studio. Highlights completed projects, design philosophy, and services — helping attract premium residential and commercial clients.',
     link: 'https://pithadiyainterior.com/',
     tags: ['Portfolio', 'UI/UX', 'Responsive', 'Branding'],
@@ -38,7 +38,7 @@ const projects = [
     title: 'Nilkanth Traders',
     tag: 'Trading & Commerce',
     icon: ShoppingBag,
-    img: '/nilkanth.png',
+    img: '/nilkanth.webp',
     desc: 'A professional business website developed for a trading company. Built to establish digital credibility, present their product catalogue, and enable customers to reach out with ease.',
     link: 'https://nilkanth-trading.vercel.app/',
     tags: ['Business Website', 'Catalogue', 'Mobile-First', 'Contact Integration'],
@@ -66,7 +66,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           <img
             src={project.img}
             alt={project.title}
-            loading="lazy"
+            loading="lazy"  
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.08]"
           />
         ) : (
@@ -150,7 +150,7 @@ export default function Projects() {
             {/* Left */}
             <motion.div variants={fadeLeft}>
               <div className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
-                Home <span className="opacity-40">/</span> <span className="text-gold">Projects</span>
+                <Link to="/" className="text-muted no-underline">Home</Link> <span className="opacity-40">/</span> <span className="text-gold">Projects</span>
               </div>
               <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-pale border border-[rgba(45,43,107,.12)] text-[.7rem] font-bold text-b3 tracking-[.1em] uppercase mb-5">
                 <span className="w-[7px] h-[7px] rounded-full bg-b4 shadow-[0_0_8px_rgba(72,69,168,.5)]" />

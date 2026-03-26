@@ -240,8 +240,10 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                 transition={{ delay: 0.55, duration: 0.85, ease: SHARP as any }}
               >
                 <img
-                  src="/Flowoid_final.png"
+                  src="/Flowoid_final.webp"
                   alt="Flowoid — Build to Flow"
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     width: 290,
                     height: 'auto',
