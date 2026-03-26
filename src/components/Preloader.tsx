@@ -245,7 +245,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                   loading="lazy"
                   decoding="async"
                   style={{
-                    width: 290,
+                    width: 500,
                     height: 'auto',
                     objectFit: 'contain',
                     display: 'block',
@@ -417,7 +417,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.4, duration: 0.8 }}
           >
-            {['Flowoid', '28+ Countries', 'Build to Flow'].map((text, index) => (
+            {/* {['Flowoid', '28+ Countries', 'Build to Flow'].map((text, index) => (
               <span key={text} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{
                   fontFamily: '"Sora",system-ui,sans-serif',
@@ -435,7 +435,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
                   }} />
                 )}
               </span>
-            ))}
+            ))} */}
           </motion.div>
 
         </motion.div>
