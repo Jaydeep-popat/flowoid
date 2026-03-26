@@ -583,7 +583,7 @@ export default function Services() {
           </div>
           <div className="max-w-[760px] mx-auto mt-[42px]">
             {faqs.map((f, i) => (
-              <div key={i} className={`sr d${i + 1} border-[1.5px] rounded-[14px] mb-3 overflow-hidden transition-all duration-[250ms] ${openFaq === i ? 'border-gold' : 'border-border'}`}>
+              <div key={i} className={`border-[1.5px] rounded-[14px] mb-3 overflow-hidden transition-all duration-[250ms] ${openFaq === i ? 'border-gold' : 'border-border'}`}>
                 <div
                   className={`flex items-center justify-between px-[22px] py-[18px] cursor-pointer font-heading text-[.93rem] font-bold text-dark gap-[14px] transition-colors duration-200 select-none ${openFaq === i ? 'bg-pale' : 'bg-white'}`}
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
