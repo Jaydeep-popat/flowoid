@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useLayoutEffect, useState, useEffect } from 'react';
+import { useLayoutEffect, useState, useEffect,lazy,Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Preloader from './components/Preloader';
-import Home from './pages/Home';
-import About from './pages/About';
-import Services from './pages/Services';
-import Projects from './pages/Projects';
-import Testimonials from './pages/Testimonials';
-import Contact from './pages/Contact';
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Services = lazy(() => import('./pages/Services'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Testimonials = lazy(() => import('./pages/Testimonials'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 // Scroll to top on every route change
 function ScrollToTop() {
@@ -34,6 +34,7 @@ export default function App() {
 
       {!loading && (
         <BrowserRouter>
+        <Suspense fallback={<Preloader />}>
           <ScrollToTop />
           <Routes>
             <Route path="/"             element={<Home />} />
@@ -45,6 +46,7 @@ export default function App() {
             {/* Catch-all → redirect home */}
             <Route path="*"             element={<Home />} />
           </Routes>
+        </Suspense>
         </BrowserRouter>
       )}
     </>
