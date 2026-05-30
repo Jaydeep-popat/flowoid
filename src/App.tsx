@@ -6,6 +6,7 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Projects = lazy(() => import('./pages/Projects'));
+const Blogs = lazy(() => import('./pages/Blogs'));
 const Testimonials = lazy(() => import('./pages/Testimonials'));
 const Contact = lazy(() => import('./pages/Contact'));
 
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="/about"        element={<About />} />
             <Route path="/services"     element={<Services />} />
             <Route path="/projects"     element={<Projects />} />
+            <Route path="/blogs"        element={<Blogs />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact"      element={<Contact />} />
             {/* Catch-all → redirect home */}
