@@ -19,7 +19,7 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   // Add new blogs at the top so they naturally stay on the first page.
- {
+  {
   id: 'complete-guide-business-process-automation-2026',
   title: 'The Complete Guide to Business Process Automation in 2026',
   publishedAt: '2026-06-10',
@@ -92,7 +92,8 @@ const blogPosts: BlogPost[] = [
 
     'Conclusion: Business Process Automation is no longer optional for organizations that want to remain competitive in 2026. By combining automation, AI, and modern software solutions, businesses can improve efficiency, reduce costs, enhance customer experiences, and create a foundation for sustainable growth. Companies that embrace automation today will be better prepared to navigate future challenges and opportunities in an increasingly digital world.'
   ]
-},{
+  },
+  {
   id: 'top-signs-business-needs-custom-software-2026',
   title: 'Top 10 Signs Your Business Needs Custom Software',
   publishedAt: '2026-06-10',
@@ -153,7 +154,8 @@ const blogPosts: BlogPost[] = [
 
     'Conclusion: Every growing business eventually reaches a point where standard tools become limitations. Recognizing these signs early can help organizations make smarter technology decisions. Custom software is not simply a technology upgrade—it is a strategic investment that enables businesses to scale, improve efficiency, and deliver better experiences for customers and employees alike.'
   ]
-},{
+  },
+  {
   id: 'website-vs-mobile-app-2026',
   title: 'Website vs Mobile App: What Should Your Business Build First?',
   publishedAt: '2026-06-10',
@@ -218,7 +220,8 @@ const blogPosts: BlogPost[] = [
 
     'Conclusion: The decision between a website and a mobile app depends on business goals, customer needs, budget, and growth strategy. For most businesses, a website provides the best starting point because it offers broader reach and lower costs. As the business grows and customer engagement increases, a mobile app can become a powerful tool for retention, personalization, and long-term success.'
   ]
-}, {
+  },
+  {
   id: 'ai-business-automation-2026',
   title: 'How AI Can Automate 70% of Repetitive Business Tasks in 2026',
   publishedAt: '2026-06-10',
@@ -227,10 +230,7 @@ const blogPosts: BlogPost[] = [
   content: [
     'Artificial Intelligence is no longer limited to large enterprises with massive budgets. In 2026, businesses of all sizes are using AI to automate repetitive tasks, reduce operational costs, and improve productivity. From customer support and sales to finance and human resources, AI is helping organizations work smarter rather than harder.',
 
-    'One of the most frequently asked questions by business owners today is: Can AI really automate a significant portion of daily business operations? The answer is yes. While AI cannot replace every human task, it can automate a large percentage of repetitive, rule-based, and time-consuming activities that consume valuable employee hours.',
-
     'Repetitive business tasks often include data entry, appointment scheduling, invoice processing, email responses, lead qualification, report generation, document management, customer support, and workflow approvals. These tasks are essential but rarely contribute directly to innovation or business growth.',
-
     'Traditionally, companies hired additional staff as workloads increased. While this approach can be effective, it often leads to higher operational expenses and slower scalability. AI-powered automation provides an alternative by handling routine processes efficiently and consistently.',
 
     'One of the biggest areas where AI is creating impact is customer support. AI-powered agents can answer common questions, resolve basic issues, provide product information, and route complex requests to human representatives. This reduces response times while allowing support teams to focus on higher-priority interactions.',
@@ -281,7 +281,8 @@ const blogPosts: BlogPost[] = [
 
     'Conclusion: AI is rapidly transforming how businesses operate. By automating repetitive tasks, organizations can reduce costs, improve productivity, enhance customer experiences, and scale more effectively. Companies that invest in intelligent automation today will be better prepared for the increasingly digital and competitive business landscape of tomorrow.'
   ]
-}, {
+},
+  {
   id: 'ai-agents-vs-traditional-software-2026',
   title: 'AI Agents vs Traditional Software: What Businesses Need to Know in 2026',
   publishedAt: '2026-06-10',
@@ -324,7 +325,8 @@ const blogPosts: BlogPost[] = [
 
     'The debate between AI Agents and traditional software is not about choosing one over the other. Traditional software provides structure, consistency, and reliability, while AI Agents introduce intelligence, adaptability, and advanced automation. Organizations that strategically combine both technologies will be better positioned to improve efficiency, reduce costs, and deliver exceptional customer experiences in 2026 and beyond.',
   ],
-},{
+  },
+  {
   id: 'custom-software-development-cost-india-2026',
   title: 'What Does Custom Software Development Cost in India in 2026?',
   publishedAt: '2026-06-10',
@@ -359,7 +361,8 @@ const blogPosts: BlogPost[] = [
 
     'As digital transformation continues to accelerate, custom software development is no longer a luxury. It has become a strategic investment for businesses that want to remain competitive, improve efficiency, and deliver exceptional customer experiences in 2026 and beyond.',
   ],
-},{
+  },
+  {
     id: 'future-ready-web-apps',
     title: 'How to Build Future-Ready Web Apps Without Overengineering',
     publishedAt: '2026-05-24',
