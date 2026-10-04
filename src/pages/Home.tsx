@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <Helmet>
         <title>Flowoid | Custom Software & Web Development in Rajkot</title>
-        <meta name="description" content="Custom software & web apps in Rajkot, Gujarat — Flowoid builds production-ready systems, mobile apps & AI chatbots. Clean code, modern stack. Get started today." />
+        <meta name="description" content="Custom software, web applications, responsive websites & mobile apps built for growing businesses in Rajkot, Gujarat. Direct senior engineer access with zero junior outsourcing. Get a free quote today." />
       </Helmet>
       <Navbar />
 
