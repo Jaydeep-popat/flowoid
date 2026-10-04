@@ -210,7 +210,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
             <div className={`transition-[opacity,transform] duration-[320ms] delay-[380ms]
                              ${drawerOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
               <a
-                href="tel:+919876543210"
+                href="tel:+919924855931"
                 className="flex items-center gap-3 px-4 py-3 rounded-2xl
                            bg-[rgba(201,168,76,.1)] border border-[rgba(201,168,76,.2)] mb-4
                            transition-all duration-[220ms] hover:bg-[rgba(201,168,76,.16)]"
@@ -218,7 +218,7 @@ export default function Navbar({ variant = 'inner' }: NavbarProps) {
                 <div className="w-9 h-9 rounded-[10px] bg-gg flex-shrink-0 flex items-center justify-center text-sm">📞</div>
                 <div>
                   <span className="block text-[.65rem] text-white/40 mb-[1px]">Call us anytime</span>
-                  <strong className="font-heading text-[.88rem] font-bold text-white">+91 98765 43210</strong>
+                  <strong className="font-heading text-[.88rem] font-bold text-white">+91 99248 55931</strong>
                 </div>
               </a>
               <div className="flex items-center gap-2.5">

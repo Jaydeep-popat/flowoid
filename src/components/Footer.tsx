@@ -16,20 +16,20 @@ const navCols = [
   {
     h: 'Services',
     links: [
-      { label: 'Custom Software', to: '/services' },
-      { label: 'Cloud & Infrastructure', to: '/services' },
-      { label: 'Cybersecurity', to: '/services' },
-      { label: 'Data & Analytics', to: '/services' },
-      { label: 'IT Consulting', to: '/services' },
+      { label: 'Website Development', to: '/services#website-dev' },
+      { label: 'Custom Software / ERP', to: '/services#custom-software' },
+      { label: 'Web Applications', to: '/services#web-apps' },
+      { label: 'Mobile App Development', to: '/services#mobile-apps' },
     ],
   },
   {
     h: 'Company',
     links: [
       { label: 'About Us', to: '/about' },
-      { label: 'Projects', to: '/projects' },
-      { label: 'Testimonials', to: '/testimonials' },
-      { label: 'Contact', to: '/contact' },
+      { label: 'Projects & Work', to: '/projects' },
+      { label: 'Engineering Blog', to: '/blogs' },
+      { label: 'Client Testimonials', to: '/testimonials' },
+      { label: 'Contact & Roadmap', to: '/contact' },
     ],
   },
 ];
@@ -61,11 +61,11 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
   ══════════════════════════════════════════════════ */
   if (variant === 'home') {
     return (
-      <footer className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg,#060518 0%,#0e0c2e 30%,#1a1845 60%,#251f5a 100%)' }}>
+      <footer className="relative overflow-hidden" style={{ background: 'linear-gradient(90deg,#251f5a 0%,#1a1845 35%,#0e0c2e 70%,#060518 100%)' }}>
         {/* Shine overlays */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(72,69,168,.35),transparent 65%)', filter: 'blur(60px)', transform: 'translate(30%,-30%)' }} />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.4),transparent 65%)', filter: 'blur(50px)', transform: 'translate(-30%,30%)' }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'linear-gradient(135deg,rgba(255,255,255,.03) 0%,transparent 50%)', zIndex: 0 }} />
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(72,69,168,.35),transparent 65%)', filter: 'blur(60px)', transform: 'translate(-20%,-20%)' }} />
+        <div className="absolute bottom-0 left-[20%] w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.25),transparent 65%)', filter: 'blur(50px)', transform: 'translate(-30%,30%)' }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'linear-gradient(90deg,rgba(255,255,255,.03) 0%,transparent 50%)', zIndex: 0 }} />
 
         {/* Main grid */}
         <div className="px-[5%] py-14 border-b border-white/8 relative z-[1]">
@@ -161,11 +161,11 @@ export default function Footer({ variant = 'inner' }: FooterProps) {
      INNER VARIANT
   ══════════════════════════════════════════════════ */
   return (
-    <footer className="relative overflow-hidden px-[6%] pt-14" style={{ background: 'linear-gradient(135deg,#060518 0%,#0e0c2e 30%,#1a1845 60%,#251f5a 100%)' }}>
+    <footer className="relative overflow-hidden px-[6%] pt-14" style={{ background: 'linear-gradient(90deg,#251f5a 0%,#1a1845 35%,#0e0c2e 70%,#060518 100%)' }}>
       {/* Shine overlays */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(72,69,168,.3),transparent 65%)', filter: 'blur(55px)', transform: 'translate(30%,-30%)' }} />
-      <div className="absolute bottom-0 left-0 w-[350px] h-[350px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.35),transparent 65%)', filter: 'blur(45px)', transform: 'translate(-30%,30%)' }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'linear-gradient(135deg,rgba(255,255,255,.03) 0%,transparent 50%)', zIndex: 0 }} />
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(72,69,168,.3),transparent 65%)', filter: 'blur(55px)', transform: 'translate(-20%,-20%)' }} />
+      <div className="absolute bottom-0 left-[20%] w-[350px] h-[350px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.25),transparent 65%)', filter: 'blur(45px)', transform: 'translate(-30%,30%)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'linear-gradient(90deg,rgba(255,255,255,.03) 0%,transparent 50%)', zIndex: 0 }} />
       <div className="max-w-[1240px] mx-auto relative z-[1]">
 
         {/* Main row */}
