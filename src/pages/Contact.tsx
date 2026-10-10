@@ -47,10 +47,11 @@ type ServiceType =
   | 'Consultation & Roadmap';
 
 type BudgetRange =
-  | 'Under ₹1 Lakh'
-  | '₹1L – ₹3L'
-  | '₹3L – ₹6L'
-  | '₹6L+ (Enterprise)'
+  | 'Under ₹25,000'
+  | '₹25k – ₹50k'
+  | '₹50k – ₹1 Lakh'
+  | '₹1L – ₹2.5L'
+  | '₹2.5L+'
   | 'Not sure yet';
 
 interface FormState {
@@ -123,7 +124,7 @@ export default function Contact() {
     phone: '',
     location: '',
     service: 'Website Development',
-    budget: '₹1L – ₹3L',
+    budget: '₹25k – ₹50k',
     message: '',
   });
 
@@ -139,10 +140,11 @@ export default function Contact() {
   ];
 
   const budgetList: BudgetRange[] = [
-    'Under ₹1 Lakh',
-    '₹1L – ₹3L',
-    '₹3L – ₹6L',
-    '₹6L+ (Enterprise)',
+    'Under ₹25,000',
+    '₹25k – ₹50k',
+    '₹50k – ₹1 Lakh',
+    '₹1L – ₹2.5L',
+    '₹2.5L+',
     'Not sure yet',
   ];
 
@@ -837,12 +839,13 @@ export default function Contact() {
 
           <div className="relative z-[2] flex items-center justify-center gap-4 flex-wrap">
             <a
-              href="https://wa.me/919924855931?text=Hi%20Flowoid%20team,%20I%20would%20like%20to%20book%20a%20free%20technical%20roadmap."
+              href="https://wa.me/919924855931?text=Hi%20Flowoid%20team,%20I%20would%20like%20to%20start%20a%20project."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 min-h-[50px] px-8 py-3.5 rounded-full text-[.92rem] font-bold text-white bg-mg shadow-[0_10px_30px_rgba(20,16,58,.36)] relative overflow-hidden transition-all duration-[280ms] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(20,16,58,.48)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none"
+              className="btn-cta-gold rounded-full min-h-[50px] px-8 py-3.5 group"
             >
-              <span>Book Your Free 20-Minute Review →</span>
+              <span>Start Your Project</span>
+              <ArrowRight size={17} strokeWidth={2.4} className="btn-arrow" />
             </a>
             <a
               href="tel:+919924855931"

@@ -6,7 +6,7 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Projects = lazy(() => import('./pages/Projects'));
-const Blogs = lazy(() => import('./pages/Blogs'));
+const Articles = lazy(() => import('./pages/Articles'));
 const Testimonials = lazy(() => import('./pages/Testimonials'));
 const Contact = lazy(() => import('./pages/Contact'));
 
@@ -38,15 +38,20 @@ export default function App() {
         <Suspense fallback={<Preloader />}>
           <ScrollToTop />
           <Routes>
-            <Route path="/"             element={<Home />} />
-            <Route path="/about"        element={<About />} />
-            <Route path="/services"     element={<Services />} />
-            <Route path="/projects"     element={<Projects />} />
-            <Route path="/blogs"        element={<Blogs />} />
-            <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/contact"      element={<Contact />} />
+            <Route path="/"                 element={<Home />} />
+            <Route path="/about"            element={<About />} />
+            <Route path="/services"         element={<Services />} />
+            <Route path="/projects"         element={<Projects />} />
+            <Route path="/articles"         element={<Articles />} />
+            <Route path="/articles/:slug"   element={<Articles />} />
+            <Route path="/article/:slug"    element={<Articles />} />
+            <Route path="/blogs"            element={<Articles />} />
+            <Route path="/blogs/:slug"      element={<Articles />} />
+            <Route path="/blog/:slug"       element={<Articles />} />
+            <Route path="/testimonials"     element={<Testimonials />} />
+            <Route path="/contact"          element={<Contact />} />
             {/* Catch-all → redirect home */}
-            <Route path="*"             element={<Home />} />
+            <Route path="*"                 element={<Home />} />
           </Routes>
         </Suspense>
         </BrowserRouter>

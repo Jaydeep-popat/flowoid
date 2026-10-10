@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import {
   ExternalLink, Globe, Monitor, ShoppingBag, ArrowRight,
-  CheckCircle, TrendingUp, Zap, Smartphone, Target, Layers,
+  CheckCircle, TrendingUp, Zap, Smartphone, Target, Layers, Leaf,
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -37,6 +37,16 @@ const projects = [
     desc: 'A visually rich portfolio website for an interior design studio. Highlights completed projects, design philosophy, and services — helping attract premium residential and commercial clients.',
     link: 'https://pithadiyainterior.com/',
     tags: ['Portfolio', 'UI/UX', 'Responsive', 'Branding'],
+  },
+  {
+    id: 'team-naturals',
+    title: 'Team Naturals',
+    tag: 'Organic Skincare & D2C',
+    icon: Leaf,
+    img: '/naturals.webp',
+    desc: 'A modern D2C e-commerce platform developed for an artisanal skincare brand in Gujarat. Features small-batch natural soaps and clay cleansers with fast catalog discovery, mobile-first cart checkout, and direct customer inquiry channels.',
+    link: 'https://teamnaturals.in/',
+    tags: ['Next.js', 'Tailwind CSS', 'D2C E-Commerce', 'Mobile-First'],
   },
   {
     id: 'nilkanth-traders',
@@ -271,13 +281,13 @@ export default function Projects() {
             </p>
           </div>
 
-          {/* 3 Real Projects Grid */}
+          {/* Real Projects Grid */}
           <motion.div
             ref={gridRef}
             initial="hidden"
             animate={gridInView ? 'visible' : 'hidden'}
             variants={container}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-8"
           >
             {projects.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} />
@@ -390,10 +400,10 @@ export default function Projects() {
               </div>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[.9rem] font-bold text-white bg-mg shadow-[0_8px_24px_rgba(20,16,58,.36)] hover:-translate-y-0.5 transition-all duration-200"
+                className="btn-cta-gold rounded-full px-7 py-3 text-[.88rem] group"
               >
                 <span>Let's Build Yours</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={16} strokeWidth={2.4} className="btn-arrow" />
               </Link>
             </div>
           </motion.div>
@@ -425,9 +435,10 @@ export default function Projects() {
           <div className="relative z-[2] flex items-center justify-center gap-4 flex-wrap">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2.5 min-h-[50px] px-8 py-3.5 rounded-full text-[.92rem] font-bold text-white bg-mg shadow-[0_10px_30px_rgba(20,16,58,.36)] relative overflow-hidden transition-all duration-[280ms] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(20,16,58,.48)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none"
+              className="btn-cta-gold rounded-full min-h-[50px] px-8 py-3.5 group"
             >
-              <span>Book Your Free 20-Minute Review →</span>
+              <span>Start Your Project</span>
+              <ArrowRight size={17} strokeWidth={2.4} className="btn-arrow" />
             </Link>
             <a
               href="tel:+919924855931"

@@ -150,15 +150,44 @@ const allTestimonials: Testimonial[] = [
     category: 'Websites & Portfolios',
     title: 'Modern Web Presence That Drives Real Walk-In Clients',
     q: "Flowoid created a modern, visually appealing website for Nilkanth Traders that showcases our tile collection perfectly. Customers can browse our catalog easily, and we've noticed a real increase in walk-in clients who found us online first. Great team to work with.",
-    name: 'Nilkanth Traders Team',
-    role: 'Tiles & Sanitary Ware',
+    name: 'Mr. Meet Kalola',
+    role: 'Owner',
     company: 'Nilkanth Traders',
     location: 'Rajkot, Gujarat',
-    init: 'NT',
+    init: 'MK',
     rating: 5,
     deliveredProject: 'Digital Product Catalogue & Business Website',
     verifiedOutcome: 'Noticeable rise in retail walk-in buyers finding catalog online',
     projectLink: 'https://nilkanth-trading.vercel.app/',
+  },
+  {
+    id: 'naturals-soap-vraj-kasundra',
+    category: 'Websites & Portfolios',
+    title: 'Fast D2C Mobile Checkout & Effortless Order Flow',
+    q: "Flowoid developed a high-performance D2C e-commerce store for our natural soap brand. The mobile checkout with UPI is lightning fast, and automated WhatsApp order notifications save our team hours of manual follow-up every single day.",
+    name: 'Vraj Kasundra',
+    role: 'Founder',
+    company: 'Naturals Soap (Team Naturals)',
+    location: 'Morbi / Rajkot, Gujarat',
+    init: 'VK',
+    rating: 5,
+    deliveredProject: 'D2C Natural Soaps & Skincare E-Commerce Platform',
+    verifiedOutcome: 'Frictionless one-tap UPI mobile checkout & automated WhatsApp alerts',
+    projectLink: 'https://teamnaturals.in/',
+  },
+  {
+    id: 'ayanshi-imitation-vatsal-pithadiya',
+    category: 'Websites & Portfolios',
+    title: 'Digital Catalogue That Modernized Our B2B & Retail Inquiries',
+    q: "Flowoid transformed how we present our imitation jewellery collections to wholesale and retail buyers. The digital catalogue is ultra-responsive, beautiful, and enables buyers to select designs and inquire instantly.",
+    name: 'Vatsal Pithadiya',
+    role: 'Founder',
+    company: 'Ayanshi Imitation',
+    location: 'Rajkot, Gujarat',
+    init: 'VP',
+    rating: 5,
+    deliveredProject: 'Jewellery Catalogue & Digital Showcase Platform',
+    verifiedOutcome: 'Instant catalogue browsing & streamlined buyer inquiry workflow',
   },
 ];
 
@@ -868,9 +897,10 @@ export default function Testimonials() {
           <div className="relative z-[2] flex items-center justify-center gap-4 flex-wrap">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2.5 min-h-[50px] px-8 py-3.5 rounded-full text-[.92rem] font-bold text-white bg-mg shadow-[0_10px_30px_rgba(20,16,58,.36)] relative overflow-hidden transition-all duration-[280ms] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(20,16,58,.48)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none"
+              className="btn-cta-gold rounded-full min-h-[50px] px-8 py-3.5 group"
             >
-              <span>Book Your Free 20-Minute Review →</span>
+              <span>Start Your Project</span>
+              <ArrowRight size={17} strokeWidth={2.4} className="btn-arrow" />
             </Link>
             <a
               href="tel:+919924855931"

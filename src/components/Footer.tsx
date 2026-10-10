@@ -20,6 +20,8 @@ const navCols = [
       { label: 'Custom Software / ERP', to: '/services#custom-software' },
       { label: 'Web Applications', to: '/services#web-apps' },
       { label: 'Mobile App Development', to: '/services#mobile-apps' },
+      { label: 'E-Commerce Solutions', to: '/services#e-commerce' },
+      { label: 'Portfolio Websites', to: '/services#portfolio-websites' },
     ],
   },
   {
@@ -27,7 +29,7 @@ const navCols = [
     links: [
       { label: 'About Us', to: '/about' },
       { label: 'Projects & Work', to: '/projects' },
-      { label: 'Engineering Blog', to: '/blogs' },
+      { label: 'Articles & Guides', to: '/articles' },
       { label: 'Client Testimonials', to: '/testimonials' },
       { label: 'Contact & Roadmap', to: '/contact' },
     ],

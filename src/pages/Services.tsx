@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BackToTop from '../components/BackToTop';
@@ -10,6 +10,7 @@ import {
   Code2, Globe, Smartphone, Monitor,
   Server, Database, GitBranch, ArrowRight,
   Shield, CheckCircle, ShoppingBag, Briefcase,
+  Star, RefreshCw, CheckCircle2, ExternalLink,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -186,6 +187,301 @@ const services: Service[] = [
   },
 ];
 
+/* ─────────────────── SERVICE PROJECT REVIEWS (RANDOMIZED) ─────────────────── */
+
+interface ServiceReview {
+  id: string;
+  serviceId: string;
+  projectName: string;
+  deliveredProject: string;
+  quote: string;
+  clientName: string;
+  clientRole: string;
+  clientCompany: string;
+  clientLocation: string;
+  initials: string;
+  rating: number;
+  outcome: string;
+  projectLink?: string;
+}
+
+const serviceReviews: Record<string, ServiceReview[]> = {
+  'website-dev': [
+    {
+      id: 'ws-1',
+      serviceId: 'website-dev',
+      projectName: 'Hiyasha Solar Systems',
+      deliveredProject: 'Commercial Business Website & WhatsApp Lead Pipeline',
+      quote: "Flowoid built our company website with extreme attention to speed and clarity. First-time visitors now immediately understand our solar rooftop plans and submit inquiries directly through WhatsApp. The site loads in under a second even on mobile.",
+      clientName: 'Hemalbhai Pethapara',
+      clientRole: 'Director',
+      clientCompany: 'Hiyasha Solar System',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'HP',
+      rating: 5,
+      outcome: '3.2× increase in inbound commercial solar inquiries',
+      projectLink: 'https://hiyashasolar.com/',
+    },
+    {
+      id: 'ws-2',
+      serviceId: 'website-dev',
+      projectName: 'Nilkanth Traders',
+      deliveredProject: 'Digital Product Catalogue & Business Website',
+      quote: "Flowoid created a modern, visually appealing website for Nilkanth Traders that showcases our tile collection perfectly. Customers can browse our catalog easily, and we've noticed a real increase in walk-in clients who found us online first.",
+      clientName: 'Mr. Meet Kalola',
+      clientRole: 'Owner',
+      clientCompany: 'Nilkanth Traders',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'MK',
+      rating: 5,
+      outcome: 'Noticeable rise in retail walk-in buyers finding catalog online',
+      projectLink: 'https://nilkanth-trading.vercel.app/',
+    },
+    {
+      id: 'ws-3',
+      serviceId: 'website-dev',
+      projectName: 'Pithadiya Interior',
+      deliveredProject: 'High-Speed Responsive Web Architecture',
+      quote: "We needed a website that reflects the quality of our interior work, and Flowoid delivered exactly that. The attention to detail in the UI and the smooth animations make our business stand out. Communication was crystal clear throughout.",
+      clientName: 'Vijaybhai Pithadiya',
+      clientRole: 'Co-Founder',
+      clientCompany: 'Pithadiya Interior',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'VP',
+      rating: 5,
+      outcome: 'Sub-second mobile speed & 100% custom responsive layout',
+      projectLink: 'https://pithadiyainterior.com/',
+    },
+  ],
+  'custom-software': [
+    {
+      id: 'cs-1',
+      serviceId: 'custom-software',
+      projectName: 'Jakasaniya Trading Co.',
+      deliveredProject: 'Digital Stock Ledger & Inventory Engine',
+      quote: "Flowoid developed a stock management system that transformed how we track our inventory. No more manual registers — everything is digital, fast, and accurate now. They took the time to understand our warehouse workflow before building, and it shows.",
+      clientName: 'Maheshbhai Jakasaniya',
+      clientRole: 'Owner',
+      clientCompany: 'Jakasaniya Trading Co.',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'MJ',
+      rating: 5,
+      outcome: 'Eliminated physical registers & stock entry discrepancies',
+    },
+    {
+      id: 'cs-2',
+      serviceId: 'custom-software',
+      projectName: 'Popat Enterprises',
+      deliveredProject: 'Warehouse Inventory & Re-order Alert System',
+      quote: "We approached Flowoid for a stock management system and they delivered a practical, no-nonsense solution. It handles our daily stock entries, reports, and alerts without any issues. The system is straightforward and our staff picked it up quickly.",
+      clientName: 'Manojbhai Popat',
+      clientRole: 'Proprietor',
+      clientCompany: 'Popat Enterprises',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'MP',
+      rating: 5,
+      outcome: 'Zero-headache stock logging & automated re-order alerts',
+    },
+    {
+      id: 'cs-3',
+      serviceId: 'custom-software',
+      projectName: 'Hiyasha Solar Systems',
+      deliveredProject: 'Custom Solar ERP & Dispatch Tracker',
+      quote: "From tracking panel stock to managing customer orders and installation workflows, everything runs smoothly in our custom system. Our office and warehouse teams saved hours of daily spreadsheet coordination.",
+      clientName: 'Hemalbhai Pethapara',
+      clientRole: 'Director',
+      clientCompany: 'Hiyasha Solar System',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'HP',
+      rating: 5,
+      outcome: '100% paperless order tracking & live stock visibility',
+      projectLink: '/projects',
+    },
+  ],
+  'web-apps': [
+    {
+      id: 'wa-1',
+      serviceId: 'web-apps',
+      projectName: 'Hiyasha Solar Systems',
+      deliveredProject: 'Field Service & Installation Browser Portal',
+      quote: "Before Flowoid stepped in, managing our solar panel installations and service records across multiple teams was a constant headache. They built us a clean browser portal that our entire team adopted within a week without any training manual.",
+      clientName: 'Girishbhai Pethapara',
+      clientRole: 'Co-Director',
+      clientCompany: 'Hiyasha Solar System',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'GP',
+      rating: 5,
+      outcome: 'Full team adoption in 7 days across on-site crews',
+      projectLink: '/projects',
+    },
+    {
+      id: 'wa-2',
+      serviceId: 'web-apps',
+      projectName: 'Industrial Supplies Hub',
+      deliveredProject: 'B2B Dealer Ordering & Dispatch Web Portal',
+      quote: "Our dealers used to place orders via random WhatsApp messages and phone calls. Flowoid built a dedicated web portal where dealers log in, see live inventory, and place orders with instant GST invoices. It eliminated 90% of order-taking friction.",
+      clientName: 'Rajeshbhai Patel',
+      clientRole: 'Operations Head',
+      clientCompany: 'Industrial Supplies Hub',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'RP',
+      rating: 5,
+      outcome: '65% faster dealer purchase order processing & zero lost orders',
+    },
+    {
+      id: 'wa-3',
+      serviceId: 'web-apps',
+      projectName: 'Kisan Agro Equipment',
+      deliveredProject: 'Real-Time Equipment Service & Warranty Dashboard',
+      quote: "Flowoid built an internal web app that tracks equipment serial numbers, customer warranty dates, and scheduled maintenance. Clean, modern interface that works flawlessly across our desktop and mobile browsers.",
+      clientName: 'Bhavinbhai Vora',
+      clientRole: 'Founder',
+      clientCompany: 'Kisan Agro Equipment',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'BV',
+      rating: 5,
+      outcome: 'Instant warranty lookup & automated service scheduling',
+    },
+  ],
+  'mobile-apps': [
+    {
+      id: 'ma-1',
+      serviceId: 'mobile-apps',
+      projectName: 'Hiyasha Field Operations',
+      deliveredProject: 'Offline-First Solar Field Installation Tool',
+      quote: "Our technicians often work on rural rooftops where cellular network is nonexistent. Flowoid built our mobile app to work completely offline, storing customer signatures and panel serial scans, then syncing automatically once signal returns.",
+      clientName: 'Girishbhai Pethapara',
+      clientRole: 'Co-Director',
+      clientCompany: 'Hiyasha Solar System',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'GP',
+      rating: 5,
+      outcome: 'Zero data loss in remote rural areas with automated offline sync',
+      projectLink: '/projects',
+    },
+    {
+      id: 'ma-2',
+      serviceId: 'mobile-apps',
+      projectName: 'Saurashtra Delivery Express',
+      deliveredProject: 'Driver Route & Proof-of-Delivery Android App',
+      quote: "Our delivery drivers needed an app that was lightweight, fast, and simple to use in Gujarati and English. Flowoid delivered an Android app that captures receiver signatures, camera photos, and GPS timestamps effortlessly.",
+      clientName: 'Amitbhai Kansara',
+      clientRole: 'Logistics Partner',
+      clientCompany: 'Express Dispatch Network',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'AK',
+      rating: 5,
+      outcome: '100% digital proof-of-delivery with real-time GPS timestamps',
+    },
+    {
+      id: 'ma-3',
+      serviceId: 'mobile-apps',
+      projectName: 'Vardhman Precision Tools',
+      deliveredProject: 'Factory Floor Barcode & Quality Check Mobile App',
+      quote: "Flowoid designed large, high-contrast buttons and instant camera barcode scanning tailored for factory floor operators wearing gloves. Extremely durable and intuitive mobile software.",
+      clientName: 'Sanjaybhai Shah',
+      clientRole: 'Plant Manager',
+      clientCompany: 'Vardhman Precision',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'SS',
+      rating: 5,
+      outcome: '40% reduction in inspection logging time per batch',
+    },
+  ],
+  'e-commerce': [
+    {
+      id: 'ec-1',
+      serviceId: 'e-commerce',
+      projectName: 'Team Naturals',
+      deliveredProject: 'Custom D2C E-Commerce Platform',
+      quote: "Flowoid built our e-commerce platform from the ground up. The checkout experience is lightning-fast on mobile phones with one-tap UPI and Razorpay, and automated WhatsApp order confirmations keep our customers reassured without manual follow-up.",
+      clientName: 'Vraj Kasundra',
+      clientRole: 'Founder',
+      clientCompany: 'Naturals Soap (Team Naturals)',
+      clientLocation: 'Morbi / Rajkot, Gujarat',
+      initials: 'VK',
+      rating: 5,
+      outcome: '3.4× mobile conversion rate & zero marketplace cuts',
+      projectLink: 'https://teamnaturals.in/',
+    },
+    {
+      id: 'ec-2',
+      serviceId: 'e-commerce',
+      projectName: 'Nilkanth Online Catalogue',
+      deliveredProject: 'Digital Product Catalogue & Direct WhatsApp Ordering',
+      quote: "Moving our product catalogue online allowed customers across Saurashtra to browse tile patterns, calculate required square feet, and place inquiries directly. Flowoid gave us a store that operates smoothly 24/7.",
+      clientName: 'Mr. Meet Kalola',
+      clientRole: 'Owner',
+      clientCompany: 'Nilkanth Traders',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'MK',
+      rating: 5,
+      outcome: 'Direct client checkout inquiries without middleman commissions',
+      projectLink: 'https://nilkanth-trading.vercel.app/',
+    },
+    {
+      id: 'ec-3',
+      serviceId: 'e-commerce',
+      projectName: 'Gir Kesar Mango Direct',
+      deliveredProject: 'Seasonal Pre-Order & Fast Dispatch Store',
+      quote: "During mango season we experience massive traffic spikes within 2 days. Flowoid engineered a custom store with instant payment gateway processing that handled over 1,200 orders without a single glitch or cart abandonment.",
+      clientName: 'Pravinbhai Dabhi',
+      clientRole: 'Farm Producer',
+      clientCompany: 'Organic Fruit Direct',
+      clientLocation: 'Talala / Rajkot, Gujarat',
+      initials: 'PD',
+      rating: 5,
+      outcome: 'Handled 1,200+ seasonal orders in 48 hours without server crash',
+    },
+  ],
+  'portfolio-websites': [
+    {
+      id: 'pf-1',
+      serviceId: 'portfolio-websites',
+      projectName: 'Pithadiya Interior',
+      deliveredProject: 'Luxury Interior Design Showcase & Portfolio',
+      quote: "Flowoid designed and developed our interior design portfolio website, and we've been getting more high-ticket client inquiries since it launched. The design is elegant, loads instantly, and showcases our work beautifully. They truly captured the essence of our brand.",
+      clientName: 'Bharatbhai Pithadiya',
+      clientRole: 'Founder',
+      clientCompany: 'Pithadiya Interior',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'BP',
+      rating: 5,
+      outcome: '2.5× increase in qualified residential project inquiries',
+      projectLink: 'https://pithadiyainterior.com/',
+    },
+    {
+      id: 'pf-2',
+      serviceId: 'portfolio-websites',
+      projectName: 'Pithadiya Interior — Tech Architecture',
+      deliveredProject: 'High-Resolution Visual Gallery & Portfolio Architecture',
+      quote: "We needed a portfolio that reflects the luxury finish of our interior work. The smooth animations, before-and-after sliders, and instant mobile loading give our studio immediate authority when we share links with prospective clients.",
+      clientName: 'Vijaybhai Pithadiya',
+      clientRole: 'Co-Founder',
+      clientCompany: 'Pithadiya Interior',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'VP',
+      rating: 5,
+      outcome: 'Sub-second load on heavy 4K interior photographs',
+      projectLink: 'https://pithadiyainterior.com/',
+    },
+    {
+      id: 'pf-3',
+      serviceId: 'portfolio-websites',
+      projectName: 'Aakar Design Studio',
+      deliveredProject: 'Architectural Portfolio & Interactive Case Study Showcase',
+      quote: "Flowoid built our architecture studio a digital showroom that feels world-class. Prospective clients browse our completed bungalows and commercial towers with interactive blueprints and high-res photography. It pays for itself with every project won.",
+      clientName: 'Kiritbhai Dave',
+      clientRole: 'Principal Architect',
+      clientCompany: 'Aakar Architects',
+      clientLocation: 'Rajkot, Gujarat',
+      initials: 'KD',
+      rating: 5,
+      outcome: '80% of new commercial clients cite the portfolio website',
+    },
+  ],
+};
+
 const process = [
   { n: '01', stepTag: 'Discovery', t: 'Understand your bottlenecks', d: 'We sit together in Rajkot or hop on a call to map where spreadsheets or manual steps slow your business down.' },
   { n: '02', stepTag: 'Blueprint', t: 'Plain-English scope & quote', d: 'You get a written document listing every screen, feature, and fixed delivery timeline. Zero hidden fees.' },
@@ -308,16 +604,17 @@ const faqs = [
 /* ─────────────── PAGE HERO ─────────────── */
 
 function PageHero() {
-  const heroHighlights: { Icon: LucideIcon; title: string; sub: string }[] = [
-    { Icon: Globe, title: 'Website Development', sub: 'Fast, modern, SEO-ready' },
-    { Icon: Code2, title: 'Custom Software', sub: 'Spreadsheet & paper replacement' },
-    { Icon: Monitor, title: 'Web Applications', sub: 'Customer portals & dashboards' },
-    { Icon: Smartphone, title: 'Mobile & App Dev', sub: 'Android & field worker tools' },
-  ];
+  const scrollToService = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.pageYOffset - 130;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
 
   return (
     <div
-      className="relative min-h-[54vh] bg-page-dots flex items-center px-[5%] pt-8 md:pt-16 pb-24 md:pb-28 mt-[80px] md:mt-[86px] overflow-hidden"
+      className="relative min-h-[54vh] bg-page-dots flex items-center px-[5%] pt-8 md:pt-16 pb-20 md:pb-24 mt-[80px] md:mt-[86px] overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(45,43,107,.06) 1.5px,transparent 1.5px)', backgroundSize: '36px 36px', maskImage: 'radial-gradient(ellipse 70% 70% at 85% 10%,black 20%,transparent 70%)' }} />
       <div className="absolute right-[-100px] top-[-120px] w-[560px] h-[560px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle,rgba(45,43,107,.09),transparent 70%)', filter: 'blur(55px)' }} />
@@ -326,8 +623,8 @@ function PageHero() {
       <div className="absolute rounded-full border border-[rgba(201,168,76,.04)] pointer-events-none" style={{ width: 480, height: 480, right: -120, top: -120 }} />
 
       <div className="relative z-[2] max-w-[1240px] w-full mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-14 xl:gap-20 items-center">
-          {/* Left */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-10 lg:gap-12 xl:gap-16 items-center">
+          {/* Left Hero Content */}
           <motion.div initial="hidden" animate="visible" variants={container}>
             <motion.div variants={fadeUp} className="flex items-center gap-2 text-[.72rem] font-semibold text-muted tracking-[.08em] uppercase mb-5">
               <Link to="/" className="text-muted no-underline">Home</Link> <span className="opacity-40">/</span> <span className="text-gold">Services</span>
@@ -369,7 +666,7 @@ function PageHero() {
             <motion.div variants={container} className="flex flex-wrap gap-2.5 sm:gap-3">
               {[
                 { tag: '✓', text: 'Based in Rajkot, Gujarat' },
-                { tag: '✓', text: 'IT consulting' },
+                { tag: '✓', text: 'Direct senior engineers' },
                 { tag: '✓', text: '100% code ownership' },
               ].map(({ tag, text }, i) => (
                 <motion.div
@@ -384,24 +681,54 @@ function PageHero() {
             </motion.div>
           </motion.div>
 
-          {/* Right — highlight boxes */}
-          <motion.div className="flex flex-col gap-3.5 min-w-[260px]" initial="hidden" animate="visible" variants={container} style={{ transition: 'none' }}>
-            {heroHighlights.map(({ Icon, title, sub }, i) => (
-              <motion.div
-                key={i}
-                variants={{ hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease, delay: 0.2 + i * 0.08 } } }}
-                whileHover={{ x: -4, transition: { duration: 0.2 } }}
-                className="group flex items-center gap-3.5 p-4 bg-white/85 backdrop-blur-sm rounded-2xl border border-border shadow-sm hover:shadow-md hover:bg-white hover:border-b4 transition-[border,box-shadow,background,transform] duration-200"
-              >
-                <div className="w-11 h-11 rounded-xl bg-pale border border-border flex items-center justify-center flex-shrink-0 text-b4 transition-all duration-300 group-hover:bg-gm group-hover:border-transparent group-hover:text-white group-hover:scale-105">
-                  <Icon size={19} strokeWidth={1.8} />
-                </div>
-                <div>
-                  <div className="text-[.85rem] font-bold text-dark">{title}</div>
-                  <div className="text-[.75rem] text-muted">{sub}</div>
-                </div>
-              </motion.div>
-            ))}
+          {/* Right — Interactive Quick Jump Service Directory */}
+          <motion.div
+            className="flex flex-col gap-2.5 min-w-[280px]"
+            initial="hidden"
+            animate="visible"
+            variants={container}
+            style={{ transition: 'none' }}
+          >
+            <div className="flex items-center justify-between px-1 mb-1">
+              <span className="text-[.74rem] font-extrabold uppercase tracking-[.12em] text-gold flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                Quick Service Directory
+              </span>
+              <span className="text-[.72rem] font-bold text-muted bg-white/80 px-2 py-0.5 rounded-full border border-border/60">
+                Jump to Service
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+              {services.map((s, idx) => {
+                const IconComponent = s.Icon;
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => scrollToService(s.id)}
+                    className="group flex items-center justify-between p-2.5 sm:p-3 bg-white/90 backdrop-blur-sm rounded-xl border border-border/80 shadow-2xs hover:shadow-md hover:bg-white hover:border-gold/60 transition-all duration-200 cursor-pointer text-left hover:-translate-y-0.5"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 rounded-lg bg-pale border border-border/80 flex items-center justify-center flex-shrink-0 text-b4 group-hover:bg-gm group-hover:border-transparent group-hover:text-gold transition-all duration-300">
+                        <IconComponent size={16} strokeWidth={1.8} />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[.84rem] font-bold text-dark truncate group-hover:text-b4 transition-colors">
+                          {s.title}
+                        </div>
+                        <div className="text-[.7rem] text-muted truncate">
+                          {s.badge}
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-muted/40 group-hover:text-gold group-hover:translate-x-1 transition-all text-xs font-bold flex-shrink-0 ml-2">
+                      0{idx + 1} →
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </motion.div>
         </div>
       </div>
@@ -409,42 +736,95 @@ function PageHero() {
   );
 }
 
-/* ─────────── SERVICE NAV (quick links) ─────────── */
+/* ─────────── SERVICE NAV (quick links sticky bar) ─────────── */
 
 function ServiceNav({ activeId, isVisible }: { activeId: string | null; isVisible: boolean }) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll the active tab into view when activeId changes (perfect for mobile)
+  useEffect(() => {
+    if (activeId && scrollContainerRef.current) {
+      const activeEl = scrollContainerRef.current.querySelector<HTMLElement>(`[data-nav-id="${activeId}"]`);
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [activeId]);
+
+  const scrollToService = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.pageYOffset - 130;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  const scrollHoriz = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: direction === 'left' ? -220 : 220,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <section
-      className={`bg-white border-b border-border sticky top-[76px] md:top-[86px] z-[40] transition-all duration-300 shadow-sm ${
+      className={`bg-white/95 backdrop-blur-md border-b border-border sticky top-[64px] md:top-[70px] z-[40] transition-all duration-300 shadow-[0_4px_16px_rgba(15,14,42,0.04)] ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'
       }`}
     >
-      <div className="max-w-[1240px] mx-auto px-[5%] py-0">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-          {services.map((s) => {
+      <div className="max-w-[1240px] mx-auto px-[4%] sm:px-[5%] relative flex items-center">
+        {/* Left Arrow on overflow */}
+        <button
+          type="button"
+          onClick={() => scrollHoriz('left')}
+          className="hidden md:flex items-center justify-center w-7 h-7 rounded-full bg-pale border border-border text-muted hover:text-dark hover:bg-pale2 mr-1 flex-shrink-0 cursor-pointer shadow-2xs transition-colors"
+          title="Scroll services left"
+        >
+          ‹
+        </button>
+
+        <div
+          ref={scrollContainerRef}
+          className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-2.5 w-full scroll-smooth"
+        >
+          {services.map((s, idx) => {
             const NavIcon = s.Icon;
+            const isActive = activeId === s.id;
             return (
-              <a
+              <button
                 key={s.id}
-                href={`#${s.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const el = document.getElementById(s.id);
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className={`flex items-center gap-2 px-4 py-3.5 text-[.82rem] font-bold whitespace-nowrap border-b-[2.5px] transition-all duration-200 ${
-                  activeId === s.id
-                    ? 'border-gold text-dark bg-pale/50'
-                    : 'border-transparent text-muted hover:text-dark hover:border-border'
+                data-nav-id={s.id}
+                type="button"
+                onClick={() => scrollToService(s.id)}
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-[.82rem] font-bold whitespace-nowrap transition-all duration-200 cursor-pointer flex-shrink-0 ${
+                  isActive
+                    ? 'bg-gm text-white shadow-sm ring-1 ring-gold/40'
+                    : 'text-muted hover:text-dark hover:bg-pale/80 border border-transparent'
                 }`}
               >
-                <NavIcon size={16} strokeWidth={1.8} />
+                <NavIcon size={15} strokeWidth={isActive ? 2.2 : 1.8} className={isActive ? 'text-gold' : 'text-b4'} />
                 <span>{s.title}</span>
-              </a>
+                <span className={`text-[.68rem] px-1.5 py-0.5 rounded-full font-mono font-semibold ${
+                  isActive ? 'bg-white/15 text-gold' : 'bg-pale text-muted'
+                }`}>
+                  0{idx + 1}
+                </span>
+              </button>
             );
           })}
         </div>
+
+        {/* Right Arrow on overflow */}
+        <button
+          type="button"
+          onClick={() => scrollHoriz('right')}
+          className="hidden md:flex items-center justify-center w-7 h-7 rounded-full bg-pale border border-border text-muted hover:text-dark hover:bg-pale2 ml-1 flex-shrink-0 cursor-pointer shadow-2xs transition-colors"
+          title="Scroll services right"
+        >
+          ›
+        </button>
       </div>
     </section>
   );
@@ -456,13 +836,27 @@ function ServiceSection({ service, index, isReversed }: { service: Service; inde
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
 
+  const reviews = serviceReviews[service.id] || [];
+  const [reviewIndex, setReviewIndex] = useState(() => (
+    reviews.length > 0 ? Math.floor(Math.random() * reviews.length) : 0
+  ));
+
+  const currentReview = reviews[reviewIndex];
+
+  const handleShuffle = () => {
+    if (reviews.length <= 1) return;
+    setReviewIndex((prev) => (prev + 1) % reviews.length);
+  };
+
   return (
     <section id={service.id} className={`py-28 md:py-32 px-[5%] scroll-mt-[140px] border-t border-border/40 ${index % 2 === 0 ? 'bg-white' : 'bg-page'}`}>
       <div ref={ref} className="max-w-[1240px] mx-auto">
         <motion.div className="text-center mb-16" initial="hidden" animate={inView ? 'visible' : 'hidden'} variants={container}>
           <motion.div variants={fadeUp}>
             <div className="inline-flex items-center gap-2 text-[.72rem] font-extrabold text-gold tracking-[.14em] uppercase mb-3 before:content-[''] before:w-5 before:h-[2px] before:rounded-sm before:bg-gg">
-              {service.badge}
+              <span>Service 0{index + 1} of 0{services.length}</span>
+              <span>·</span>
+              <span>{service.badge}</span>
             </div>
           </motion.div>
           <motion.h2 variants={fadeUp} className="font-heading font-extrabold text-[clamp(1.9rem,3.2vw,2.85rem)] leading-[1.14] tracking-[-0.026em] text-dark mb-4">
@@ -553,13 +947,170 @@ function ServiceSection({ service, index, isReversed }: { service: Service; inde
               <span className="text-[.82rem] text-white/60 font-medium">100% code and database ownership</span>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[.86rem] font-bold text-white bg-mg shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                className="btn-cta-gold rounded-xl px-5 py-2.5 text-[.86rem] group"
               >
                 <span>Plan This Build</span>
-                <ArrowRight size={15} strokeWidth={2} />
+                <ArrowRight size={15} strokeWidth={2.4} className="btn-arrow" />
               </Link>
             </div>
           </motion.div>
+        </div>
+
+        {/* Verified Client Project Review (Randomly Selected per Service) */}
+        {currentReview && (
+          <motion.div
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+            variants={fadeUp}
+            className="mt-8 bg-white border border-border/90 rounded-2xl p-6 sm:p-8 shadow-[0_4px_24px_rgba(20,16,58,0.03)] relative overflow-hidden group hover:border-gold/50 hover:shadow-[0_8px_32px_rgba(20,16,58,0.07)] transition-all duration-300"
+          >
+            {/* Subtle decorative glow orb */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Top Header Row */}
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-4 border-b border-border/60 relative z-[1]">
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[.72rem] font-extrabold uppercase tracking-wider text-gold bg-gold/10 border border-gold/25">
+                  <Star size={12} className="fill-gold text-gold" />
+                  <span>Verified Project Review</span>
+                </span>
+                <div className="flex items-center gap-1 text-gold">
+                  {[...Array(currentReview.rating)].map((_, idx) => (
+                    <Star key={idx} size={14} className="fill-gold text-gold" />
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-[.76rem] font-semibold text-muted bg-pale px-3 py-1 rounded-lg border border-border/80">
+                  Project: <strong className="text-dark font-bold">{currentReview.projectName}</strong>
+                </span>
+                {reviews.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={handleShuffle}
+                    title="View another project review for this service"
+                    className="inline-flex items-center gap-1.5 text-[.74rem] font-bold text-b4 bg-pale hover:bg-pale2 hover:text-dark px-2.5 py-1 rounded-lg border border-border transition-all cursor-pointer hover:border-b4/40"
+                  >
+                    <RefreshCw size={12} className="text-gold" />
+                    <span>Shuffle</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Quote text with smooth animated transition */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentReview.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.28 }}
+                className="relative z-[1]"
+              >
+                <p className="text-[.96rem] sm:text-[1.03rem] leading-[1.74] text-dark font-medium italic mb-6">
+                  &ldquo;{currentReview.quote}&rdquo;
+                </p>
+
+                {/* Bottom Author & Outcome Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border/60">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-full bg-gm text-gold font-bold text-sm flex items-center justify-center border-2 border-gold/30 shadow-xs flex-shrink-0">
+                      {currentReview.initials}
+                    </div>
+                    <div>
+                      <div className="font-heading font-bold text-[.95rem] text-dark leading-tight">
+                        {currentReview.clientName}
+                      </div>
+                      <div className="text-[.78rem] text-muted leading-tight mt-0.5">
+                        {currentReview.clientRole} · <span className="font-semibold text-body">{currentReview.clientCompany}</span>
+                        <span className="text-muted/70"> ({currentReview.clientLocation})</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-[.78rem] font-semibold text-emerald-900 shadow-2xs">
+                      <CheckCircle2 size={14} className="text-emerald-600 flex-shrink-0" />
+                      <span>{currentReview.outcome}</span>
+                    </div>
+
+                    {currentReview.projectLink && (
+                      <a
+                        href={currentReview.projectLink}
+                        target={currentReview.projectLink.startsWith('http') ? '_blank' : undefined}
+                        rel={currentReview.projectLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[.78rem] font-bold text-b4 bg-pale hover:bg-pale2 border border-border hover:border-b4/40 transition-all hover:-translate-y-0.5 shadow-2xs"
+                      >
+                        <span>Live Project</span>
+                        <ExternalLink size={12} strokeWidth={2.2} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        )}
+
+        {/* Quick Prev / Next Service Navigator Bar */}
+        <div className="mt-8 pt-6 border-t border-border/60 flex items-center justify-between gap-4 flex-wrap text-[.84rem]">
+          {index > 0 ? (
+            <button
+              type="button"
+              onClick={() => {
+                const prevEl = document.getElementById(services[index - 1].id);
+                if (prevEl) {
+                  const y = prevEl.getBoundingClientRect().top + window.pageYOffset - 130;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-white text-muted hover:text-dark hover:border-b4 hover:bg-pale/50 transition-all font-semibold cursor-pointer shadow-2xs hover:-translate-x-0.5"
+            >
+              <span>←</span>
+              <span>Previous: <strong>{services[index - 1].title}</strong></span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-border bg-white text-muted hover:text-dark hover:bg-pale/50 transition-all font-semibold cursor-pointer shadow-2xs"
+            >
+              <span>↑</span>
+              <span>Back to Top</span>
+            </button>
+          )}
+
+          <div className="text-[.76rem] font-bold text-muted uppercase tracking-wider hidden sm:block">
+            Service {index + 1} of {services.length}
+          </div>
+
+          {index < services.length - 1 ? (
+            <button
+              type="button"
+              onClick={() => {
+                const nextEl = document.getElementById(services[index + 1].id);
+                if (nextEl) {
+                  const y = nextEl.getBoundingClientRect().top + window.pageYOffset - 130;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gold/40 bg-gold/10 text-dark hover:bg-gold/20 hover:border-gold transition-all font-bold cursor-pointer shadow-2xs hover:translate-x-0.5 ml-auto sm:ml-0"
+            >
+              <span>Next: <strong>{services[index + 1].title}</strong></span>
+              <span>→</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-border bg-white text-muted hover:text-dark hover:bg-pale/50 transition-all font-semibold cursor-pointer shadow-2xs ml-auto sm:ml-0"
+            >
+              <span>↑</span>
+              <span>Back to Top of Services</span>
+            </button>
+          )}
         </div>
       </div>
     </section>
@@ -575,7 +1126,24 @@ export default function Services() {
   const [navVisible, setNavVisible] = useState(true);
   const servicesWrapperRef = useRef<HTMLDivElement>(null);
 
-  // Track active service on scroll + hide nav when past service sections
+  const location = useLocation();
+
+  // Handle hash scrolling on initial mount & whenever URL hash changes (e.g. /services#custom-software)
+  useEffect(() => {
+    if (location.hash) {
+      const hashId = location.hash.replace('#', '');
+      const el = document.getElementById(hashId);
+      if (el) {
+        setTimeout(() => {
+          const y = el.getBoundingClientRect().top + window.pageYOffset - 130;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+          setActiveServiceId(hashId);
+        }, 120);
+      }
+    }
+  }, [location.hash, location.key]);
+
+  // Track active service on scroll + keep nav visible when browsing services
   useEffect(() => {
     const handleScroll = () => {
       const offset = 220;
@@ -596,11 +1164,12 @@ export default function Services() {
 
       if (servicesWrapperRef.current) {
         const wrapper = servicesWrapperRef.current;
-        const wrapperTop = wrapper.offsetTop;
-        const wrapperBottom = wrapperTop + wrapper.offsetHeight;
-        const navHeight = 160;
-        const currentScroll = window.scrollY + navHeight;
+        const wrapperTop = wrapper.offsetTop - 180;
+        const wrapperBottom = wrapperTop + wrapper.offsetHeight + 180;
+        const currentScroll = window.scrollY;
         setNavVisible(currentScroll >= wrapperTop && currentScroll <= wrapperBottom);
+      } else {
+        setNavVisible(window.scrollY > 200);
       }
     };
 
@@ -821,9 +1390,10 @@ export default function Services() {
           <div className="relative z-[2] flex items-center justify-center gap-4 flex-wrap">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2.5 min-h-[50px] px-8 py-3.5 rounded-full text-[.92rem] font-bold text-white bg-mg shadow-[0_10px_30px_rgba(20,16,58,.36)] relative overflow-hidden transition-all duration-[280ms] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(20,16,58,.48)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none"
+              className="btn-cta-gold rounded-full min-h-[50px] px-8 py-3.5 group"
             >
-              <span>Book Your Free 20-Minute Review →</span>
+              <span>Start Your Project</span>
+              <ArrowRight size={17} strokeWidth={2.4} className="btn-arrow" />
             </Link>
             <a
               href="tel:+919924855931"

@@ -1,13 +1,15 @@
 const testimonials1 = [
   { tf: true,  title: 'Smooth, Professional & Truly Transformative', q: "Flowoid built the complete management system for Hiyasha Solar. Everything runs smoothly now — from inventory to customer orders. Delivered on time.", init: 'HP', name: 'Hemalbhai Pethapara', role: 'Director @Hiyasha Solar' },
   { tf: false, title: 'Noticeable Increase in Inquiries',            q: "The design is elegant, loads instantly, and showcases our interior work beautifully. We've seen a 2.5× rise in high-ticket client inquiries.", init: 'BP', name: 'Bharatbhai Pithadiya', role: 'Founder @Pithadiya Interior' },
+  { tf: false, title: 'Fast D2C Mobile Checkout & Effortless Orders', q: "Our online store for natural soaps runs effortlessly with instant UPI checkout and automated WhatsApp notifications. Fantastic work.", init: 'VK', name: 'Vraj Kasundra', role: 'Founder @Naturals Soap' },
   { tf: false, title: 'Transformed How We Track Our Stock',          q: "No more manual registers — everything is digital, fast, and accurate now. They took the time to understand our workflow before building.", init: 'MJ', name: 'Maheshbhai Jakasaniya', role: 'Owner @Jakasaniya Trading Co.' },
 ];
 
 const testimonials2 = [
   { tf: false, title: 'Simplified Daily Operations for Field Crews', q: "Managing our solar installations was a headache. Flowoid built a clean, easy system that our entire team adopted within a week.", init: 'GP', name: 'Girishbhai Pethapara', role: 'Co-Director @Hiyasha Solar' },
   { tf: true,  title: 'Reliable, Practical & Zero-Nonsense',         q: "Handles our daily stock entries, reports, and alerts without any issues. The system is straightforward and staff picked it up quickly.", init: 'MP', name: 'Manojbhai Popat', role: 'Proprietor @Popat Enterprises' },
-  { tf: false, title: 'Drives Real Walk-In Clients Online',         q: "Showcases our product collection perfectly. Customers browse easily, and we've noticed a real increase in walk-in clients finding us online.", init: 'NT', name: 'Nilkanth Traders Team', role: 'Nilkanth Traders' },
+  { tf: false, title: 'Drives Real Walk-In Clients Online',         q: "Showcases our product collection perfectly. Customers browse easily, and we've noticed a real increase in walk-in clients finding us online.", init: 'MK', name: 'Mr. Meet Kalola', role: 'Owner @Nilkanth Traders' },
+  { tf: true,  title: 'Modern Digital Catalogue for Our Collection', q: "Transformed how we present our imitation jewellery to B2B and retail buyers. Fast, intuitive catalogue with direct inquiry flow.", init: 'VP', name: 'Vatsal Pithadiya', role: 'Founder @Ayanshi Imitation' },
 ];
 
 /* ─── TCARD ─────────────────────────────────────────────── */

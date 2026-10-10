@@ -38,7 +38,7 @@ const principles = [
   {
     icon: RefreshCw,
     title: 'Keep improving',
-    desc: 'We build in small steps, learn from feedback, and improve as we go.',
+    desc: 'We build in clear, focused milestones, learn from feedback, and improve as we go.',
   },
 ];
 
@@ -65,7 +65,7 @@ export default function AboutSection() {
             {/* Heading */}
             <motion.div variants={fadeUp}>
               <h2 className="font-heading font-extrabold text-[clamp(1.9rem,3.2vw,2.85rem)] leading-[1.14] tracking-[-0.026em] text-dark mb-5">
-                A small team that{' '}
+                A dedicated engineering team that{' '}
                 <span className="grad-text">takes the work seriously.</span>
               </h2>
             </motion.div>

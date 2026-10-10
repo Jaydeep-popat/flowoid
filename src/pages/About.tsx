@@ -171,7 +171,10 @@ function CtaBox({ h2, p, links, note }: { h2: string; p: string; links: { label:
             const linkProps = isExternal ? { href: l.to } : { to: l.to };
             return l.primary ? (
               <motion.div key={l.label} variants={scaleIn}>
-                <Tag {...(linkProps as any)} className="inline-flex items-center justify-center gap-2.5 min-h-[50px] px-8 py-3.5 rounded-full text-[.92rem] font-bold text-white bg-mg shadow-[0_10px_30px_rgba(20,16,58,.36)] relative overflow-hidden transition-all duration-[280ms] hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(20,16,58,.48)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(255,255,255,.22),transparent_55%)] before:pointer-events-none">{l.label}</Tag>
+                <Tag {...(linkProps as any)} className="btn-cta-gold rounded-full min-h-[50px] px-8 py-3.5 group">
+                  <span>{l.label}</span>
+                  <ArrowRight size={17} strokeWidth={2.4} className="btn-arrow" />
+                </Tag>
               </motion.div>
             ) : (
               <motion.div key={l.label} variants={scaleIn}>
@@ -426,7 +429,7 @@ export default function About() {
             <motion.div variants={fadeUp}><SLabel center>Our Standards</SLabel></motion.div>
             <motion.div variants={fadeUp}><SH2 center>How we make decisions <em className="not-italic grad-text">when you are not in the room.</em></SH2></motion.div>
             <motion.p variants={fadeUp} className="text-[1rem] leading-[1.75] text-body max-w-[65ch] mx-auto">
-              We run a small shop. Our reputation across Gujarat is the only thing that brings in new work.
+              We run an independent engineering studio. Our reputation across Gujarat is the only thing that brings in new work.
             </motion.p>
           </motion.div>
 
@@ -545,7 +548,7 @@ export default function About() {
         h2="Get a free 20-minute technical roadmap. No Commitment-Just discovery, no invoice."
         p="Bring us your biggest operational headache or the app idea you've been putting off. We will review your requirements, tell you what technology fits best, and give you an honest budget and timeline estimate. Even if you choose not to hire us, the breakdown is yours to keep."
         links={[
-          { label: 'Book Your Free 20-Minute Audit →', to: '/contact', primary: true },
+          { label: 'Start Your Project', to: '/contact', primary: true },
           { label: 'Call +91 99248 55931', to: 'tel:+919924855931', primary: false },
         ]}
         note="No sales jargon. You talk directly with a developer, not an account executive."
